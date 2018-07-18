@@ -1,7 +1,7 @@
 import React from 'react';
 import Root from './components/Root';
-import initialState from './redux-apis-booworm/initialState'; 
-import rootReducer from './redux-apis-booworm/rootReducer';
+import rootReducer from './redux-apis-bookworm/reducers/rootReducer';
+import initialState from './redux-apis-bookworm/initialState'; 
 
 // Redux standard modules
 import { Provider } from 'react-redux'; // top level component for React so that all components can subscribe to the store
@@ -27,7 +27,7 @@ const history = createMemoryHistory();
 const persistConfig = {
   key: 'root',
   storage: storage,
-  whitelist: ['User','Session']
+  whitelist: ['user','session']
 };
 
 const persistedReducer = persistReducer(persistConfig, connectRouter(history)(rootReducer)); // new root reducer with router state

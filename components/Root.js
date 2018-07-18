@@ -1,4 +1,5 @@
 import React from 'react';
+import Login from './Login';
 
 // External components
 import { NativeRouter, Route, Link } from 'react-router-native';
@@ -17,7 +18,7 @@ class Root extends React.Component {
           </Body>
         </Header>
         <Content>
-         
+          <Route path="/login" component={Login} />
         </Content>
         <Footer>
         <FooterTab>
