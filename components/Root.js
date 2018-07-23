@@ -1,6 +1,8 @@
 import React from 'react';
 import Login from './Login';
 import About from './About';
+import NotesIndex from './NotesIndex';
+import CustomFooter from './CustomFooter';
 import AssetLoader from './AssetLoader';
 import { View } from 'react-native';
 import createStyles from './../assets/styles/base.js';
@@ -11,20 +13,18 @@ import commonColor from './../native-base-theme/variables/commonColor';
 
 // Subscribe and dispatch to redux store
 import { connect } from 'react-redux';
-import * as assetActions from './../redux-apis-bookworm/actions/assetActions';
-import { bindActionCreators } from 'redux'; 
 
 // External components
-import { NativeRouter, Route, Link } from 'react-router-native';
-import { StyleProvider, Container, Header, Content, Footer, FooterTab, Body, Title, Button, Text } from 'native-base';
+import { NativeRouter, Route, Link, Redirect, Switch, withRouter  } from 'react-router-native';
+import { StyleProvider, Container, Header, Content, Footer, Body, Title, Button, Text } from 'native-base';
 
 //Homemade components
 
 
 class Root extends React.Component {
   render () {
-    const styles = createStyles();
-
+    const styles = createStyles()
+    
     return (
       <StyleProvider style={getTheme(commonColor)}>
         <Container> 
@@ -35,23 +35,25 @@ class Root extends React.Component {
           </Header>
           <Content contentContainerStyle={{ flexGrow: 1 }}>
             <View style={styles.pageContainer} >
-              <Route path="/login" component={Login} />
-              <Route path="/about" component={About} />
+              <Switch>
+                <Route exact path="/" render={ props =>
+                  this.props.session.loggedIn === true ? (
+                    <NotesIndex />
+                  ) : (
+                    <Login />
+                  )} 
+                /> 
+                <Route path='/login' component={Login} />
+                <Route path='/notes' component={NotesIndex} />
+                <Route path='/about' component={About} />
+              </Switch>
             </View>
           </Content>
           <Footer>
-            <FooterTab>
-              <Button>
-              <Link to='/login'>
-                <Text>Login</Text>
-              </Link>
-              </Button>
-              <Button>
-              <Link to='/about'>
-                <Text>About</Text>
-              </Link>
-              </Button>
-            </FooterTab>
+            { this.props.session.loggedIn ? 
+              <CustomFooter /> : 
+              null
+            }
           </Footer>
         </Container>
       </StyleProvider>
@@ -59,5 +61,10 @@ class Root extends React.Component {
   }
 }
 
+function mapStateToProps(state) {
+  return {
+    session: state.session
+  }
+}
 
-export default Root
+export default withRouter(connect(mapStateToProps)(Root))

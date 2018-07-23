@@ -1,19 +1,19 @@
 import React from 'react';
-import createStyles from './../assets/styles/base.js';
+
 import { View } from 'react-native';
 import { Text } from 'native-base';
 
 
-class About extends React.Component {
+class NotesIndex extends React.Component {
 
   render () {
-    const styles = createStyles()
+
     return (
 
       <View >
 
         <Text>
-          Trou du cul
+          Scan a book, a screen, a graffiti with your phone, extract the text and keep note of it!
         </Text>
       </View> 
     )
@@ -21,4 +21,4 @@ class About extends React.Component {
 }
 
 
-export default About
+export default NotesIndex
