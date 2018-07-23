@@ -1,5 +1,8 @@
 import React from 'react';
+
+import AssetLoader from './components/AssetLoader';
 import Root from './components/Root';
+import { Font } from 'expo';
 import rootReducer from './redux-apis-bookworm/reducers/rootReducer';
 import initialState from './redux-apis-bookworm/initialState'; 
 
@@ -45,17 +48,34 @@ const store = createStore(
 
 const persistor = persistStore(store)
 
-export default class App extends React.Component {
+class App extends React.Component {
+  state = { isReady: false }
+
+  async componentDidMount() {
+    await Font.loadAsync({
+      'cabin': require('./assets/Cabin/Cabin-Regular.ttf'),
+    });
+    this.setState({ isReady: true });
+  }
+
   render() {
-    return (
-      <Provider store={store}>
-        <PersistGate loading={null} persistor={persistor}>
-          <ConnectedRouter history={history}>
-            <Root />
-          </ConnectedRouter>
-        </PersistGate>
-      </Provider>
-    );
+    if (!this.state.isReady) {
+      return (
+        <AssetLoader /> 
+      );
+    } else {
+      return (
+        <Provider store={store}>
+          <PersistGate loading={null} persistor={persistor}>
+            <ConnectedRouter history={history}>
+              <Root />
+            </ConnectedRouter>
+          </PersistGate>
+        </Provider>
+      );
+    }
   }
 }
+
+export default App
 
