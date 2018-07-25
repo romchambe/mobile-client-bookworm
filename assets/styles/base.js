@@ -35,7 +35,9 @@ const baseStyles = {
     paddingHorizontal: padding.md
   },
   centeredView:{
-
+    flex:1, 
+    flexDirection:'column',
+    justifyContent:'center'
   },
   mdPaddingView:{
     paddingHorizontal:15, paddingVertical:15

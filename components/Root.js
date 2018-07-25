@@ -1,6 +1,5 @@
 import React from 'react';
 import Login from './Login';
-import About from './About';
 import NotesIndex from './NotesIndex';
 import CustomFooter from './CustomFooter';
 import AssetLoader from './AssetLoader';
@@ -45,7 +44,6 @@ class Root extends React.Component {
                 /> 
                 <Route path='/login' component={Login} />
                 <Route path='/notes' component={NotesIndex} />
-                <Route path='/about' component={About} />
               </Switch>
             </View>
           </Content>
