@@ -33,7 +33,16 @@ const baseStyles = {
   pageContainer: {
     flex: 1,
     paddingHorizontal: padding.md
-  } 
+  },
+  centeredView:{
+
+  },
+  mdPaddingView:{
+    paddingHorizontal:15, paddingVertical:15
+  },
+  lgPaddingView:{
+    paddingHorizontal:30, paddingVertical:30
+  }
 }
 
 export default function createStyles(overrides = {}) {
