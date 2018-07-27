@@ -17,6 +17,11 @@ class CustomFooter extends React.Component {
             <Text>My notes</Text>
           </Link>
         </Button>
+        <Button>
+          <Link to='/scan'>
+            <Text>Scan</Text>
+          </Link>
+        </Button>
         <Button onPress={() => this.props.actions.logoutUser()}>
           <Text>Logout</Text>
         </Button>

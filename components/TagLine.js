@@ -10,17 +10,18 @@ class TagLine extends React.Component {
 
   render () {
     const styles = createStyles({
-      centered:{
+      text:{
         textAlign:'center',
-        fontFamily: 'cabin-bold-italic'
+        fontFamily: 'cabin-italic'
       }, 
-      verticalPadding:{
-        paddingVertical: padding.md
+      container:{
+        paddingVertical: padding.md,
+        paddingHorizontal: padding.int
       }
     })
     return (
-      <View style= {styles.verticalPadding}>
-        <Text style={ styles.centered }>
+      <View style= { styles.container }>
+        <Text style={ styles.text }>
           {this.props.content}
         </Text>
       </View>

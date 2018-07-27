@@ -21,7 +21,7 @@ class NoteView extends React.Component {
     return (
       <View style= {styles.verticalPadding}>
         <Text style={ styles.centered }>
-          {this.props.content}
+          Note View
         </Text>
       </View>
     )

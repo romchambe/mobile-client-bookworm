@@ -17,6 +17,7 @@ export const colors  = {
 
 export const padding = {
   sm: 10,
+  int: 15,
   md: 20,
   lg: 30,
   xl: 40
@@ -32,6 +33,8 @@ export const fonts = {
 const baseStyles = {
   pageContainer: {
     flex: 1,
+    flexDirection: 'column',
+    justifyContent: 'flex-start',
     paddingHorizontal: padding.md
   },
   centeredView:{

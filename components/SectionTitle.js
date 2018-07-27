@@ -6,21 +6,22 @@ import { padding } from './../assets/styles/base';
 import { Text } from 'native-base';
 
 
-class NoteView extends React.Component {
+class TagLine extends React.Component {
 
   render () {
     const styles = createStyles({
-      centered:{
-        textAlign:'center',
-        fontFamily: 'cabin-bold-italic'
+      text:{
+        fontFamily:'cabin-bold', 
       }, 
-      verticalPadding:{
-        paddingVertical: padding.md
+      container:{
+        paddingVertical: padding.sm,
+        paddingHorizontal: padding.lg
       }
     })
+
     return (
-      <View style= {styles.verticalPadding}>
-        <Text style={ styles.centered }>
+      <View style= { styles.container }>
+        <Text style={ styles.text }>
           {this.props.content}
         </Text>
       </View>
@@ -29,4 +30,4 @@ class NoteView extends React.Component {
 }
 
 
-export default NoteView
+export default TagLine

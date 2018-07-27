@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Item, Label, Input, Button, Text } from 'native-base';
 import { View, Image } from 'react-native';
-import { colors,createStyles } from './../assets/styles/base'
+import createStyles from './../assets/styles/base'
 
 import { connect } from 'react-redux';
 import * as sessionActions from './../redux-apis-bookworm/actions/sessionActions';

@@ -1,32 +1,56 @@
 import React from 'react';
+import { Text, View, TouchableOpacity } from 'react-native';
+import { Camera, Permissions } from 'expo';
 
-import { View, StyleSheet } from 'react-native';
-import createStyles from './../assets/styles/base';
-import { padding } from './../assets/styles/base';
-import { Text } from 'native-base';
+export default class Scan extends React.Component {
+  state = {
+    hasCameraPermission: null,
+    type: Camera.Constants.Type.back,
+  };
 
+  async componentWillMount() {
+    const { status } = await Permissions.askAsync(Permissions.CAMERA);
+    this.setState({ hasCameraPermission: status === 'granted' });
+  }
 
-class Scan extends React.Component {
-
-  render () {
-    const styles = createStyles({
-      centered:{
-        textAlign:'center',
-        fontFamily: 'cabin-bold-italic'
-      }, 
-      verticalPadding:{
-        paddingVertical: padding.md
-      }
-    })
-    return (
-      <View style= {styles.verticalPadding}>
-        <Text style={ styles.centered }>
-          {this.props.content}
-        </Text>
-      </View>
-    )
+  render() {
+    const { hasCameraPermission } = this.state;
+    if (hasCameraPermission === null) {
+      return <View />;
+    } else if (hasCameraPermission === false) {
+      return <Text>No access to camera</Text>;
+    } else {
+      return (
+        <View style={{ flex: 1 }}>
+          <Camera style={{ flex: 1 }} type={this.state.type}>
+            <View
+              style={{
+                flex: 1,
+                backgroundColor: 'transparent',
+                flexDirection: 'row',
+              }}>
+              <TouchableOpacity
+                style={{
+                  flex: 1,
+                  alignSelf: 'flex-end',
+                  alignItems: 'center',
+                }}
+                onPress={() => {
+                  this.setState({
+                    type: this.state.type === Camera.Constants.Type.back
+                      ? Camera.Constants.Type.front
+                      : Camera.Constants.Type.back,
+                  });
+                }}>
+                <Text
+                  style={{ fontSize: 18, marginBottom: 10, color: 'white' }}>
+                  {' '}Flip{' '}
+                </Text>
+              </TouchableOpacity>
+            </View>
+          </Camera>
+        </View>
+      );
+    }
   }
 }
-
-
-export default Scan

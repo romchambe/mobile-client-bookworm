@@ -1,5 +1,5 @@
 import React from 'react';
-import { colors } from '../assets/styles/base'
+import { colors, padding } from '../assets/styles/base'
 import PlusIcon from './PlusIcon'
 
 import { View } from 'react-native';
@@ -13,8 +13,8 @@ class NotesCreator extends React.Component {
     const styles = this.props.style;
     return (
       <View style={styles.customSmPadding}>
-        <Button style={styles.customCreator}> 
-          <Text>Create a new note</Text>
+        <Button style={styles.customCreator} onPress={this.props.onPress}> 
+          <Text style={styles.customText}>Create a new note</Text>
           <PlusIcon color={colors.deepBlue}/>
         </Button>
       </View>
@@ -26,18 +26,23 @@ const styles = {
   customCreator: {
     flex: 1, 
     backgroundColor: colors.lightBlue,
-    height:60,
-    borderRadius: 16,
+    height:50,
+    borderRadius: 25,
     flexDirection:'row',
     justifyContent:'space-between',
     alignItems:'center',
     paddingLeft:5, 
-    paddingRight:15
+    paddingRight:padding.int,
   }, 
   customSmPadding: {
     flex:1,
     flexDirection:'row',
-    paddingVertical: 10,
+    paddingVertical: padding.sm,
+    marginHorizontal: padding.int,
+    marginBottom: padding.sm
+  },
+  customText: {
+    fontFamily:'cabin-bold'
   }
 }
 
