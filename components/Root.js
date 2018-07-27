@@ -1,7 +1,7 @@
 import React from 'react';
 import Login from './Login';
-import About from './About';
 import NotesIndex from './NotesIndex';
+import Scan from './Scan'
 import CustomFooter from './CustomFooter';
 import AssetLoader from './AssetLoader';
 import { View } from 'react-native';
@@ -34,20 +34,18 @@ class Root extends React.Component {
             </Body>
           </Header>
           <Content contentContainerStyle={{ flexGrow: 1 }}>
-            <View style={styles.pageContainer} >
-              <Switch>
-                <Route exact path="/" render={ props =>
-                  this.props.session.loggedIn === true ? (
-                    <NotesIndex />
-                  ) : (
-                    <Login />
-                  )} 
-                /> 
-                <Route path='/login' component={Login} />
-                <Route path='/notes' component={NotesIndex} />
-                <Route path='/about' component={About} />
-              </Switch>
-            </View>
+            <Switch>
+              <Route exact path="/" render={ props =>
+                this.props.session.loggedIn === true ? (
+                  <NotesIndex />
+                ) : (
+                  <Login />
+                )} 
+              /> 
+              <Route path='/login' component={Login} />
+              <Route path='/notes' component={NotesIndex} />
+              <Route path='/scan' component={Scan} />
+            </Switch>
           </Content>
           <Footer>
             { this.props.session.loggedIn ? 

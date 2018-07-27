@@ -30,7 +30,7 @@ const history = createMemoryHistory();
 const persistConfig = {
   key: 'root',
   storage: storage,
-  whitelist: ['user','session']
+  whitelist: ['user','session', 'notes']
 };
 
 const persistedReducer = persistReducer(persistConfig, connectRouter(history)(rootReducer)); // new root reducer with router state
@@ -54,6 +54,9 @@ class App extends React.Component {
   async componentDidMount() {
     await Font.loadAsync({
       'cabin': require('./assets/Cabin/Cabin-Regular.ttf'),
+      'cabin-bold': require('./assets/Cabin/Cabin-Bold.ttf'),
+      'cabin-italic': require('./assets/Cabin/Cabin-Italic.ttf'),
+      'cabin-bold-italic': require('./assets/Cabin/Cabin-BoldItalic.ttf'),
     });
     this.setState({ isReady: true });
   }

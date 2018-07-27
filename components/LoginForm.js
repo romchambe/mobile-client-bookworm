@@ -1,7 +1,7 @@
 import React from 'react';
 import { Form, Item, Label, Input, Button, Text } from 'native-base';
 import { View, Image } from 'react-native';
-import { colors } from './../assets/styles/base'
+import createStyles from './../assets/styles/base'
 
 import { connect } from 'react-redux';
 import * as sessionActions from './../redux-apis-bookworm/actions/sessionActions';
@@ -30,6 +30,7 @@ class LoginForm extends React.Component {
   }
 
   render () {
+    const styles = createStyles()
     return (
       <Form>
         <View >
@@ -41,20 +42,20 @@ class LoginForm extends React.Component {
             <Label>Password</Label>
             <Input onChangeText={(password) => this.setState({password: password})}/>
           </Item>
-          <View style={{paddingHorizontal:15, paddingVertical:15}}>
+          <View style={styles.mdPaddingView}>
             <Button block primary onPress={this.postLogin}>
               <Text>Login</Text>
             </Button>
           </View>
         </View>
         
-        <View style={{paddingHorizontal:30, paddingVertical:30}}>
+        <View style={styles.lgPaddingView}>
           
             <Text>or continue with:</Text>
       
         </View>
 
-        <View style={{paddingHorizontal:15, paddingVertical:15}}>
+        <View style={styles.mdPaddingView}>
           <Button block primary onPress={this.postFbLogin} style={{backgroundColor:'#3D5B98'}}>
             <Image style={{width: 24, height: 24}} source={require('./../assets/facebook-white.png')}  />
             <Text style={{color:'#fff', fontFamily:'Helvetica'}}>Facebook</Text>
