@@ -1,7 +1,7 @@
 import React from 'react';
-import Login from './Login';
+import LoginHandler from './LoginHandler';
 import NotesIndex from './NotesIndex';
-import Scan from './Scan'
+import ScanHandler from './ScanHandler'
 import CustomFooter from './CustomFooter';
 import AssetLoader from './AssetLoader';
 import { View } from 'react-native';
@@ -39,12 +39,12 @@ class Root extends React.Component {
                 this.props.session.loggedIn === true ? (
                   <NotesIndex />
                 ) : (
-                  <Login />
+                  <LoginHandler />
                 )} 
               /> 
-              <Route path='/login' component={Login} />
+              <Route path='/login' component={LoginHandler} />
               <Route path='/notes' component={NotesIndex} />
-              <Route path='/scan' component={Scan} />
+              <Route path='/scan' component={ScanHandler} />
             </Switch>
           </Content>
           <Footer>

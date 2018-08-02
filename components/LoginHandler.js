@@ -10,7 +10,7 @@ import { connect } from 'react-redux';
 import * as sessionActions from './../redux-apis-bookworm/actions/sessionActions';
 import { bindActionCreators } from 'redux'; 
 
-class Login extends React.Component {
+class LoginHandler extends React.Component {
   constructor(props){
     super(props); 
     this.state = {
@@ -50,4 +50,4 @@ class Login extends React.Component {
 }
 
 
-export default Login
+export default LoginHandler

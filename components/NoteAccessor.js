@@ -3,7 +3,7 @@ import React from 'react';
 import { View, StyleSheet } from 'react-native';
 import createStyles from './../assets/styles/base';
 import { padding, colors } from './../assets/styles/base';
-import PenIcon from'./PenIcon';
+import PenIcon from'./icons/PenIcon';
 import { Text } from 'native-base';
 
 

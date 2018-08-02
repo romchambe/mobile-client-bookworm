@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStyles, colors, padding, fonts } from './../assets/styles/base.js';
 import { View, StyleSheet } from 'react-native';
-import { Text, Button, StyleProvider } from 'native-base';
+import { Text, Button } from 'native-base';
 
 
 class ToggleButton extends React.Component {

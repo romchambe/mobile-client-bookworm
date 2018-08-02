@@ -3,7 +3,6 @@ import React from 'react';
 import TagLine from './TagLine'
 import NoteCreator from './NoteCreator'
 import NoteAccessor from './NoteAccessor'
-import Scan from './Scan'
 import NoteView from './NoteView'
 import SectionTitle from './SectionTitle'
 import * as noteActions from '../redux-apis-bookworm/actions/noteActions'

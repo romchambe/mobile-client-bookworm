@@ -1,6 +1,6 @@
 import React from 'react';
 import { colors, padding } from '../assets/styles/base'
-import PlusIcon from './PlusIcon'
+import PlusIcon from './icons/PlusIcon'
 
 import { View } from 'react-native';
 import { Text, Button, connectStyle } from 'native-base';
