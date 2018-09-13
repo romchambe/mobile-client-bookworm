@@ -7,7 +7,7 @@ import { Text } from 'native-base';
 
 
 
-class ScanTaker extends React.Component {
+class ScanButton extends React.Component {
 
   render () {
     const styles = StyleSheet.create( {
@@ -57,4 +57,4 @@ class ScanTaker extends React.Component {
 
 
 
-export default ScanTaker
+export default ScanButton

@@ -25,12 +25,14 @@ class ToggleButton extends React.Component {
       activeText:{
         color: colors.deepBlue, 
         fontSize: fonts.sm, 
-        textAlign:'center'
+        textAlign:'center', 
+        fontFamily: 'cabin-bold'
       }, 
       inactiveText:{
         color: colors.altGrey,
         fontSize: fonts.sm,
-        textAlign:'center'
+        textAlign:'center', 
+        fontFamily: 'cabin-bold'
       }
 
     });

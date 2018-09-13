@@ -140,11 +140,11 @@ export default {
 
   // Footer
   footerHeight: 45,
-  footerDefaultBg: colors.yellow,
+  footerDefaultBg: colors.deepBlue,
   footerPaddingBottom: 0,
 
   // FooterTab
-  tabBarTextColor: colors.deepBlue,
+  tabBarTextColor: colors.yellow,
   tabBarTextSize: platform === "ios" ? 14 : 11,
   activeTab: platform === "ios" ? "#007aff" : "#fff",
   sTabBarActiveTextColor: "#007aff",
@@ -161,7 +161,7 @@ export default {
   searchBarInputHeight: platform === "ios" ? 30 : 50,
   toolbarBtnTextColor: platform === "ios" ? "#007aff" : "#fff",
   iosStatusbar: "dark-content",
-  toolbarDefaultBorder: colors.deepBlue,
+  toolbarDefaultBorder: colors.yellow,
   get statusBarColor() {
     return color(this.toolbarDefaultBg)
       .darken(0.2)
@@ -261,6 +261,8 @@ export default {
   // Other
   borderRadiusBase: platform === "ios" ? 5 : 2,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
+  footerBorderWidth: 2,
+  footerBorderColor: colors.yellow,
   contentPadding: 10,
   dropdownLinkColor: "#414142",
   inputLineHeight: 24,

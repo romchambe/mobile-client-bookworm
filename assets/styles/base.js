@@ -7,7 +7,8 @@ export const dimensions = {
   
 export const colors  = {
   yellow: '#FBE8A6',
-  orange: '#F4976C',
+  lightYellow:'#FBE8A6BB',
+  orange: '#EB8F5B',
   altOrange: '#F6B26C',
   deepBlue: '#303C6C',
   grey: '#B4DFE5', 

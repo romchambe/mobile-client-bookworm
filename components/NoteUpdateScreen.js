@@ -6,7 +6,7 @@ import { padding } from './../assets/styles/base';
 import { Text } from 'native-base';
 
 
-class NoteView extends React.Component {
+class NoteUpdateScreen extends React.Component {
 
   render () {
     const styles = createStyles({
@@ -29,4 +29,4 @@ class NoteView extends React.Component {
 }
 
 
-export default NoteView
+export default NoteUpdateScreen

@@ -1,5 +1,5 @@
 import React from 'react';
-import { View } from 'react-native';
+import { View, StyleSheet } from 'react-native';
 import { Link } from 'react-router-native';
 import { FooterTab, Text, Button } from 'native-base';
 
@@ -9,21 +9,27 @@ import { bindActionCreators } from 'redux';
 
 
 class CustomFooter extends React.Component {
+
   render () {
+    const styles = StyleSheet.create({
+      text: {
+        fontFamily:'cabin-bold'
+      }
+    })
     return (
       <FooterTab>
         <Button>
           <Link to='/notes'>
-            <Text>My notes</Text>
+            <Text style={styles.text}>My notes</Text>
           </Link>
         </Button>
         <Button>
           <Link to='/scan'>
-            <Text>Scan</Text>
+            <Text style={styles.text}>Scan</Text>
           </Link>
         </Button>
         <Button onPress={() => this.props.actions.logoutUser()}>
-          <Text>Logout</Text>
+          <Text style={styles.text}>Logout</Text>
         </Button>
       </FooterTab>
     )

@@ -13,19 +13,20 @@ class NoteAccessor extends React.Component {
     const styles = createStyles({
       text:{
         flex:1,
-        color: colors.deepBlue
+        color: colors.deepBlue, 
+        fontFamily:'cabin-bold'
       }, 
       container:{
         flex:1,
         flexDirection:'row',
         alignItems:'center',
         height:50,
-        borderRadius:4,
+        borderRadius:6,
         marginVertical: padding.sm, 
         marginHorizontal: padding.int,
         paddingLeft: padding.md, 
         paddingRight: padding.int,
-        backgroundColor: colors.altOrange
+        backgroundColor: colors.orange
       }
     })
     return (

@@ -1,21 +1,23 @@
 import React from 'react';
+
 import FlipCameraIcon from './icons/FlipCameraIcon'
-import ScanTaker from './ScanTaker'
-import ScanNextSteps from './ScanNextSteps'
+import ScanButton from './ScanButton'
+
 import { Text, View, TouchableOpacity } from 'react-native';
 import { Camera, Permissions } from 'expo';
 
-class ScanHandler extends React.Component {
+class ScanScreen extends React.Component {
   constructor(props) {
     super(props)
     this.state = {
       hasCameraPermission: null,
       type: Camera.Constants.Type.back,
       autofocus: Camera.Constants.AutoFocus.on,
-      uri:'',
+      uri:'nil',
       pictureTaken: false
     };
     this.takePicture = this.takePicture.bind(this)
+
   }
   
 
@@ -26,9 +28,9 @@ class ScanHandler extends React.Component {
 
   async takePicture() {
     if (this.camera) {
-      let photo = await this.camera.takePictureAsync();
-      console.log(photo.uri);
-      this.setState({uri: photo.uri, pictureTaken: true})
+      let photo = await this.camera.takePictureAsync({base64: true});
+      this.setState({pictureTaken: true});
+      this.props.uploadScan(photo);
     }
   }
 
@@ -41,18 +43,15 @@ class ScanHandler extends React.Component {
     } else {
       return (
         <View style={{ flex: 1 }}>
-          { this.state.pictureTaken ?
-            <ScanNextSteps /> :
-            <Camera style={{ flex: 1 }} type={this.state.type} autofocus={ this.state.autofocus } ref={ref => { this.camera = ref; }}>
-              <ScanTaker
-                onPress={this.takePicture} 
-              />
-            </Camera>
-          }
+          <Camera style={{ flex: 1 }} type={this.state.type} autofocus={ this.state.autofocus } ref={ref => { this.camera = ref; }}>
+            <ScanButton
+              onPress={this.takePicture} 
+            />
+          </Camera>
         </View>
       );
     }
   }
 }
 
-export default ScanHandler
+export default ScanScreen

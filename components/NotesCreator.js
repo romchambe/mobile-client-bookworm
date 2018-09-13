@@ -14,7 +14,7 @@ class NotesCreator extends React.Component {
     return (
       <View style={styles.customSmPadding}>
         <Button style={styles.customCreator} onPress={this.props.onPress}> 
-          <Text style={styles.customText}>Create a new note</Text>
+          <Text style={styles.customText}>{this.props.content}</Text>
           <PlusIcon color={colors.deepBlue}/>
         </Button>
       </View>
@@ -36,7 +36,8 @@ const styles = {
   }, 
   customSmPadding: {
     flex:1,
-    flexDirection:'row',
+    flexDirection: 'row',
+    maxHeight:70,
     paddingVertical: padding.sm,
     marginHorizontal: padding.int,
     marginBottom: padding.sm
