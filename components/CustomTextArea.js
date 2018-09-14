@@ -15,6 +15,8 @@ class CustomTextArea extends React.Component {
         placeholderTextColor={colors.lightYellow} 
         onChangeText={this.props.onChangeText}
         style={styles.textArea} 
+        value={this.props.value}
+        disabled={this.props.disabled ? true : false}
       />
     )
   }

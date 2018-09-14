@@ -46,7 +46,7 @@ class ScanButton extends React.Component {
       <View style={styles.buttonContainer}>
         <View style={styles.buttonOverflow}>
           <TouchableOpacity style={styles.scanTaker} onPress={this.props.onPress}> 
-            <CameraIcon color={colors.deepBlue}/>
+            <CameraIcon color={colors.deepBlue} size={36} />
           </TouchableOpacity>
         </View>
       </View>

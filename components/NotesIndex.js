@@ -20,11 +20,11 @@ class NotesIndex extends React.Component {
   }
 
   componentDidMount() {
-    this.props.actions.readNotesIndex({id:this.props.user ,jwt: this.props.jwt}, 'mobile')
+    this.props.actions.readNotesIndex({jwt: this.props.jwt}, 'mobile')
   }
 
   postCreateNote(e) {
-    this.props.actions.createNote({id:this.props.user ,jwt: this.props.jwt}, 'mobile')
+    this.props.actions.createNote({jwt: this.props.jwt}, 'mobile')
   }
 
   render () {
@@ -45,7 +45,6 @@ class NotesIndex extends React.Component {
 
 function mapStateToProps(state){
   return {
-    user: state.user.id, 
     jwt: state.session.jwt,
     notes: state.notes
   }

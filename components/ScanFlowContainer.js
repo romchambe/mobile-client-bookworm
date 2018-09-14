@@ -21,18 +21,44 @@ class ScanFlowContainer extends React.Component {
 
     this.uploadScan = this.uploadScan.bind(this);
     this.incrementStep = this.incrementStep.bind(this);
+    this.postCreateNote = this.postCreateNote.bind(this);
   }
 
   componentDidMount() {
-    this.props.actions.readNotesIndex({id:this.props.user, jwt: this.props.jwt}, 'mobile')
+    this.props.actions.readNotesIndex({jwt: this.props.jwt}, 'mobile')
   }
 
   async uploadScan(payload) {
-    this.props.actions.postScan({jwt: this.props.jwt, user_id: this.props.user, file:  payload.base64}, 'mobile');
+    this.props.actions.postScan({jwt: this.props.jwt, file:  payload.base64}, 'mobile');
   }
 
   incrementStep() {
     this.props.actions.incrementStep()
+  }
+  
+  postCreateNote(e) {
+    this.props.actions.createNote({jwt: this.props.jwt, content: this.props.scanFlow.apiResponse.response}, 'mobile')
+    this.incrementStep();
+  }
+
+  addScanToNote = (noteId) => {
+    let note = this.props.notes.notesList.find((item) => {
+      return item.id === noteId
+    })
+    note.content = note.content + '\n \n' + this.props.scanFlow.apiResponse.response
+    
+    this.props.actions.setCurrentNote({note: note})
+    this.incrementStep()
+  }
+
+  putUpdateNote = (payload) => {
+    this.props.actions.updateNote({
+      jwt: this.props.jwt, 
+      id: this.props.notes.currentNote.id,
+      title: payload.title, 
+      book:payload.book, 
+      content: payload.content
+    })
   }
 
   render () {
@@ -46,11 +72,14 @@ class ScanFlowContainer extends React.Component {
       case 2: 
         currentStep = <ActionSelectionScreen 
           increment={this.incrementStep} 
+          postCreateNote={this.postCreateNote}
+          addScanToNote={this.addScanToNote}
           notesList={this.props.notes.notesList}
+          response={this.props.scanFlow.apiResponse.response}
         />
         break;
       case 3:
-        currentStep = <NoteUpdateScreen />
+        currentStep = <NoteUpdateScreen note={this.props.notes.currentNote} scan={true} putUpdateNote={this.putUpdateNote} />
     }
 
     return (
@@ -65,7 +94,6 @@ class ScanFlowContainer extends React.Component {
 
 function mapStateToProps(state){
   return {
-    user: state.user.user.id, 
     jwt: state.session.jwt,
     notes: state.notes,
     scanFlow: state.scanFlow

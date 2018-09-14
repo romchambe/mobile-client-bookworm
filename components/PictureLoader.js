@@ -16,7 +16,8 @@ class PictureLoader extends React.Component {
         backgroundColor: colors.deepBlue
       },
       text: {
-        textAlign: 'center'
+        textAlign: 'center', 
+        fontFamily: 'cabin-bold'
       }
     }) 
     return (      

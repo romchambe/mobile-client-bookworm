@@ -1,6 +1,6 @@
 import React from 'react';
 
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, TouchableOpacity } from 'react-native';
 import createStyles from './../assets/styles/base';
 import { padding, colors } from './../assets/styles/base';
 import PenIcon from'./icons/PenIcon';
@@ -30,12 +30,12 @@ class NoteAccessor extends React.Component {
       }
     })
     return (
-      <View style={ styles.container }>
+      <TouchableOpacity style={styles.container} onPress={this.props.onPress} >
         <Text style={ styles.text }>
           {this.props.title}
         </Text>
         <PenIcon color={colors.deepBlue} />
-      </View>
+      </TouchableOpacity>
     )
   }
 }

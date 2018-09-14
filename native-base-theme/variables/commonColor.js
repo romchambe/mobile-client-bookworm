@@ -140,7 +140,7 @@ export default {
 
   // Footer
   footerHeight: 45,
-  footerDefaultBg: colors.deepBlue,
+  footerDefaultBg: colors.lightBlue,
   footerPaddingBottom: 0,
 
   // FooterTab
@@ -261,7 +261,7 @@ export default {
   // Other
   borderRadiusBase: platform === "ios" ? 5 : 2,
   borderWidth: 1 / PixelRatio.getPixelSizeForLayoutSize(1),
-  footerBorderWidth: 2,
+  footerBorderWidth: 0,
   footerBorderColor: colors.yellow,
   contentPadding: 10,
   dropdownLinkColor: "#414142",

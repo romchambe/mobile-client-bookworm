@@ -14,7 +14,9 @@ class CustomFloatingLabel extends React.Component {
         <Input 
           style={styles.input} 
           onChangeText={this.props.onChangeText} 
+          value={this.props.value}
           secureTextEntry={ this.props.secureTextEntry ? true : false }
+          disabled={this.props.disabled ? true : false}
         />
       </Item>
     )

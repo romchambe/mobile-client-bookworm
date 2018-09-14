@@ -1,8 +1,8 @@
 import React from 'react';
 import CustomFloatingLabel from './CustomFloatingLabel'
 import { Form, Item, Label, Input, Button, Text } from 'native-base';
-import { View, Image } from 'react-native';
-import createStyles from './../assets/styles/base'
+import { View, Image, StyleSheet } from 'react-native';
+import { colors, padding } from './../assets/styles/base'
 
 import { connect } from 'react-redux';
 import * as sessionActions from './../redux-apis-bookworm/actions/sessionActions';
@@ -48,10 +48,48 @@ class SignUpForm extends React.Component {
   }
 
   render () {
-    const styles = createStyles()
+    const styles = StyleSheet.create({
+      buttonContainer: {
+        flex:1,
+        flexDirection:'row',
+        marginVertical: padding.lg,
+        marginHorizontal: padding.int,
+      }, 
+      textContainer: {
+        marginVertical: padding.sm, 
+        marginHorizontal: padding.int
+      },
+      button: {
+        flex: 1,
+        height:50,
+        borderRadius: 25,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center'
+      },
+      text: {
+        fontFamily: 'cabin-bold',
+
+      }, 
+      facebookText:{
+        color:'#fff', fontFamily:'Helvetica', fontWeight: 'bold'
+      },
+      image: {
+        width: 24, height: 24
+      },
+      facebookButton: {
+        flex: 1,
+        height:50,
+        borderRadius: 25,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#3D5B98'
+      }, 
+    })
     return (
       <Form>
-        <View >
+        <View>
           <CustomFloatingLabel 
             label="Email"
             onChangeText={this.handleEmailChange}
@@ -67,23 +105,23 @@ class SignUpForm extends React.Component {
             secureTextEntry={true}
           />
           
-          <View style={styles.mdPaddingView}>
-            <Button block primary onPress={this.postSignUp}>
-              <Text style={{fontFamily: 'cabin-bold'}}>Sign up</Text>
+          <View style={styles.buttonContainer}>
+            <Button style={styles.button} onPress={this.postSignUp}>
+              <Text style={styles.text}>Sign up</Text>
             </Button>
           </View>
         </View>
         
-        <View style={styles.lgPaddingView}>
+        <View style={styles.textContainer}>
           
-            <Text style={{fontFamily: 'cabin-bold'}}>or continue with:</Text>
+            <Text style={styles.text}>or continue with:</Text>
       
         </View>
 
-        <View style={ styles.mdPaddingView }>
-          <Button block primary onPress={this.postFbLogin} style={{backgroundColor:'#3D5B98'}}>
-            <Image style={{width: 24, height: 24}} source={require('./../assets/facebook-white.png')}  />
-            <Text style={{color:'#fff', fontFamily:'Helvetica', fontWeight: 'bold'}}>Facebook</Text>
+        <View style={ styles.buttonContainer}>
+          <Button onPress={this.postFbLogin} style={styles.facebookButton}>
+            <Image style={styles.image} source={require('./../assets/facebook-white.png')}  />
+            <Text style={styles.facebookText}>Facebook</Text>
           </Button>
         </View>
       </Form>

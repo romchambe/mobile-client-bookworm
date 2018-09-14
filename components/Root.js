@@ -5,7 +5,6 @@ import ScanFlowContainer from './ScanFlowContainer'
 import CustomFooter from './CustomFooter';
 import AssetLoader from './AssetLoader';
 import { View } from 'react-native';
-import createStyles from './../assets/styles/base.js';
 
 // Native Base Theme
 import getTheme from './../native-base-theme/components';
@@ -23,14 +22,12 @@ import { StyleProvider, Container, Header, Content, Footer, Body, Title, Button,
 
 class Root extends React.Component {
   render () {
-    const styles = createStyles()
-    
     return (
       <StyleProvider style={getTheme(commonColor)}>
         <Container> 
           <Header>
             <Body>
-              <Title>Bookworm</Title>
+              <Title style={{fontFamily: 'cabin-bold'}}>bookworm</Title>
             </Body>
           </Header>
           <Content contentContainerStyle={{ flexGrow: 1 }}>

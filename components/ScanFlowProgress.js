@@ -14,7 +14,8 @@ class ScanFlowProgress extends React.Component {
     const styles = StyleSheet.create({
       container: {
         flex:1, 
-        maxHeight: 60, 
+        maxHeight: 62,
+        minHeight: 60, 
         justifyContent: 'center',
         borderBottomColor: colors.yellow,
         borderBottomWidth: 2,
