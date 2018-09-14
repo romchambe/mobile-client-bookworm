@@ -2,25 +2,27 @@ import React from 'react';
 
 import CustomFloatingLabel from './CustomFloatingLabel';
 import CustomTextArea from './CustomTextArea';
-import NotesCreator from './NotesCreator'
+import NotesCreator from './NotesCreator';
+import AssetLoader from './AssetLoader';
+
 import { Form, Button, Text } from 'native-base';
 import { View, Image, StyleSheet } from 'react-native';
 import { colors, padding } from './../assets/styles/base';
+
 import { connect } from 'react-redux';
-import * as sessionActions from './../redux-apis-bookworm/actions/sessionActions';
-import { bindActionCreators } from 'redux';
 
 
 class NoteUpdateScreen extends React.Component {
   constructor(props){
     super(props);
     this.state = {
-      title:'',
-      book:'',
-      content:''
+      title: props.note.title || '',
+      book: props.note.book || '',
+      content: props.note.content || ''
     };
     this.handleTitleChange = this.handleTitleChange.bind(this);
     this.handleBookChange = this.handleBookChange.bind(this);
+    this.handleContentChange = this.handleContentChange.bind(this);
   }
 
   handleTitleChange(e) {
@@ -31,13 +33,17 @@ class NoteUpdateScreen extends React.Component {
     this.setState({book: e})
   }
 
+  handleContentChange(e) {
+    this.setState({content: e})
+  }
+
   render () {
     const styles = StyleSheet.create({
       buttonContainer: {
         flex:1,
         flexDirection:'row',
-
         marginHorizontal: padding.int,
+        marginVertical: padding.sm
       }, 
       textContainer: {
         marginVertical: padding.sm, 
@@ -71,10 +77,17 @@ class NoteUpdateScreen extends React.Component {
         backgroundColor:'#3D5B98'
       }, 
     })
+
+    const scanButton = <View style={styles.buttonContainer}>
+      <Button style={styles.button} onPress={this.props.addScanToNote}>
+        <Text style={styles.text}>Scan new contents for this note</Text>
+      </Button>
+    </View>
+
     return (
       <Form>
-        <View style={{marginTop: 30}} >
-          { this.props.scan ? null : <NotesCreator content='Scan new contents for this note'/> }
+        <View style={{marginTop: 10}} >
+          { this.props.scan ? null : scanButton }
           <View style={styles.buttonContainer}>
             <Button style={styles.button} onPress={() => this.props.putUpdateNote(this.state)}>
               <Text style={styles.text}>Save note</Text>
@@ -83,21 +96,24 @@ class NoteUpdateScreen extends React.Component {
           <CustomFloatingLabel 
             label="Note's title"
             onChangeText={this.handleTitleChange}
-            value={this.props.note.title}
+            value={this.state.title}
           />
           <CustomFloatingLabel 
             label="Book name (optional)"
             onChangeText={this.handleBookChange}
-            secureTextEntry={true}
-            value={this.props.note.book}
+            value={this.state.book}
           />
-          <CustomTextArea rowSpan={9} value={this.props.note.content} placeholder='The content of your note goes here' />
+          <CustomTextArea 
+            rowSpan={this.props.scan ? 9 : 7} 
+            value={this.state.content} 
+            placeholder='The content of your note goes here' 
+            onChangeText={this.handleContentChange}
+          />
         </View>
       </Form>
     )
   }
 }
-
 
 export default NoteUpdateScreen
 

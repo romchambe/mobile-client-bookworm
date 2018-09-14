@@ -22,7 +22,7 @@ class PictureLoader extends React.Component {
     }) 
     return (      
       <View style={stylesheet.centered}>
-        <Text style={stylesheet.text}> We are analyzing your scan to extract the text ;) </Text>
+        <Text style={stylesheet.text}> Bookworming it out... </Text>
         <Spinner color={colors.yellow} />
       </View>
     )

@@ -7,6 +7,7 @@ import SectionTitle from './SectionTitle'
 import CustomTextArea from './CustomTextArea'
 import CustomFloatingLabel from './CustomFloatingLabel'
 import * as noteActions from '../redux-apis-bookworm/actions/noteActions'
+import * as navigationActions from '../redux-apis-bookworm/actions/navigationActions'
 
 import { View, FlatList } from 'react-native';
 import { Text } from 'native-base';
@@ -23,9 +24,20 @@ class NotesIndex extends React.Component {
     this.props.actions.readNotesIndex({jwt: this.props.jwt}, 'mobile')
   }
 
-  postCreateNote(e) {
-    this.props.actions.createNote({jwt: this.props.jwt}, 'mobile')
+  async postCreateNote(e) {
+    await this.props.actions.createNote({jwt: this.props.jwt}, 'mobile');
+    this.props.actions.navigateToEdit();
   }
+
+  setCurrentNote = (noteId) => {
+    let note = this.props.notes.notesList.find((item) => {
+      return item.id === noteId
+    })
+   
+    this.props.actions.setCurrentNote(note);
+    this.props.actions.navigateToEdit();
+  }
+
 
   render () {
     return (
@@ -35,7 +47,7 @@ class NotesIndex extends React.Component {
         <View>
           <FlatList
             data={this.props.notes.notesList}
-            renderItem={({item}) => <NoteAccessor key={item.id} title={item.title} />}
+            renderItem={({item}) => <NoteAccessor key={item.key} title={item.title} onPress={() => this.setCurrentNote(item.id)} />}
           />
         </View>
       </View> 
@@ -52,7 +64,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(noteActions,dispatch)
+    actions: bindActionCreators(Object.assign({},noteActions, navigationActions),dispatch)
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(NotesIndex)

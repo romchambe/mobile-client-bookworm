@@ -89,7 +89,7 @@ class ActionSelectionScreen extends React.Component {
       <View style={styles.container}>
         { this.state.notesDisplay ? notesList : actionSelectionButtons }
         <SectionTitle content='Preview of the scan' />
-        <CustomTextArea rowSpan={9} value={this.props.response} disabled={true}/>
+        <CustomTextArea rowSpan={8} value={this.props.response} disabled={true}/>
       </View>
     )
   }

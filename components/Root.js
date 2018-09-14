@@ -1,7 +1,8 @@
 import React from 'react';
 import LoginHandler from './LoginHandler';
 import NotesIndex from './NotesIndex';
-import ScanFlowContainer from './ScanFlowContainer'
+import ScanFlowContainer from './ScanFlowContainer';
+import EditFlowContainer from './EditFlowContainer';
 import CustomFooter from './CustomFooter';
 import AssetLoader from './AssetLoader';
 import { View } from 'react-native';
@@ -42,6 +43,7 @@ class Root extends React.Component {
               <Route path='/login' component={LoginHandler} />
               <Route path='/notes' component={NotesIndex} />
               <Route path='/scan' component={ScanFlowContainer} />
+              <Route path='/edit' component={EditFlowContainer} />
             </Switch>
           </Content>
           <Footer>

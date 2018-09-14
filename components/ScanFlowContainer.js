@@ -36,8 +36,8 @@ class ScanFlowContainer extends React.Component {
     this.props.actions.incrementStep()
   }
   
-  postCreateNote(e) {
-    this.props.actions.createNote({jwt: this.props.jwt, content: this.props.scanFlow.apiResponse.response}, 'mobile')
+  async postCreateNote(e) {
+    await this.props.actions.createNote({jwt: this.props.jwt, content: this.props.scanFlow.apiResponse.response}, 'mobile')
     this.incrementStep();
   }
 
@@ -46,8 +46,8 @@ class ScanFlowContainer extends React.Component {
       return item.id === noteId
     })
     note.content = note.content + '\n \n' + this.props.scanFlow.apiResponse.response
-    
-    this.props.actions.setCurrentNote({note: note})
+
+    this.props.actions.setCurrentNote(note)
     this.incrementStep()
   }
 
@@ -58,7 +58,7 @@ class ScanFlowContainer extends React.Component {
       title: payload.title, 
       book:payload.book, 
       content: payload.content
-    })
+    }, 'mobile')
   }
 
   render () {
@@ -86,7 +86,7 @@ class ScanFlowContainer extends React.Component {
       <View style={{ flex: 1 }}>
         <ScanFlowProgress content={content[this.props.scanFlow.step - 1]} step={this.props.scanFlow.step} />
 
-        {this.props.scanFlow.isUploadingScan ? <PictureLoader /> : currentStep}
+        {this.props.scanFlow.isUploadingScan || this.props.notes.isFetching ? <PictureLoader /> : currentStep}
       </View>
     )
   }
