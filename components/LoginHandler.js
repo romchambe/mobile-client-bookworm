@@ -7,7 +7,7 @@ import { View, StyleSheet } from 'react-native';
 import { colors, padding } from './../assets/styles/base';
 
 import { connect } from 'react-redux';
-import * as sessionActions from './../core-modules-bookworm/actions/sessionActions';
+import * as sessionActions from './../core-modules/actions/sessionActions';
 import { bindActionCreators } from 'redux'; 
 
 class LoginHandler extends React.Component {

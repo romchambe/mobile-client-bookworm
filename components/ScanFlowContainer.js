@@ -6,8 +6,8 @@ import ActionSelectionScreen from './ActionSelectionScreen'
 import NoteUpdateScreen from './NoteUpdateScreen'
 import PictureLoader from './PictureLoader'
 
-import * as noteActions from '../core-modules-bookworm/actions/noteActions'
-import * as scanFlowActions from '../core-modules-bookworm/actions/scanFlowActions'
+import * as noteActions from '../core-modules/actions/noteActions'
+import * as scanFlowActions from '../core-modules/actions/scanFlowActions'
 
 import { FileSystem } from 'expo';
 import { View } from 'react-native';

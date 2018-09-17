@@ -10,8 +10,8 @@ import { Link } from 'react-router-native';
 import { FooterTab, Text, Button } from 'native-base';
 
 import { connect } from 'react-redux';
-import * as sessionActions from './../core-modules-bookworm/actions/sessionActions';
-import * as navigationActions from './../core-modules-bookworm/actions/navigationActions';
+import * as sessionActions from './../core-modules/actions/sessionActions';
+import * as navigationActions from './../core-modules/actions/navigationActions';
 import { bindActionCreators } from 'redux'; 
 
 
