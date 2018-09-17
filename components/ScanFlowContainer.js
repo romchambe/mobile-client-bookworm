@@ -28,6 +28,11 @@ class ScanFlowContainer extends React.Component {
     this.props.actions.readNotesIndex({jwt: this.props.jwt}, 'mobile')
   }
 
+  componentWillUnmount() {
+    this.props.actions.setCurrentNote(null);
+    this.props.actions.cleanScanFlow();
+  }
+
   async uploadScan(payload) {
     this.props.actions.postScan({jwt: this.props.jwt, file:  payload.base64}, 'mobile');
   }

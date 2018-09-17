@@ -20,9 +20,13 @@ class EditFlowContainer extends React.Component {
     super(props);
 
     this.uploadScan = this.uploadScan.bind(this);
-    this.incrementStep = this.incrementStep.bind(this);
     this.postCreateNote = this.postCreateNote.bind(this);
     this.addScanToNote = this.addScanToNote.bind(this);
+  }
+
+  componentWillUnmount() {
+    this.props.actions.setCurrentNote(null); 
+    this.props.actions.cleanScanFlow();
   }
 
   async uploadScan(payload) {
@@ -31,20 +35,16 @@ class EditFlowContainer extends React.Component {
     note.content = note.content + '\n \n' + this.props.scanFlow.apiResponse.response
 
     this.props.actions.setCurrentNote(note)
-    this.incrementStep()
-  }
-
-  incrementStep() {
     this.props.actions.incrementStep()
   }
   
   async postCreateNote(e) {
     await this.props.actions.createNote({jwt: this.props.jwt, content: this.props.scanFlow.apiResponse.response}, 'mobile')
-    this.incrementStep();
+    this.props.actions.incrementStep();
   }
 
-  addScanToNote (){
-    this.incrementStep();
+  addScanToNote(e){
+    this.props.actions.incrementStep();
   }
   
   putUpdateNote = (payload) => {
