@@ -3,8 +3,8 @@ import React from 'react';
 import AssetLoader from './components/AssetLoader';
 import Root from './components/Root';
 import { Font } from 'expo';
-import rootReducer from './core-modules-bookworm/reducers/rootReducer';
-import initialState from './core-modules-bookworm/initialState'; 
+import rootReducer from './core-modules/reducers/rootReducer';
+import initialState from './core-modules/initialState'; 
 
 // Redux standard modules
 import { Provider } from 'react-redux'; // top level component for React so that all components can subscribe to the store

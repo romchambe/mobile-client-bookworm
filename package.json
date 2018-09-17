@@ -21,6 +21,7 @@
   },
   "dependencies": {
     "connected-react-router": "^4.3.0",
+    "crypto-js": "^3.1.9-1",
     "expo": "^27.1.0",
     "native-base": "^2.8.0",
     "react": "16.3.1",

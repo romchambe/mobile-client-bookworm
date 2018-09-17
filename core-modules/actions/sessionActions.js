@@ -28,6 +28,7 @@ export function loginUser(credentials,client) {
       dispatch(loginSuccess({user: response.user, jwt: response.jwt}));
       dispatch(push('/'));
     }).catch(error => {
+      console.log(JSON.stringify(error));
       dispatch(loginFailure(error));
     });
   };

@@ -1,6 +1,21 @@
 {
   "expo": {
+    "name":"Bookworm Note",
+    "description":"Bookworm Note lets you take notes while reading your favorite paper contents by simply scanning the text with your phone's camera!",
+    "slug":"bookworm-app",
     "sdkVersion": "27.0.0", 
-    "orientation":"portrait"
+    "orientation":"portrait",
+    "version":"0.1",
+    "icon":"./assets/icon.png",
+    "splash": {
+      "image": "./assets/splash.png",
+      "backgroundColor": "#FBE8A6"
+    },
+    "ios":{
+      "bundleIdentifier": "romainchambe.bookworm-app",
+      "infoPlist": {
+        "NSCameraUsageDescription": "This app uses the camera to scan barcodes on event tickets."
+      }
+    }
   }
 }

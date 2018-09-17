@@ -2,10 +2,10 @@ import React from 'react';
 
 import NoteCreator from './NotesCreator'
 import NoteAccessor from './NoteAccessor'
-import NoteView from './NoteView'
 import SectionTitle from './SectionTitle'
 import CustomTextArea from './CustomTextArea'
 import CustomFloatingLabel from './CustomFloatingLabel'
+
 import * as noteActions from '../core-modules/actions/noteActions'
 import * as navigationActions from '../core-modules/actions/navigationActions'
 
