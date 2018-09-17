@@ -6,8 +6,8 @@ import NoteView from './NoteView'
 import SectionTitle from './SectionTitle'
 import CustomTextArea from './CustomTextArea'
 import CustomFloatingLabel from './CustomFloatingLabel'
-import * as noteActions from '../state-and-api-management/actions/noteActions'
-import * as navigationActions from '../state-and-api-management/actions/navigationActions'
+import * as noteActions from '../core-modules-bookworm/actions/noteActions'
+import * as navigationActions from '../core-modules-bookworm/actions/navigationActions'
 
 import { View, FlatList } from 'react-native';
 import { Text } from 'native-base';
