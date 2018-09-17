@@ -5,8 +5,8 @@ import { View, Image, StyleSheet } from 'react-native';
 import { colors, padding } from './../assets/styles/base'
 
 import { connect } from 'react-redux';
-import * as sessionActions from './../redux-apis-bookworm/actions/sessionActions';
-import * as userActions from './../redux-apis-bookworm/actions/userActions';
+import * as sessionActions from './../state-and-api-management/actions/sessionActions';
+import * as userActions from './../state-and-api-management/actions/userActions';
 import { bindActionCreators } from 'redux'; 
 
 class SignUpForm extends React.Component {
