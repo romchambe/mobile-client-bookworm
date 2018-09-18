@@ -18,13 +18,14 @@ class CustomTextArea extends React.Component {
         color: colors.yellow,
         fontFamily: 'cabin-bold', 
         marginTop: padding.int, 
-        marginHorizontal: padding.int,
+        marginHorizontal: 25,
+        paddingHorizontal: padding.sm
       }
     })
     return (
-      <Textarea 
+      <TextInput 
         multiline={true}
-        numberOfLines={this.props.rowSpan} 
+        numberOfLines={this.props.rowSpan } 
         placeholder={this.props.placeholder} 
         placeholderTextColor={colors.lightYellow} 
         onChangeText={this.props.onChangeText}
