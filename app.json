@@ -15,6 +15,7 @@
       "bundleIdentifier": "romainchambe.bookworm-app",
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera to scan text and extract it"
+      }
     }
   }
 }
