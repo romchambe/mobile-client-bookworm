@@ -28,7 +28,6 @@ class ActionSelectionScreen extends React.Component {
   }
 
   render () {
-
     const styles = StyleSheet.create({
       container: {
         flex:1,
@@ -89,7 +88,7 @@ class ActionSelectionScreen extends React.Component {
       <View style={styles.container}>
         { this.state.notesDisplay ? notesList : actionSelectionButtons }
         <SectionTitle content='Preview of the scan' />
-        <CustomTextArea rowSpan={8} value={this.props.response} disabled={true}/>
+        <CustomTextArea rowSpan={7} value={this.props.response} />
       </View>
     )
   }
