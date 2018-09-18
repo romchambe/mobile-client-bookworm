@@ -22,6 +22,7 @@ class LoginHandler extends React.Component {
     const styles = StyleSheet.create({
       toggleContainer: {
         marginTop:padding.lg,
+        marginBottom: padding.int,
         marginHorizontal: 20,
         borderColor: colors.altGrey,
         borderWidth: 1,

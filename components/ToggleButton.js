@@ -13,7 +13,7 @@ class ToggleButton extends React.Component {
         backgroundColor: colors.lightBlue,
         justifyContent:'center', 
         paddingHorizontal: 1,
-        paddingVertical: 1
+        paddingVertical: 1,
       },
       inactiveButton: {
         flex:1,

@@ -1,16 +1,30 @@
 import React from 'react';
 import { colors, padding } from '../assets/styles/base'
 
-import { Textarea, connectStyle } from 'native-base';
+import { TextInput, StyleSheet } from 'react-native';
 
 
 class CustomTextArea extends React.Component {
 
   render () {
-    const styles = this.props.style;
+    const styles = StyleSheet.create({
+      textArea: {
+        flex: 1, 
+        backgroundColor: colors.deepblue,
+        borderRadius:6,
+        borderColor: colors.yellow, 
+        borderWidth: 2,
+        alignItems:'center',
+        color: colors.yellow,
+        fontFamily: 'cabin-bold', 
+        marginTop: padding.int, 
+        marginHorizontal: padding.int,
+      }
+    })
     return (
       <Textarea 
-        rowSpan={this.props.rowSpan} 
+        multiline={true}
+        numberOfLines={this.props.rowSpan} 
         placeholder={this.props.placeholder} 
         placeholderTextColor={colors.lightYellow} 
         onChangeText={this.props.onChangeText}
@@ -21,21 +35,7 @@ class CustomTextArea extends React.Component {
   }
 }
 
-const styles = {
-  textArea: {
-    flex: 1, 
-    backgroundColor: colors.deepblue,
-    borderRadius:6,
-    borderColor: colors.yellow, 
-    borderWidth: 2,
-    alignItems:'center',
-    color: colors.yellow,
-    fontFamily: 'cabin-bold', 
-    marginTop: padding.int, 
-    marginHorizontal: padding.int,
-  }
-}
 
 
 
-export default connectStyle('bookwormTheme.CustomTextArea', styles)(CustomTextArea)
+export default CustomTextArea

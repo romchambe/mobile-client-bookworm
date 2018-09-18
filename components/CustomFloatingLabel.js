@@ -1,45 +1,41 @@
 import React from 'react';
 import { colors, padding } from '../assets/styles/base'
 
-import { Item, Label, Input, connectStyle } from 'native-base';
+import { TextInput, StyleSheet } from 'react-native';
 
 
 class CustomFloatingLabel extends React.Component {
-
   render () {
-    const styles = this.props.style;
+    const styles = StyleSheet.create({
+      input: {
+        marginVertical: padding.int,
+        marginHorizontal: 25,
+        paddingBottom: 4,
+        fontFamily: 'cabin-bold', 
+        borderBottomWidth: 2, 
+        borderBottomColor: colors.yellow,
+        fontSize: 15,
+        color: colors.yellow
+      }
+    });
+
+
+
     return (
-      <Item floatingLabel style={styles.item}>
-        <Label style={styles.label}>{this.props.label}</Label>
-        <Input 
+        <TextInput
           style={styles.input} 
           onChangeText={this.props.onChangeText} 
           value={this.props.value}
           secureTextEntry={ this.props.secureTextEntry ? true : false }
-          disabled={this.props.disabled ? true : false}
+          editable={this.props.disabled ? false : true}
+          placeholder={this.props.label}
+          placeholderTextColor={colors.altGrey}
+ 
         />
-      </Item>
     )
   }
 }
 
-const styles = {
-  item: {
-    flex: 1,
-    marginTop: padding.int,
-    marginHorizontal: padding.int,
-    borderBottomWidth:2
-  }, 
-  label: {
-    fontFamily: 'cabin-bold', 
-    fontSize: 15
-  },
-  input: {
-    fontFamily: 'cabin-bold', 
-    fontSize: 15
-  }
-}
 
 
-
-export default connectStyle('bookwormTheme.CustomFloatingLabel', styles)(CustomFloatingLabel)
+export default CustomFloatingLabel
