@@ -7,7 +7,7 @@ import CustomTextArea from './CustomTextArea'
 import SectionTitle from './SectionTitle'
 
 import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
-import { Text, Button} from 'native-base';
+import { Text, Button, Form } from 'native-base';
 
 
 
@@ -88,7 +88,9 @@ class ActionSelectionScreen extends React.Component {
       <View style={styles.container}>
         { this.state.notesDisplay ? notesList : actionSelectionButtons }
         <SectionTitle content='Preview of the scan' />
-        <CustomTextArea rowSpan={7} value={this.props.response} />
+        <Form>
+        <CustomTextArea rowSpan={6} value={this.props.response} />
+        </Form>
       </View>
     )
   }

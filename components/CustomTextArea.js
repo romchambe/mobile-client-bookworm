@@ -1,7 +1,7 @@
 import React from 'react';
 import { colors, padding } from '../assets/styles/base'
 
-import { TextInput, StyleSheet } from 'react-native';
+import { TextInput, StyleSheet, Platform } from 'react-native';
 
 
 class CustomTextArea extends React.Component {
@@ -19,13 +19,14 @@ class CustomTextArea extends React.Component {
         fontFamily: 'cabin-bold', 
         marginTop: padding.int, 
         marginHorizontal: 25,
-        paddingHorizontal: padding.sm
+        paddingHorizontal: padding.sm,
+        height: this.props.rowSpan * 28
       }
     })
     return (
       <TextInput 
         multiline={true}
-        numberOfLines={this.props.rowSpan } 
+        numberOfLines={this.props.rowSpan} 
         placeholder={this.props.placeholder} 
         placeholderTextColor={colors.lightYellow} 
         onChangeText={this.props.onChangeText}

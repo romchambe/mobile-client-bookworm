@@ -3,8 +3,7 @@ import React from 'react';
 import NoteCreator from './NotesCreator'
 import NoteAccessor from './NoteAccessor'
 import SectionTitle from './SectionTitle'
-import CustomTextArea from './CustomTextArea'
-import CustomFloatingLabel from './CustomFloatingLabel'
+import AssetLoader from './AssetLoader'
 
 import * as noteActions from '../core-modules/actions/noteActions'
 import * as navigationActions from '../core-modules/actions/navigationActions'
@@ -40,18 +39,24 @@ class NotesIndex extends React.Component {
 
 
   render () {
-    return (
-      <View style={{marginTop: 40}}>
-        <NoteCreator onPress={this.postCreateNote} content='Create a new note' />
-        <SectionTitle content='All your notes:' />
-        <View>
-          <FlatList
-            data={this.props.notes.notesList}
-            renderItem={({item}) => <NoteAccessor key={item.key} title={item.title} onPress={() => this.setCurrentNote(item.id)} />}
-          />
-        </View>
-      </View> 
-    )
+    if (this.props.notes.isFetchingNotes) {
+      return (
+        <AssetLoader />
+      );
+    } else  { 
+      return (
+        <View style={{marginTop: 40}}>
+          <NoteCreator onPress={this.postCreateNote} content='Create a new note' />
+          <SectionTitle content='All your notes:' />
+          <View>
+            <FlatList
+              data={this.props.notes.notesList}
+              renderItem={({item}) => <NoteAccessor key={item.key} title={item.title} onPress={() => this.setCurrentNote(item.id)} />}
+            />
+          </View>
+        </View> 
+      );
+    }
   }
 }
 

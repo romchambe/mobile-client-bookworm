@@ -114,7 +114,7 @@ class SignUpForm extends React.Component {
         
         <View style={styles.textContainer}>
           
-            <Text style={styles.text}>or continue with:</Text>
+          <Text style={styles.text}>or continue with:</Text>
       
         </View>
 

@@ -91,7 +91,7 @@ class ScanFlowContainer extends React.Component {
       <View style={{ flex: 1 }}>
         <ScanFlowProgress content={content[this.props.scanFlow.step - 1]} step={this.props.scanFlow.step} />
 
-        {this.props.scanFlow.isUploadingScan || this.props.notes.isFetching ? <PictureLoader /> : currentStep}
+        {this.props.scanFlow.isUploadingScan || this.props.notes.isFetchingNotes ? <PictureLoader /> : currentStep}
       </View>
     )
   }

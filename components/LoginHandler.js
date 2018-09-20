@@ -2,13 +2,13 @@ import React from 'react';
 import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 import ToggleButton from './ToggleButton';
+import AssetLoader from './AssetLoader';
 import { Form, Item, Label, Input, Button, Text } from 'native-base';
 import { View, StyleSheet } from 'react-native';
 import { colors, padding } from './../assets/styles/base';
 
 import { connect } from 'react-redux';
-import * as sessionActions from './../core-modules/actions/sessionActions';
-import { bindActionCreators } from 'redux'; 
+
 
 class LoginHandler extends React.Component {
   constructor(props){
@@ -34,21 +34,32 @@ class LoginHandler extends React.Component {
       }
     })
 
-    return (
-      <View>
-        <View style={styles.toggleContainer}>
-          <ToggleButton content='First time?' active={this.state.signUp} onPress={() => this.setState({signUp: true})}/>
-          <ToggleButton content='Not my first time' active={!this.state.signUp} onPress={() => this.setState({signUp: false})}/>
-        </View>
+    if (this.props.user.isFetching || this.props.session.isFetching ) {
+      return (
+        <AssetLoader />
+      );
+    } else {
+      return (
+        <View>
+          <View style={styles.toggleContainer}>
+            <ToggleButton content='First time?' active={this.state.signUp} onPress={() => this.setState({signUp: true})}/>
+            <ToggleButton content='Not my first time' active={!this.state.signUp} onPress={() => this.setState({signUp: false})}/>
+          </View>
 
-        {
-          this.state.signUp ? <SignUpForm /> : <LoginForm />
-        }
-        
-      </View>
-    )
+          {
+            this.state.signUp ? <SignUpForm /> : <LoginForm />
+          }
+          
+        </View>
+      )
+    }
   }
 }
 
-
-export default LoginHandler
+function mapStateToProps(state) {
+  return {
+    session: state.session, 
+    user:state.user
+  }
+}
+export default connect(mapStateToProps)(LoginHandler)

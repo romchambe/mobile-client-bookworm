@@ -13,11 +13,11 @@ const session = (state = initialState, action) => {
       })
     case types.LOGIN_FAILURE:
       return Object.assign({}, state, {
-        isFetching: false
+        isFetching: false, loggedIn: false, jwt: ''
       })
     case types.LOGOUT:
       return Object.assign({}, state, {
-        loggedIn: false, jwt: ""
+        isFetching: false, loggedIn: false, jwt: ''
       })
     default: 
       return state;

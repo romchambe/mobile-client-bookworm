@@ -104,7 +104,7 @@ class NoteUpdateScreen extends React.Component {
             value={this.state.book}
           />
           <CustomTextArea 
-            rowSpan={this.props.scan ? 9 : 7} 
+            rowSpan={7} 
             value={this.state.content} 
             placeholder='The content of your note goes here' 
             onChangeText={this.handleContentChange}

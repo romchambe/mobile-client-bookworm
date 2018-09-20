@@ -45,6 +45,11 @@ const notes = (state = initialState, action) => {
       return Object.assign({}, state, {
         currentNote: action.note
       })
+    case types.LOGOUT:
+      return Object.assign({}, state, {
+        notesList: [],
+        currentNote: {}
+      })
     default: 
       return state;
   }

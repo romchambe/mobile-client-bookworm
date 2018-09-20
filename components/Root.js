@@ -23,6 +23,7 @@ import { StyleProvider, Container, Header, Content, Footer, Body, Title, Button,
 
 class Root extends React.Component {
   render () {
+    
     return (
       <StyleProvider style={getTheme(commonColor)}>
         <Container> 
@@ -33,6 +34,7 @@ class Root extends React.Component {
           </Header>
           <Content contentContainerStyle={{ flexGrow: 1 }}>
             <Switch>
+              <Route path='/login' component={LoginHandler} />
               <Route exact path="/" render={ props =>
                 this.props.session.loggedIn === true ? (
                   <NotesIndex />
@@ -40,10 +42,27 @@ class Root extends React.Component {
                   <LoginHandler />
                 )} 
               /> 
-              <Route path='/login' component={LoginHandler} />
-              <Route path='/notes' component={NotesIndex} />
-              <Route path='/scan' component={ScanFlowContainer} />
-              <Route path='/edit' component={EditFlowContainer} />
+              <Route path='/notes' render={props =>
+                this.props.session.loggedIn === true ? (
+                  <NotesIndex />
+                ) : (
+                  <LoginHandler />
+                )
+              }/>
+              <Route path='/scan' render={ props =>
+                this.props.session.loggedIn === true ? (
+                  <ScanFlowContainer />
+                ) : (
+                  <LoginHandler />
+                )
+              }/>
+              <Route path='/edit' render={ props =>
+                this.props.session.loggedIn === true ? (
+                  <EditFlowContainer />
+                ) : (
+                  <LoginHandler />
+                )
+              }/>
             </Switch>
           </Content>
           <Footer>
@@ -54,13 +73,14 @@ class Root extends React.Component {
           </Footer>
         </Container>
       </StyleProvider>
-    );     
+    );
+
   }
 }
 
 function mapStateToProps(state) {
   return {
-    session: state.session
+    session: state.session,
   }
 }
 
