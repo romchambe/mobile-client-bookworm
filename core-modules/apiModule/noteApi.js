@@ -19,7 +19,7 @@ class noteApi {
 
     return fetch(request).then(response => {
       if (!response.ok) {
-        throw new Error({status:response.status});
+        throw new Error('There was an error during the creation of the note');
       } 
       return response.json();
       
@@ -40,7 +40,7 @@ class noteApi {
 
     return fetch(request).then(response => {
       if (!response.ok) {
-        throw new Error({status:response.status});
+        throw new Error('Error fetching your notes');
       } 
       return response.json();
     });
@@ -65,7 +65,7 @@ class noteApi {
 
     return fetch(request).then(response => {
       if (!response.ok) {
-        throw new Error({status:response.status});
+        throw new Error('There was an error while updating your note');
       } 
       return response.json();
       

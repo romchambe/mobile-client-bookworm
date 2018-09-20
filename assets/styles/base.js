@@ -13,7 +13,8 @@ export const colors  = {
   deepBlue: '#303C6C',
   grey: '#B4DFE5', 
   altGrey:'#71B2BF',
-  lightBlue: '#D2FDFF' 
+  lightBlue: '#D2FDFF', 
+  red: '#F65E53' 
 }
 
 export const padding = {

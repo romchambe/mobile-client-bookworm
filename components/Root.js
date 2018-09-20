@@ -4,6 +4,7 @@ import NotesIndex from './NotesIndex';
 import ScanFlowContainer from './ScanFlowContainer';
 import EditFlowContainer from './EditFlowContainer';
 import CustomFooter from './CustomFooter';
+import ErrorContainer from './ErrorContainer';
 import AssetLoader from './AssetLoader';
 import { View } from 'react-native';
 
@@ -33,6 +34,7 @@ class Root extends React.Component {
             </Body>
           </Header>
           <Content contentContainerStyle={{ flexGrow: 1 }}>
+            <ErrorContainer />
             <Switch>
               <Route path='/login' component={LoginHandler} />
               <Route exact path="/" render={ props =>

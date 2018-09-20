@@ -6,22 +6,22 @@ const error = (state = [], action) => {
     case types.LOGIN_FAILURE:
       return [
         ...state,
-        action.error
+        action.error.message
       ]
     case types.CREATE_USER_FAILURE:
       return [
         ...state,
-        action.error
+        action.error.message
       ]
     case types.UPLOAD_SCAN_FAILURE:
       return [
         ...state,
-        action.error
+        action.error.message
       ]
     case types.UPDATE_NOTE_FAILURE:
       return [
         ...state,
-        action.error
+        action.error.message
       ]
     case LOCATION_CHANGE:
       return [];
