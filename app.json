@@ -7,6 +7,9 @@
     "orientation":"portrait",
     "version":"0.1.4",
     "icon":"./assets/icon.png",
+    "facebookScheme":"fb274937946606967",
+    "facebookAppId":"274937946606967",
+    "facebookDisplayName":"Bookworm",
     "splash": {
       "image": "./assets/splash.png",
       "backgroundColor": "#303C6C", 
