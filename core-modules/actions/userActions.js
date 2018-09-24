@@ -25,7 +25,7 @@ export function createUser(payload,client) {
       dispatch(createUserSuccess())
       dispatch(push('/'));
     }).catch(error => {
-      dispatch(createUserFailure(error));
+      dispatch(createUserFailure(error.message));
     });
   };
 }

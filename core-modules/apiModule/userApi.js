@@ -13,6 +13,7 @@ class userApi {
 
     return fetch(request).then(response => {
       if (!response.ok) {
+        console.log(JSON.stringify(response))
         throw new Error('Provide a valid email and a 6 character password');
       } else {
         return response.json();

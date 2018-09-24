@@ -2,7 +2,9 @@ import React from 'react';
 
 import AssetLoader from './components/AssetLoader';
 import Root from './components/Root';
-import { Font } from 'expo';
+
+import {Text } from 'react-native'
+import { Font, AppLoading } from 'expo';
 import rootReducer from './core-modules/reducers/rootReducer';
 import initialState from './core-modules/initialState'; 
 
@@ -30,7 +32,7 @@ const history = createMemoryHistory();
 const persistConfig = {
   key: 'root',
   storage: storage,
-  whitelist: ['user','session', 'notes']
+  whitelist: ['user', 'session', 'notes']
 };
 
 const persistedReducer = persistReducer(persistConfig, connectRouter(history)(rootReducer)); // new root reducer with router state
@@ -51,21 +53,27 @@ const persistor = persistStore(store)
 class App extends React.Component {
   state = { isReady: false }
 
-  async componentDidMount() {
+  async _loadAssetsAsync() {
     await Font.loadAsync({
       'cabin': require('./assets/Cabin/Cabin-Regular.ttf'),
       'cabin-bold': require('./assets/Cabin/Cabin-Bold.ttf'),
       'cabin-italic': require('./assets/Cabin/Cabin-Italic.ttf'),
       'cabin-bold-italic': require('./assets/Cabin/Cabin-BoldItalic.ttf'),
     });
-    this.setState({ isReady: true });
   }
 
   render() {
     if (!this.state.isReady) {
       return (
-        <AssetLoader /> 
-      );
+       
+        <AppLoading
+          startAsync={this._loadAssetsAsync}
+          onFinish={() => {
+            this.setState({ isReady: true });
+          }}
+          onError={console.warn}
+        />
+      )
     } else {
       return (
         <Provider store={store}>
@@ -81,4 +89,3 @@ class App extends React.Component {
 }
 
 export default App
-

@@ -14,7 +14,7 @@ class ErrorContainer extends React.Component {
       container: {
         flex:1, 
         height: 30,
-        maxHeight:30,
+        maxHeight: 30,
         backgroundColor: colors.red
       }, 
       text:{
@@ -27,14 +27,20 @@ class ErrorContainer extends React.Component {
         fontSize: fonts.sm
       },
     }) 
+
+  
+
     if (this.props.error.length === 0) { 
       return null 
     } else {
       return (      
         <View style={styles.container}>
-          <Text style={styles.text}>
-            {this.props.error[0]}
-          </Text>
+        
+            
+              <Text style={styles.text}>
+                {this.props.error.slice(-1)[0]}
+              </Text>
+          
         </View>
       )  
     }
