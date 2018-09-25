@@ -22,6 +22,11 @@
         "NSCameraUsageDescription": "This app uses the camera to scan text and extract it"
       }
     },
+    "android": {
+      "icon": "./assets/icon.png",
+      "package": "com.romainchambe.bookworm-app",
+      "version":"1"
+    },
     "androidStatusBar": {
       "barStyle":"dark-content",
       "backgroundColor": "#000000"
