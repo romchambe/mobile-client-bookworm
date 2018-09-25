@@ -18,9 +18,13 @@ export function postScan (payload,client){
   return function(dispatch) {
     dispatch(uploadScanRequest())
     return scanApi.postScan(payload,client).then(response => {
-      dispatch(uploadScanSuccess(response));
+      if (response.error){
+        dispatch(uploadScanFailure(response.message))
+      } else {
+        dispatch(uploadScanSuccess(response));
+      }
     }).catch(error => {
-      dispatch(uploadScanFailure(error));
+      dispatch(uploadScanFailure(error.message));
     });
   }
 }

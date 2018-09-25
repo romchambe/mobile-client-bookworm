@@ -13,9 +13,7 @@ class sessionApi {
     });
 
     return fetch(request).then(response => {
-      
       return response.json();
-      
     });
   }
 
@@ -30,11 +28,7 @@ class sessionApi {
     });
 
     return fetch(request).then(response => {
-      if (!response.ok) {
-        throw new Error('FB credentials request failed');
-      } 
       return response.json();
-      
     });
   } 
 
