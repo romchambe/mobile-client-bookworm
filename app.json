@@ -24,8 +24,7 @@
     },
     "android": {
       "icon": "./assets/icon.png",
-      "package": "com.romainchambe.bookworm-app",
-      "version":"1"
+      "package": "fr.romainchambe.bookworm"
     },
     "androidStatusBar": {
       "barStyle":"dark-content",
