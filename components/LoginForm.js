@@ -1,7 +1,7 @@
 import React from 'react';
 import CustomFloatingLabel from './CustomFloatingLabel'
 import { Form, Item, Label, Input, Button, Text } from 'native-base';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, Platform } from 'react-native';
 import { colors, padding } from './../assets/styles/base'
 
 import { connect } from 'react-redux';
@@ -64,7 +64,7 @@ class LoginForm extends React.Component {
 
       }, 
       facebookText:{
-        color:'#fff', fontFamily:'Helvetica', fontWeight: 'bold'
+        color:'#fff', fontFamily: Platform.OS === 'ios' ? 'Helvetica' : 'Roboto', fontWeight: 'bold'
       },
       image: {
         width: 24, height: 24

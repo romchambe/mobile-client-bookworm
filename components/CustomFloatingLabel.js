@@ -30,7 +30,7 @@ class CustomFloatingLabel extends React.Component {
           editable={this.props.disabled ? false : true}
           placeholder={this.props.label}
           placeholderTextColor={colors.altGrey}
- 
+          underlineColorAndroid='rgba(0,0,0,0)'
         />
     )
   }

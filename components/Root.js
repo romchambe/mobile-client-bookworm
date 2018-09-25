@@ -6,7 +6,7 @@ import EditFlowContainer from './EditFlowContainer';
 import CustomFooter from './CustomFooter';
 import ErrorContainer from './ErrorContainer';
 import AssetLoader from './AssetLoader';
-import { View } from 'react-native';
+import { View, Platform } from 'react-native';
 
 // Native Base Theme
 import getTheme from './../native-base-theme/components';
@@ -17,7 +17,7 @@ import { connect } from 'react-redux';
 
 // External components
 import { NativeRouter, Route, Link, Redirect, Switch, withRouter  } from 'react-router-native';
-import { StyleProvider, Container, Header, Content, Footer, Body, Title, Button, Text } from 'native-base';
+import { StyleProvider, Container, Header, Content, Footer, Body, Title, Button, Text, Left, Right } from 'native-base';
 
 //Homemade components
 
@@ -28,11 +28,18 @@ class Root extends React.Component {
       <StyleProvider style={getTheme(commonColor)}>
         <Container> 
           <Header>
-            <Body>
-              <Title style={{fontFamily: 'cabin-bold'}}>bookworm</Title>
+            { Platform.OS === 'ios' ? null : <Left style={{flex: 1}} />}
+           
+            <Body style={ Platform.OS === 'ios' ? 
+              { backgroundColor: 'transparent' } : 
+              { flex: 1, paddingTop: 24, alignItems: 'center'}
+            }>
+              <Title style={{fontFamily: 'cabin-bold', textAlign:'center'}}>bookworm</Title>
+            
             </Body>
+            { Platform.OS === 'ios' ? null : <Right style={{flex: 1}}/>}
           </Header>
-          <Content contentContainerStyle={{ flexGrow: 1 }}>
+          <Content enableOnAndroid contentContainerStyle={{ flexGrow: 1 }}>
             <ErrorContainer />
             <Switch>
               <Route path='/login' component={LoginHandler} />

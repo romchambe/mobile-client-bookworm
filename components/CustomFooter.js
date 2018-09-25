@@ -5,7 +5,7 @@ import CameraIcon from './icons/CameraIcon'
 import LogoutIcon from './icons/LogoutIcon'
 import { colors, padding } from '../assets/styles/base'
 
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Platform } from 'react-native';
 import { Link } from 'react-router-native';
 import { FooterTab, Text, Button } from 'native-base';
 
@@ -29,7 +29,7 @@ class CustomFooter extends React.Component {
       <FooterTab>
         <Button vertical onPress={() => this.props.actions.navigateToNotes()}>
           <ListIcon color={colors.deepBlue} />
-          <Text style={styles.text}>My notes</Text>
+          <Text style={styles.text}>{Platform.OS === 'ios' ? 'My notes' : 'Notes'}</Text>
           
         </Button>
         <Button vertical onPress={() => this.props.actions.navigateToScan()}>

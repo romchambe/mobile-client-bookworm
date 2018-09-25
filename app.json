@@ -20,6 +20,10 @@
       "infoPlist": {
         "NSCameraUsageDescription": "This app uses the camera to scan text and extract it"
       }
+    },
+    "androidStatusBar": {
+      "barStyle":"barStyle",
+      "backgroundColor": "#000000"
     }
   }
 }

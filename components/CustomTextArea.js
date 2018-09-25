@@ -32,6 +32,7 @@ class CustomTextArea extends React.Component {
         onChangeText={this.props.onChangeText}
         style={styles.textArea} 
         value={this.props.value}
+        underlineColorAndroid='rgba(0,0,0,0)'
       />
     )
   }
