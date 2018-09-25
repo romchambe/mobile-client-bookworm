@@ -21,11 +21,15 @@ export function createUser(payload,client) {
   return function(dispatch) {
     dispatch(createUserRequest());
     return userApi.postCreateUser(payload,client).then(response => {
-      dispatch(loginSuccess({user: response.user, jwt: response.jwt}));
-      dispatch(createUserSuccess())
-      dispatch(push('/'));
+      if (response.error){
+        dispatch(createUserFailure(response.message))
+      } else {
+        dispatch(loginSuccess({user: response.user, jwt: response.jwt}));
+        dispatch(createUserSuccess())
+        dispatch(push('/'));
+      }
     }).catch(error => {
-      dispatch(createUserFailure(error));
+      dispatch(createUserFailure(error.message));
     });
   };
 }

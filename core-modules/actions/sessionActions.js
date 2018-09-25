@@ -25,10 +25,15 @@ export function loginUser(credentials,client) {
   return function(dispatch) {
     dispatch(loginRequest());
     return sessionApi.postLogin(credentials,client).then(response => { 
-      dispatch(loginSuccess({user: response.user, jwt: response.jwt}));
-      dispatch(push('/'));
+      console.log(JSON.stringify(response))
+      if (response.error){
+        dispatch(loginFailure(response.message))
+      } else {
+        dispatch(loginSuccess({user: response.user, jwt: response.jwt}));
+        dispatch(push('/'));
+      }
     }).catch(error => {
-      dispatch(loginFailure(error));
+      dispatch(loginFailure(error.message));
     });
   };
 }
@@ -59,10 +64,14 @@ export function fbLoginUser(client) {
     // request JWT to Rails API like in the normal flow
     if (fbUser.email){
       return sessionApi.postFbLogin(fbUser,client).then(response => {
-        dispatch(loginSuccess({user: response.user, jwt: response.jwt}));
-        dispatch(push('/'));
+        if (response.error){
+          dispatch(loginFailure(response.message))
+        } else {
+          dispatch(loginSuccess({user: response.user, jwt: response.jwt}));
+          dispatch(push('/'));
+        }
       }).catch(error => {
-        dispatch(loginFailure(error))
+        dispatch(loginFailure(error.message))
       })
     }
   }

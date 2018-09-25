@@ -41,9 +41,13 @@ export function createNote (payload,client){
   return function(dispatch) {
     dispatch(createNoteRequest())
     return noteApi.postCreateNote(payload,client).then(response => {
-      dispatch(createNoteSuccess(response));
+      if (response.error){
+        dispatch(createNoteFailure(response.message))
+      } else {
+        dispatch(createNoteSuccess(response));
+      }
     }).catch(error => {
-      dispatch(createNoteFailure(error));
+      dispatch(createNoteFailure(error.message));
     });
   }
 }
@@ -52,9 +56,13 @@ export function readNotesIndex (payload,client){
   return function(dispatch) {
     dispatch(readNotesIndexRequest())
     return noteApi.getNotesIndex(payload,client).then(response => {
-      dispatch(readNotesIndexSuccess(response))
+      if (response.error){
+        dispatch(readNotesIndexFailure(response.message))
+      } else {
+        dispatch(readNotesIndexSuccess(response))
+      }
     }).catch(error => {
-      dispatch(readNotesIndexFailure(error));
+      dispatch(readNotesIndexFailure(error.message));
     });
   }
 }
@@ -63,10 +71,14 @@ export function updateNote (payload, client){
   return function(dispatch) {
     dispatch(updateNoteRequest())
     return noteApi.putUpdateNote(payload,client).then(response => {
-      dispatch(updateNoteSuccess(response))
-      dispatch(push('/notes'))
+      if (response.error){
+        dispatch(updateNoteFailure(response.message))
+      } else {
+        dispatch(updateNoteSuccess(response))
+        dispatch(push('/notes'))
+      }
     }).catch(error => {
-      dispatch(updateNoteFailure(error));
+      dispatch(updateNoteFailure(error.message));
     });
   } 
 }

@@ -21,6 +21,7 @@ const user = (state = initialState, action) => {
       })
       case types.LOGOUT:
       return Object.assign({}, state, {
+        isFetching: false,
         user: {}
       })
     default: 

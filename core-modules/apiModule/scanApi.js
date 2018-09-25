@@ -22,9 +22,6 @@ class scanApi {
     });
     
     return fetch(request).then(response => {
-      if (!response.ok) {
-        throw new Error('There was an error during the upload');
-      } 
       return response.json();
     });
   }

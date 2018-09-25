@@ -13,11 +13,7 @@ class sessionApi {
     });
 
     return fetch(request).then(response => {
-      if (!response.ok) {
-        throw new Error('Invalid credentials');
-      } 
       return response.json();
-      
     });
   }
 
@@ -32,11 +28,7 @@ class sessionApi {
     });
 
     return fetch(request).then(response => {
-      if (!response.ok) {
-        throw new Error({status:response.status});
-      } 
       return response.json();
-      
     });
   } 
 

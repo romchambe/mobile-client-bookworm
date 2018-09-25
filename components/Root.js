@@ -24,7 +24,6 @@ import { StyleProvider, Container, Header, Content, Footer, Body, Title, Button,
 
 class Root extends React.Component {
   render () {
-    
     return (
       <StyleProvider style={getTheme(commonColor)}>
         <Container> 

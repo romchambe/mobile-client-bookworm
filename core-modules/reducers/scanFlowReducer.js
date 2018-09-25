@@ -29,6 +29,12 @@ const scanFlow = (state = initialState, action) => {
         isUploadingScan: false,
         apiResponse: ''
       }) 
+    case types.LOGOUT:
+      return Object.assign({}, state, {
+        step: 1,
+        isUploadingScan: false,
+        apiResponse: ''
+      }) 
     default: 
       return state;
   }
