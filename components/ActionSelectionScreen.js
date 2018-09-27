@@ -6,7 +6,7 @@ import UpArrowIcon from './icons/UpArrowIcon'
 import CustomTextArea from './CustomTextArea'
 import SectionTitle from './SectionTitle'
 
-import { View, StyleSheet, FlatList, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, FlatList, TouchableOpacity, Animated, Dimensions, Easing } from 'react-native';
 import { Text, Button, Form } from 'native-base';
 
 
@@ -15,19 +15,55 @@ class ActionSelectionScreen extends React.Component {
   constructor(props) {
     super(props); 
     this.state = {
-      notesDisplay: false
+      notesDisplay: false,
+      upAnim: new Animated.Value(0),
+      downAnim: new Animated.Value(-300), 
     }
-    this.toggleNotesList = this.toggleNotesList.bind(this)
+  
   }
 
-  toggleNotesList(e) {
-    console.log('toggle clicked')
-    this.setState((prevState, props) => ({
-      notesDisplay: !prevState.notesDisplay
-    }));
-  }
+
+
+
 
   render () {
+    let {upAnim, downAnim} = this.state
+
+    const showOptions = () => {
+      Animated.parallel([
+       Animated.timing(downAnim, {
+          toValue: -300,
+
+          duration: 500,
+        }),
+        Animated.sequence([
+          Animated.delay(500),
+          Animated.timing(upAnim, {
+            toValue: 0,
+            duration: 500,
+          })
+        ])
+      ]).start()
+    }
+    const hideOptions = () => {
+      Animated.parallel([
+        Animated.timing(upAnim, {
+          toValue: -300,
+   
+          duration: 500,
+        }),
+        Animated.sequence([
+          Animated.delay(500),
+          Animated.timing(downAnim, {
+            toValue: 0,
+            duration: 500,
+          })
+        ])
+      ]).start()
+    }
+
+    const { height, width } = Dimensions.get('window');
+
     const styles = StyleSheet.create({
       container: {
         flex:1,
@@ -60,37 +96,46 @@ class ActionSelectionScreen extends React.Component {
       list: {
         maxHeight: 200, 
         marginBottom: padding.int
+      },
+      optionsContainer:{
+        flex: 0.8,
+        
+      },
+      previewContainer: {
+        flex: 0.2,
       }
     })
 
-    let notesList = 
-        <View>
-          <View style={styles.backToOptionsBar}> 
-            <Text style={styles.backText} >Back to options </Text>
-            <TouchableOpacity style={styles.toggle}  onPress={this.toggleNotesList} >
-              
-              <UpArrowIcon color={colors.deepBlue} />
-            </TouchableOpacity>
-          </View>
-          <FlatList
-            style={styles.list}
-            data={this.props.notesList}
-            renderItem={({item}) => <NoteAccessor key={item.key} title={item.title} onPress={() => this.props.addScanToNote(item.id)} />}
-          />
-        </View>
-    let actionSelectionButtons = 
-      <View>
-        <NotesCreator content='Create a new note' onPress={this.props.postCreateNote} />
-        <NotesCreator content='Add to an existing note' onPress={this.toggleNotesList} />
-      </View>
+    
 
     return (
       <View style={styles.container}>
-        { this.state.notesDisplay ? notesList : actionSelectionButtons }
-        <SectionTitle content='Preview of the scan' />
-        <Form>
-          <CustomTextArea rowSpan={6} value={this.props.response} />
-        </Form>
+        <View style={styles.optionsContainer}>
+          <Animated.View style={{ position:'absolute', left: 0, right: 0, top: downAnim }}>
+            <View style={styles.backToOptionsBar}> 
+              <Text style={styles.backText} >Back to options </Text>
+              <TouchableOpacity style={styles.toggle}  onPress={showOptions} >
+                
+                <UpArrowIcon color={colors.deepBlue} />
+              </TouchableOpacity>
+            </View>
+            <FlatList
+              style={styles.list}
+              data={this.props.notesList}
+              renderItem={({item}) => <NoteAccessor key={item.key} title={item.title} onPress={() => this.props.addScanToNote(item.id)} />}
+            />
+          </Animated.View>
+          <Animated.View style={{ transform: [{translateY: upAnim}] }}>
+            <NotesCreator content='Create a new note' onPress={this.props.postCreateNote} />
+            <NotesCreator content='Add to an existing note' onPress={hideOptions} />
+          </Animated.View>
+        </View>
+        <View style={styles.previewContainer} >
+          <SectionTitle content='Preview of the scan' />
+          <Form>
+            <CustomTextArea rowSpan={6} value={this.props.response} />
+          </Form>
+        </View>
       </View>
     )
   }

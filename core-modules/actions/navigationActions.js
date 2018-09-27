@@ -20,3 +20,9 @@ export function navigateToEdit (){
     dispatch(push('/edit'))
   }
 }
+
+export function navigateToTest (){
+  return function(dispatch) {
+    dispatch(push('/test'))
+  }
+}
