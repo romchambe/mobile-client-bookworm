@@ -3,6 +3,7 @@ import LoginHandler from './LoginHandler';
 import NotesIndex from './NotesIndex';
 import ScanFlowContainer from './ScanFlowContainer';
 import EditFlowContainer from './EditFlowContainer';
+import ActionSelectionScreen from './ActionSelectionScreen';
 import CustomFooter from './CustomFooter';
 import ErrorContainer from './ErrorContainer';
 import AssetLoader from './AssetLoader';
@@ -71,6 +72,7 @@ class Root extends React.Component {
                   <LoginHandler />
                 )
               }/>
+              <Route path='/test' render={ props => (<ActionSelectionScreen notesList={this.props.notes.notesList} />) } />
             </Switch>
           </Content>
           <Footer>
@@ -89,6 +91,7 @@ class Root extends React.Component {
 function mapStateToProps(state) {
   return {
     session: state.session,
+    notes: state.notes
   }
 }
 
