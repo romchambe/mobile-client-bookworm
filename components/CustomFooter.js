@@ -40,10 +40,6 @@ class CustomFooter extends React.Component {
           <LogoutIcon color={colors.deepBlue} size={16} />
           <Text style={styles.text}>Logout</Text>
         </Button>
-         <Button vertical onPress={() => this.props.actions.navigateToTest()}>
-          <LogoutIcon color={colors.deepBlue} size={16} />
-          <Text style={styles.text}>animations</Text>
-        </Button>
       </FooterTab>
     )
   }
