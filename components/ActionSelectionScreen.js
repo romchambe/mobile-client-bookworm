@@ -2,7 +2,7 @@ import React from 'react';
 import { colors, padding } from '../assets/styles/base'
 import NotesCreator from './NotesCreator'
 import NoteAccessor from './NoteAccessor'
-import UpArrowIcon from './icons/UpArrowIcon'
+import ForwardArrowIcon from './icons/ForwardArrowIcon'
 import CustomTextArea from './CustomTextArea'
 import SectionTitle from './SectionTitle'
 
@@ -15,52 +15,52 @@ class ActionSelectionScreen extends React.Component {
   constructor(props) {
     super(props); 
     this.state = {
-      notesDisplay: false,
-      upAnim: new Animated.Value(0),
-      downAnim: new Animated.Value(-300), 
+      listDisplay: false,
+      optionsPosition: new Animated.Value(0),
+      listPosition: new Animated.Value(400), 
     }
-  
+    this.showList = this.showList.bind(this);
+    this.showOptions = this.showOptions.bind(this);
+  }
+
+  showList(){
+
+    this.setState({listDisplay: true})
+    Animated.timing(this.state.listPosition, {
+      toValue: 0,
+      duration: 500,
+    }).start()
+  }
+
+  showOptions () {
+    this.setState({listDisplay: false})
+    Animated.timing(this.state.optionsPosition, {
+      toValue: 0,
+      duration: 500,
+    }).start()
   }
 
 
-
-
-
   render () {
-    let {upAnim, downAnim} = this.state
+    let {optionsPosition, listPosition} = this.state
 
-    const showOptions = () => {
-      Animated.parallel([
-       Animated.timing(downAnim, {
-          toValue: -300,
-
-          duration: 500,
-        }),
-        Animated.sequence([
-          Animated.delay(500),
-          Animated.timing(upAnim, {
-            toValue: 0,
-            duration: 500,
-          })
-        ])
-      ]).start()
-    }
     const hideOptions = () => {
-      Animated.parallel([
-        Animated.timing(upAnim, {
-          toValue: -300,
-   
-          duration: 500,
-        }),
-        Animated.sequence([
-          Animated.delay(500),
-          Animated.timing(downAnim, {
-            toValue: 0,
-            duration: 500,
-          })
-        ])
-      ]).start()
-    }
+      Animated.timing(optionsPosition, {
+        toValue: 400,
+        duration: 500,
+      }).start(() => this.showList())
+    } 
+
+    
+    
+    const hideList = () => {
+      Animated.timing(listPosition, {
+        toValue: 400,
+        duration: 500,
+      }).start(() => this.showOptions())
+    } 
+
+    
 
     const { height, width } = Dimensions.get('window');
 
@@ -98,12 +98,8 @@ class ActionSelectionScreen extends React.Component {
         marginBottom: padding.int
       },
       optionsContainer:{
-        flex: 0.8,
-        
+        minHeight: 280
       },
-      previewContainer: {
-        flex: 0.2,
-      }
     })
 
     
@@ -111,12 +107,15 @@ class ActionSelectionScreen extends React.Component {
     return (
       <View style={styles.container}>
         <View style={styles.optionsContainer}>
-          <Animated.View style={{ position:'absolute', left: 0, right: 0, top: downAnim }}>
+          <Animated.View style={{ 
+            display: this.state.listDisplay ? 'flex' : 'none',
+            transform: [{translateX: listPosition}] 
+          }}>
             <View style={styles.backToOptionsBar}> 
               <Text style={styles.backText} >Back to options </Text>
-              <TouchableOpacity style={styles.toggle}  onPress={showOptions} >
+              <TouchableOpacity style={styles.toggle}  onPress={hideList} >
                 
-                <UpArrowIcon color={colors.deepBlue} />
+                <ForwardArrowIcon color={colors.deepBlue} />
               </TouchableOpacity>
             </View>
             <FlatList
@@ -125,12 +124,15 @@ class ActionSelectionScreen extends React.Component {
               renderItem={({item}) => <NoteAccessor key={item.key} title={item.title} onPress={() => this.props.addScanToNote(item.id)} />}
             />
           </Animated.View>
-          <Animated.View style={{ transform: [{translateY: upAnim}] }}>
+          <Animated.View style={{ 
+            display: this.state.listDisplay ? 'none' : 'flex', 
+            transform: [{translateX: optionsPosition}] 
+          }}>
             <NotesCreator content='Create a new note' onPress={this.props.postCreateNote} />
             <NotesCreator content='Add to an existing note' onPress={hideOptions} />
           </Animated.View>
         </View>
-        <View style={styles.previewContainer} >
+        <View>
           <SectionTitle content='Preview of the scan' />
           <Form>
             <CustomTextArea rowSpan={6} value={this.props.response} />
