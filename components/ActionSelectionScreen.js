@@ -24,7 +24,6 @@ class ActionSelectionScreen extends React.Component {
   }
 
   showList(){
-
     this.setState({listDisplay: true})
     Animated.timing(this.state.listPosition, {
       toValue: 0,
@@ -50,8 +49,6 @@ class ActionSelectionScreen extends React.Component {
         duration: 500,
       }).start(() => this.showList())
     } 
-
-    
     
     const hideList = () => {
       Animated.timing(listPosition, {
@@ -59,8 +56,6 @@ class ActionSelectionScreen extends React.Component {
         duration: 500,
       }).start(() => this.showOptions())
     } 
-
-    
 
     const { height, width } = Dimensions.get('window');
 

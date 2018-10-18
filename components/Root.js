@@ -50,6 +50,7 @@ class Root extends React.Component {
                   <LoginHandler />
                 )} 
               /> 
+              
               <Route path='/notes' render={props =>
                 this.props.session.loggedIn === true ? (
                   <NotesIndex />

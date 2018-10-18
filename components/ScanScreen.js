@@ -17,7 +17,6 @@ class ScanScreen extends React.Component {
       pictureTaken: false
     };
     this.takePicture = this.takePicture.bind(this)
-
   }
   
 
