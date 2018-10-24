@@ -3,7 +3,6 @@ import LoginForm from './LoginForm';
 import SignUpForm from './SignUpForm';
 import ToggleButton from './ToggleButton';
 import AssetLoader from './AssetLoader';
-import { Form, Item, Label, Input, Button, Text } from 'native-base';
 import { View, StyleSheet } from 'react-native';
 import { colors, padding } from './../assets/styles/base';
 

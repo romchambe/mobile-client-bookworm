@@ -1,9 +1,9 @@
 import React from 'react';
 
-import { View, StyleSheet } from 'react-native';
+import { View, StyleSheet, Text } from 'react-native';
 import createStyles from './../assets/styles/base';
 import { padding } from './../assets/styles/base';
-import { Text } from 'native-base';
+
 
 
 class TagLine extends React.Component {

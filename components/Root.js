@@ -6,18 +6,14 @@ import EditFlowContainer from './EditFlowContainer';
 import CustomFooter from './CustomFooter';
 import ErrorContainer from './ErrorContainer';
 import AssetLoader from './AssetLoader';
-import { View, Platform } from 'react-native';
-
-// Native Base Theme
-import getTheme from './../native-base-theme/components';
-import commonColor from './../native-base-theme/variables/commonColor';
+import { View, Platform, Text } from 'react-native';
 
 // Subscribe and dispatch to redux store
 import { connect } from 'react-redux';
 
 // External components
 import { NativeRouter, Route, Link, Redirect, Switch, withRouter  } from 'react-router-native';
-import { StyleProvider, Container, Header, Content, Footer, Body, Title, Button, Text, Left, Right } from 'native-base';
+
 
 //Homemade components
 
@@ -25,21 +21,21 @@ import { StyleProvider, Container, Header, Content, Footer, Body, Title, Button,
 class Root extends React.Component {
   render () {
     return (
-      <StyleProvider style={getTheme(commonColor)}>
-        <Container> 
-          <Header>
+
+        <View> 
+          <View>
             { Platform.OS === 'ios' ? null : <Left style={{flex: 1}} />}
            
-            <Body style={ Platform.OS === 'ios' ? 
+            <View style={ Platform.OS === 'ios' ? 
               { backgroundColor: 'transparent' } : 
               { flex: 1, paddingTop: 24, alignItems: 'center'}
             }>
-              <Title style={{fontFamily: 'cabin-bold', textAlign:'center'}}>bookworm</Title>
+              <Text style={{fontFamily: 'cabin-bold', textAlign:'center'}}>bookworm</Text>
             
-            </Body>
+            </View>
             { Platform.OS === 'ios' ? null : <Right style={{flex: 1}}/>}
-          </Header>
-          <Content enableOnAndroid contentContainerStyle={{ flexGrow: 1 }}>
+          </View>
+          <View>
             <ErrorContainer />
             <Switch>
               <Route path='/login' component={LoginHandler} />
@@ -74,15 +70,15 @@ class Root extends React.Component {
               }/>
           
             </Switch>
-          </Content>
-          <Footer>
+          </View>
+          <View>
             { this.props.session.loggedIn ? 
               <CustomFooter /> : 
               null
             }
-          </Footer>
-        </Container>
-      </StyleProvider>
+          </View>
+        </View>
+
     );
 
   }

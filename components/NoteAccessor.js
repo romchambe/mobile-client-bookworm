@@ -1,10 +1,10 @@
 import React from 'react';
 
-import { View, StyleSheet, TouchableOpacity } from 'react-native';
+import { View, StyleSheet, TouchableOpacity, Text } from 'react-native';
 import createStyles from './../assets/styles/base';
 import { padding, colors } from './../assets/styles/base';
 import PenIcon from'./icons/PenIcon';
-import { Text } from 'native-base';
+
 
 
 class NoteAccessor extends React.Component {

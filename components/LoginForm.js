@@ -1,7 +1,6 @@
 import React from 'react';
 import CustomFloatingLabel from './CustomFloatingLabel'
-import { Form, Item, Label, Input, Button, Text } from 'native-base';
-import { View, Image, StyleSheet, Platform } from 'react-native';
+import { View, Image, StyleSheet, Platform, Button, Text } from 'react-native';
 import { colors, padding } from './../assets/styles/base'
 
 import { connect } from 'react-redux';
@@ -80,8 +79,8 @@ class LoginForm extends React.Component {
       }, 
     })
     return (
-      <Form>
-        <View >
+      <View>
+        <View>
           <CustomFloatingLabel 
             label="Email"
             onChangeText={this.handleEmailChange}
@@ -110,7 +109,7 @@ class LoginForm extends React.Component {
             <Text style={styles.facebookText}>Facebook</Text>
           </Button>
         </View>
-      </Form>
+      </View>
     )
   }
 }

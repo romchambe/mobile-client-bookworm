@@ -8,8 +8,8 @@ import AssetLoader from './AssetLoader'
 import * as noteActions from '../core-modules/actions/noteActions'
 import * as navigationActions from '../core-modules/actions/navigationActions'
 
-import { View, FlatList } from 'react-native';
-import { Text } from 'native-base';
+import { View, FlatList, Text} from 'react-native';
+
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
 

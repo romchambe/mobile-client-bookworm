@@ -1,7 +1,7 @@
 import React from 'react';
 import { createStyles, colors, padding, fonts } from './../assets/styles/base.js';
-import { View, StyleSheet, Platform } from 'react-native';
-import { Text, Button } from 'native-base';
+import { View, StyleSheet, Platform, Text, Button } from 'react-native';
+
 
 
 class ToggleButton extends React.Component {
@@ -41,14 +41,11 @@ class ToggleButton extends React.Component {
     return (
       <Button 
         rounded 
+        title={this.props.content}
         style={this.props.active ? styles.activeButton : styles.inactiveButton} 
         onPress={this.props.onPress} 
         transparent={!this.props.active && Platform.OS !== 'ios' ? true : false }
-      >
-        <Text style={this.props.active ? styles.activeText : styles.inactiveText}>
-          {this.props.content}
-        </Text>
-      </Button>
+      />
     )
   }
 }

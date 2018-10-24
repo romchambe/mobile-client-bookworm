@@ -2,8 +2,7 @@ import React from 'react';
 
 import FlowDot from './FlowDot'
 
-import { StyleSheet, View } from 'react-native';
-import { Text } from 'native-base';
+import { StyleSheet, View, Text } from 'react-native';
 import { colors, padding } from './../assets/styles/base.js';
 
 

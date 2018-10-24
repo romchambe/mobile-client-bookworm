@@ -11,7 +11,6 @@ import * as scanFlowActions from '../core-modules/actions/scanFlowActions'
 
 import { FileSystem } from 'expo';
 import { View } from 'react-native';
-import { Text } from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
 

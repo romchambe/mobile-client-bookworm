@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View } from 'react-native';
-import { Spinner, Text } from 'native-base';
+import { StyleSheet, View, Text, ActivityIndicator } from 'react-native';
+
 import { colors } from './../assets/styles/base.js';
 
 
@@ -23,7 +23,7 @@ class PictureLoader extends React.Component {
     return (      
       <View style={stylesheet.centered}>
         <Text style={stylesheet.text}> Bookworming it out... </Text>
-        <Spinner color={colors.yellow} />
+        <ActivityIndicator color={colors.yellow} />
       </View>
     )
   }

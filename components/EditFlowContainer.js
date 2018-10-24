@@ -5,13 +5,11 @@ import ScanScreen from './ScanScreen'
 import ActionSelectionScreen from './ActionSelectionScreen'
 import NoteUpdateScreen from './NoteUpdateScreen'
 import PictureLoader from './PictureLoader'
+import { View, Text } from 'react-native';
 
 import * as noteActions from '../core-modules/actions/noteActions'
 import * as scanFlowActions from '../core-modules/actions/scanFlowActions'
 
-import { FileSystem } from 'expo';
-import { View } from 'react-native';
-import { Text } from 'native-base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
 

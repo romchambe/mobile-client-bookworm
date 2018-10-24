@@ -5,8 +5,8 @@ import CustomTextArea from './CustomTextArea';
 import NotesCreator from './NotesCreator';
 import AssetLoader from './AssetLoader';
 
-import { Form, Button, Text } from 'native-base';
-import { View, Image, StyleSheet } from 'react-native';
+
+import { View, Image, StyleSheet, Button, Text } from 'react-native';
 import { colors, padding } from './../assets/styles/base';
 
 import { connect } from 'react-redux';
@@ -79,38 +79,38 @@ class NoteUpdateScreen extends React.Component {
     })
 
     const scanButton = <View style={styles.buttonContainer}>
-      <Button style={styles.button} onPress={this.props.addScanToNote}>
-        <Text style={styles.text}>Scan new contents for this note</Text>
+      <Button title='Scan new contents for this note' style={styles.button} onPress={this.props.addScanToNote}>
+
       </Button>
     </View>
 
     return (
-      <Form>
-        <View style={{marginTop: 10}} >
-          { this.props.scan ? null : scanButton }
-          <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={() => this.props.putUpdateNote(this.state)}>
-              <Text style={styles.text}>Save note</Text>
-            </Button>
-          </View>
-          <CustomFloatingLabel 
-            label="Note's title"
-            onChangeText={this.handleTitleChange}
-            value={this.state.title}
-          />
-          <CustomFloatingLabel 
-            label="Book name (optional)"
-            onChangeText={this.handleBookChange}
-            value={this.state.book}
-          />
-          <CustomTextArea 
-            rowSpan={7} 
-            value={this.state.content} 
-            placeholder='The content of your note goes here' 
-            onChangeText={this.handleContentChange}
-          />
+   
+      <View style={{marginTop: 10}} >
+        { this.props.scan ? null : scanButton }
+        <View style={styles.buttonContainer}>
+          <Button title='Save note' style={styles.button} onPress={() => this.props.putUpdateNote(this.state)}>
+            
+          </Button>
         </View>
-      </Form>
+        <CustomFloatingLabel 
+          label="Note's title"
+          onChangeText={this.handleTitleChange}
+          value={this.state.title}
+        />
+        <CustomFloatingLabel 
+          label="Book name (optional)"
+          onChangeText={this.handleBookChange}
+          value={this.state.book}
+        />
+        <CustomTextArea 
+          rowSpan={7} 
+          value={this.state.content} 
+          placeholder='The content of your note goes here' 
+          onChangeText={this.handleContentChange}
+        />
+      </View>
+      
     )
   }
 }

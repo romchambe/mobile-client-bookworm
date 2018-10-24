@@ -3,7 +3,7 @@ import { colors, padding } from '../assets/styles/base'
 import CameraIcon from './icons/CameraIcon'
 
 import { View, TouchableOpacity, StyleSheet } from 'react-native';
-import { Text } from 'native-base';
+
 
 
 

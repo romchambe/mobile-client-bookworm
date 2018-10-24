@@ -1,6 +1,6 @@
 import React from 'react';
-import { StyleSheet, View, Text } from 'react-native';
-import { Spinner } from 'native-base';
+import { StyleSheet, View, Text, ActivityIndicator} from 'react-native';
+
 import { colors } from './../assets/styles/base.js';
 
 
@@ -18,7 +18,7 @@ class AssetLoader extends React.Component {
     }) 
     return (      
       <View style={stylesheet.centered}>
-        <Spinner color={colors.yellow} />
+        <ActivityIndicator color={colors.yellow} />
       </View>
     )
   }

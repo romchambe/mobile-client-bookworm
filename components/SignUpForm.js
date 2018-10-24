@@ -1,7 +1,6 @@
 import React from 'react';
 import CustomFloatingLabel from './CustomFloatingLabel'
-import { Form, Item, Label, Input, Button, Text } from 'native-base';
-import { View, Image, StyleSheet, Platform } from 'react-native';
+import { View, Image, StyleSheet, Platform, Button, Text } from 'react-native';
 import { colors, padding } from './../assets/styles/base'
 
 import { connect } from 'react-redux';
@@ -88,7 +87,7 @@ class SignUpForm extends React.Component {
       }, 
     })
     return (
-      <Form>
+      <View>
         <View>
           <CustomFloatingLabel 
             label="Email"
@@ -106,8 +105,8 @@ class SignUpForm extends React.Component {
           />
           
           <View style={styles.buttonContainer}>
-            <Button style={styles.button} onPress={this.postSignUp}>
-              <Text style={styles.text}>Sign up</Text>
+            <Button title='Sign up' style={styles.button} onPress={this.postSignUp}>
+              
             </Button>
           </View>
         </View>
@@ -119,12 +118,11 @@ class SignUpForm extends React.Component {
         </View>
 
         <View style={ styles.buttonContainer}>
-          <Button onPress={this.postFbLogin} style={styles.facebookButton}>
-            <Image style={styles.image} source={require('./../assets/facebook-white.png')}  />
-            <Text style={styles.facebookText}>Facebook</Text>
+          <Button title='Facebook' onPress={this.postFbLogin} style={styles.facebookButton}>
+            <Image style={styles.image} source={require('./../assets/facebook-white.png')} />
           </Button>
         </View>
-      </Form>
+      </View>
     )
   }
 }
