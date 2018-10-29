@@ -13,11 +13,9 @@ export default class Subtitle extends React.Component {
       }
     })
     return (
-      
-        <Text style={styles.subtitle}  numberOfLines={1}>
-          {this.props.children}
-        </Text>
-    
+      <Text style={styles.subtitle}  numberOfLines={1}>
+        {this.props.children}
+      </Text>
     );
   }
 }

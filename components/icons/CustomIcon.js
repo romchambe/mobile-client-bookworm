@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, Image, StyleSheet } from 'react-native';
+import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Path, G } from 'react-native-svg';
 import { MaterialIcons } from '@expo/vector-icons';
 
@@ -87,14 +87,14 @@ export default class CustomIcon extends React.Component {
 
 
     return (
-      <View style={this.props.rounded ? styles.rounded : styles.normal}>
+      <TouchableOpacity style={this.props.rounded ? styles.rounded : styles.normal} onPress={this.props.onPress}>
         <View style={styles.centered}>
           {
             processedIcon(this.props.name)
           }
           
         </View>
-      </View>
+      </TouchableOpacity>
     );
   }
 }

@@ -14,7 +14,7 @@ export default class HeaderTitle extends React.Component {
         minHeight: 40
       },
       title: {
-        fontSize: base.fonts.lg,
+        fontSize: base.fonts.xl,
         fontFamily: 'cabin-bold',
         color: base.colors.blue,
       }

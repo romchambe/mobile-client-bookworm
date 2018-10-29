@@ -6,12 +6,13 @@ export const dimensions = {
 }
   
 export const colors  = {
+  black: '#1E1E24',
   blue: '#424D79',
-  blueMedium: "", 
-  blueLight:"",
+  blueMedium: "#7B82A1", 
+  blueLight:"#AEB3C6",
 
   yellow: '#FFCF99',
-  yellowMedium: "F5DDC3",
+  yellowMedium: "#F5DDC3",
   yellowLight:'#F2E9E4',
   
   grey: '#9A8C98', 
@@ -34,8 +35,9 @@ export const padding = {
 export const fonts = {
 
   sm: 12,
-  md: 18,
-  lg: 20,
+  md: 14,
+  lg: 16,
+  xl: 20,
   primary: 'cabin'
 }
 

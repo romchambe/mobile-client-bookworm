@@ -1,10 +1,12 @@
 import React from 'react';
 import CustomIcon from './icons/CustomIcon';
-import SideMenu from './presentational/SideMenu'
+import Container from './presentational/Container';
+import SideMenu from './presentational/SideMenu';
+import Header from './presentational/Header';
 import HeaderTitle from './presentational/HeaderTitle';
 import ErrorContainer from './ErrorContainer';
 import AssetLoader from './AssetLoader';
-import { View, Platform, StyleSheet, Text } from 'react-native';
+import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity } from 'react-native';
 import * as base from './../assets/styles/base';
 
 // Subscribe and dispatch to redux store
@@ -14,39 +16,107 @@ import { connect } from 'react-redux';
 import { NativeRouter, Route, Link, Redirect, Switch, withRouter  } from 'react-router-native';
 
 
-//Homemade components
-
 
 class Root extends React.Component {
+
   render () {
+
+    const dimensions = {  
+      height: Dimensions.get('window').height,
+      width: Dimensions.get('window').width
+    }
+
     const styles = StyleSheet.create({
-      header: {
-        flex: 1, 
-        flexDirection: 'row',
-        justifyContent: "space-between",
-        alignItems: 'center',
-        minHeight: 76,
-        paddingTop: 28,
-        paddingHorizontal: base.padding.sm,
-        paddingBottom: 8,
+      flexView: {
+        flex: 1
       },
+
     })
+
+    let menuPosition = new Animated.Value(-260)
+   
+    const showMenu = () => {
+      Animated.timing(menuPosition, {
+        toValue: 0,
+        duration: 150
+      }).start()
+    }
+
+    const hideMenu = () => {
+      Animated.timing(menuPosition, {
+        toValue: -260,
+        duration: 150
+      }).start()
+    }
+
     return (
-        <View> 
-          <SideMenu user="Romain" notesCount="3"/>
-          <View style={styles.header}>
-            <CustomIcon name="menu" rounded />
-            <HeaderTitle >
-              Mes livres
-            </HeaderTitle>
-            <CustomIcon name="scan" rounded />
-          </View> 
-          <View>
-            <ErrorContainer />
-          </View>
+      <View style={styles.flexView} >
+        <Animated.View style={{ 
+          flex: 1,
+          transform: [{
+            translateX: menuPosition.interpolate({
+              inputRange: [-260, 0],
+              outputRange: [0, 260]
+            }) 
+          }]
+        }}> 
+          <Animated.View style={{
+            position:'absolute',
+            backgroundColor:"#C6C7C4",
+            width:dimensions.width,
+            height:dimensions.height,
 
-        </View>
-
+            zIndex:menuPosition.interpolate({
+              inputRange: [-260, 0], 
+              outputRange:[0, 5]
+            }),
+            
+            opacity: menuPosition.interpolate({
+              inputRange: [-260, 0], 
+              outputRange:[0, 0.6]
+            }),
+            
+          }} />
+          <Container>
+            <Header>
+              <CustomIcon name="menu" rounded onPress={showMenu}/>
+              <HeaderTitle>
+                Mes livres
+              </HeaderTitle>
+              <CustomIcon name="scan" rounded />
+            </Header> 
+            
+            <View>
+              <ErrorContainer />
+            </View>
+          </Container>
+         
+        </Animated.View>
+        <Animated.View style={{
+          position: 'absolute',
+          zIndex: 10,
+          width:dimensions.width - 260,
+          height:dimensions.height,
+          transform: [{
+            translateX: menuPosition.interpolate({
+              inputRange: [-260, 0],
+              outputRange: [dimensions.width, 260]
+            }) 
+          }],
+          
+        }}>
+          <TouchableOpacity style={styles.flexView} onPress={hideMenu}>
+          </TouchableOpacity>
+        </Animated.View>
+        <Animated.View style={{
+          position: 'absolute',
+          height: dimensions.height,
+          left: menuPosition,
+          
+        }}>
+          <SideMenu user="Romain" noteCount="3"/>
+        </Animated.View>
+      </View> 
     );
 
   }
