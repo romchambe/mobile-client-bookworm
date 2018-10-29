@@ -24,17 +24,18 @@ export const colors  = {
 }
 
 export const padding = {
-  sm: 10,
-  int: 15,
-  md: 20,
-  lg: 30,
-  xl: 40
+  xs: 8,
+  sm: 12,
+  md: 24,
+  lg: 36,
+  xl: 48
 }
 
 export const fonts = {
+
   sm: 12,
   md: 18,
-  lg: 28,
+  lg: 20,
   primary: 'cabin'
 }
 

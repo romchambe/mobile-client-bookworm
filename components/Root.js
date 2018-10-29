@@ -1,12 +1,11 @@
 import React from 'react';
-import LoginHandler from './LoginHandler';
-import NotesIndex from './NotesIndex';
-import ScanFlowContainer from './ScanFlowContainer';
-import EditFlowContainer from './EditFlowContainer';
-import CustomFooter from './CustomFooter';
+import CustomIcon from './icons/CustomIcon';
+import SideMenu from './presentational/SideMenu'
+import HeaderTitle from './presentational/HeaderTitle';
 import ErrorContainer from './ErrorContainer';
 import AssetLoader from './AssetLoader';
-import { View, Platform, Text } from 'react-native';
+import { View, Platform, StyleSheet, Text } from 'react-native';
+import * as base from './../assets/styles/base';
 
 // Subscribe and dispatch to redux store
 import { connect } from 'react-redux';
@@ -20,63 +19,32 @@ import { NativeRouter, Route, Link, Redirect, Switch, withRouter  } from 'react-
 
 class Root extends React.Component {
   render () {
+    const styles = StyleSheet.create({
+      header: {
+        flex: 1, 
+        flexDirection: 'row',
+        justifyContent: "space-between",
+        alignItems: 'center',
+        minHeight: 76,
+        paddingTop: 28,
+        paddingHorizontal: base.padding.sm,
+        paddingBottom: 8,
+      },
+    })
     return (
-
         <View> 
-          <View>
-            { Platform.OS === 'ios' ? null : <Left style={{flex: 1}} />}
-           
-            <View style={ Platform.OS === 'ios' ? 
-              { backgroundColor: 'transparent' } : 
-              { flex: 1, paddingTop: 24, alignItems: 'center'}
-            }>
-              <Text style={{fontFamily: 'cabin-bold', textAlign:'center'}}>bookworm</Text>
-            
-            </View>
-            { Platform.OS === 'ios' ? null : <Right style={{flex: 1}}/>}
-          </View>
+          <SideMenu user="Romain" notesCount="3"/>
+          <View style={styles.header}>
+            <CustomIcon name="menu" rounded />
+            <HeaderTitle >
+              Mes livres
+            </HeaderTitle>
+            <CustomIcon name="scan" rounded />
+          </View> 
           <View>
             <ErrorContainer />
-            <Switch>
-              <Route path='/login' component={LoginHandler} />
-              <Route exact path="/" render={ props =>
-                this.props.session.loggedIn === true ? (
-                  <NotesIndex />
-                ) : (
-                  <LoginHandler />
-                )} 
-              /> 
-              
-              <Route path='/notes' render={props =>
-                this.props.session.loggedIn === true ? (
-                  <NotesIndex />
-                ) : (
-                  <LoginHandler />
-                )
-              }/>
-              <Route path='/scan' render={ props =>
-                this.props.session.loggedIn === true ? (
-                  <ScanFlowContainer />
-                ) : (
-                  <LoginHandler />
-                )
-              }/>
-              <Route path='/edit' render={ props =>
-                this.props.session.loggedIn === true ? (
-                  <EditFlowContainer />
-                ) : (
-                  <LoginHandler />
-                )
-              }/>
-          
-            </Switch>
           </View>
-          <View>
-            { this.props.session.loggedIn ? 
-              <CustomFooter /> : 
-              null
-            }
-          </View>
+
         </View>
 
     );
