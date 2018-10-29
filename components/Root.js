@@ -1,5 +1,5 @@
 import React from 'react';
-import CustomIcon from './icons/CustomIcon';
+import CustomIcon from './presentational/CustomIcon';
 import Container from './presentational/Container';
 import SideMenu from './presentational/SideMenu';
 import Header from './presentational/Header';

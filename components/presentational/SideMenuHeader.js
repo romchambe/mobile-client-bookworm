@@ -21,6 +21,7 @@ export default class SideMenuHeader extends React.Component {
         marginLeft: base.padding.sm,
       }, 
       noteCount:{
+        fontFamily: 'cabin',
         maxWidth: 56,
         marginHorizontal: base.padding.sm,
         textAlign: 'right',
