@@ -6,15 +6,21 @@ export const dimensions = {
 }
   
 export const colors  = {
-  yellow: '#FBE8A6',
-  lightYellow:'#FBE8A6BB',
-  orange: '#EB8F5B',
+  blue: '#424D79',
+  blueMedium: "", 
+  blueLight:"",
+
+  yellow: '#FFCF99',
+  yellowMedium: "F5DDC3",
+  yellowLight:'#F2E9E4',
+  
+  grey: '#9A8C98', 
+  altGrey:'#C9ADA7',
+  
+  orange: '#FFBFA0',
   altOrange: '#F6B26C',
-  deepBlue: '#303C6C',
-  grey: '#B4DFE5', 
-  altGrey:'#71B2BF',
   lightBlue: '#D2FDFF', 
-  red: '#F65E53' 
+  red: '#AF1B3F' 
 }
 
 export const padding = {
