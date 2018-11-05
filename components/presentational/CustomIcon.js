@@ -1,7 +1,7 @@
 import React from 'react';
 import { View, Image, StyleSheet, TouchableOpacity } from 'react-native';
 import Svg, { Path, G } from 'react-native-svg';
-import { MaterialIcons } from '@expo/vector-icons';
+import { MaterialIcons, MaterialCommunityIcons } from '@expo/vector-icons';
 
 import { colors, padding } from './../../assets/styles/base';
 
@@ -56,6 +56,7 @@ export default class CustomIcon extends React.Component {
           paddingTop: 1, 
         }
       },
+      
       scan:{
         type: 'svg',
         size: 18,

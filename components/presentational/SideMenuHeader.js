@@ -22,7 +22,7 @@ export default class SideMenuHeader extends React.Component {
       }, 
       noteCount:{
         fontFamily: 'cabin',
-        maxWidth: 56,
+        width: 56,
         marginHorizontal: base.padding.sm,
         textAlign: 'right',
         color: base.colors.black,

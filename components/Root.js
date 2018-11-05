@@ -4,9 +4,10 @@ import Container from './presentational/Container';
 import SideMenu from './presentational/SideMenu';
 import Header from './presentational/Header';
 import HeaderTitle from './presentational/HeaderTitle';
+import BooksContainer from './containers/BooksContainer';
 import ErrorContainer from './ErrorContainer';
 import AssetLoader from './AssetLoader';
-import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity } from 'react-native';
+import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import * as base from './../assets/styles/base';
 
 // Subscribe and dispatch to redux store
@@ -50,7 +51,7 @@ class Root extends React.Component {
     }
 
     return (
-      <View style={styles.flexView} >
+      <View style={styles.flexView}>
         <Animated.View style={{ 
           flex: 1,
           transform: [{
@@ -77,18 +78,19 @@ class Root extends React.Component {
             }),
             
           }} />
+        
+          <Header>
+            <CustomIcon name="menu" rounded onPress={showMenu}/>
+            <HeaderTitle>
+              Mes livres
+            </HeaderTitle>
+            <CustomIcon name="scan" rounded />
+          </Header> 
           <Container>
-            <Header>
-              <CustomIcon name="menu" rounded onPress={showMenu}/>
-              <HeaderTitle>
-                Mes livres
-              </HeaderTitle>
-              <CustomIcon name="scan" rounded />
-            </Header> 
-            
             <View>
               <ErrorContainer />
             </View>
+            <BooksContainer />
           </Container>
          
         </Animated.View>
