@@ -8,7 +8,10 @@ import { BoxShadow } from 'react-native-shadow'
 
 export default class SearchInput extends React.Component {
   render() {
-    const width =  Dimensions.get('window').width
+    const dimensions = {  
+      height: Dimensions.get('window').height,
+      width: Dimensions.get('window').width
+    }
     
     const styles = StyleSheet.create({
       container:{
@@ -18,7 +21,7 @@ export default class SearchInput extends React.Component {
 
       search:{
         height: 40,
-        width: 0.86 * width,
+        width: dimensions.width - 48,
         paddingHorizontal: base.padding.lg,
         alignItems:'center',
         borderRadius: 4,
@@ -36,7 +39,7 @@ export default class SearchInput extends React.Component {
     });
 
     const shadowOpt = {
-      width:0.86 * width,
+      width: dimensions.width - 48,
       height:40,
       color:this.props.shadowColor,
       border:3,

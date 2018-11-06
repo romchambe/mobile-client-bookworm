@@ -3,7 +3,7 @@ import React from 'react';
 
 import * as base from './../../assets/styles/base';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-
+import { BoxShadow } from 'react-native-shadow'
 
 export default class Book extends React.Component {
 
@@ -17,34 +17,62 @@ export default class Book extends React.Component {
       return badges;
     }
 
+    const dimensions = {  
+      height: Dimensions.get('window').height,
+      width: Dimensions.get('window').width
+    }
+    const shadowOpt = {
+
+      width: dimensions.width - 56,
+      height:88,
+      color:base.colors.blueLight,
+      border:10,
+      radius:8,
+      opacity:0.3,
+      x:0,
+      y:6,
+      style: {position: 'relative', }
+    }
+
     const styles = StyleSheet.create({
       container:{
         flex: 1,
-        maxHeight:80,
-        borderBottomColor: base.colors.blueLight,
-        borderBottomWidth: this.props.last ? 0 : 2
+        maxHeight:88,
+        marginVertical: 8,
+        marginHorizontal: 4,
+        backgroundColor: 'white'
       },
-    
+      card: { 
+        position: 'absolute',
+        top: 0,
+        left: 0,
+        right:0,
+        bottom:0,
+        zIndex: 2,
+        backgroundColor: 'white',
+        paddingHorizontal: 20,
+        borderRadius: 8,
+      },
       firstRow:{
         flex: 1,
         flexDirection: 'row',
         alignItems:'flex-end',
         justifyContent:'space-between',
-        maxHeight: 40
+        maxHeight: 48
       },
       secondRow:{
         flex: 1,
         flexDirection: 'row',
         alignItems:'flex-start',
         justifyContent:'space-between',
-        maxHeight: 40
+        maxHeight: 48
       },
       left:{
-        paddingVertical: 2,
+        paddingVertical: 6,
       },
       right:{
         width: 76,
-        height: 40, 
+        height: 48, 
         paddingVertical: 2,
         flexDirection: 'row',
         justifyContent: 'flex-end'
@@ -64,41 +92,40 @@ export default class Book extends React.Component {
         marginBottom:4
       },
       subtitle:{
-        fontFamily: 'cabin-italic',
+        fontFamily: 'cabin',
         fontSize: base.fonts.sm,
-        color: base.colors.black
+        color: base.colors.blueLight
       }
     });
 
     return (
+       
       <View style={styles.container}>
-
-        <View style={styles.firstRow}>
-          <View style={styles.left}>
-            <Text style={styles.title} numberOfLines={1} > 
-              {this.props.book.title}
-            </Text>
+        <BoxShadow setting={shadowOpt}>
+          <View style={styles.card}>
+            <View style={styles.firstRow}>
+              <View style={styles.left}>
+                <Text style={styles.title} numberOfLines={1} > 
+                  {this.props.book.title}
+                </Text>
+              </View>
+            </View>
+            <View style={styles.secondRow}>
+              <View style={styles.left}>
+                <Text style={styles.subtitle}> 
+                  {this.props.book.author}
+                </Text>
+              </View>
+              <View style={styles.right}>
+                <Text style={styles.subtitle}> 
+                  {this.props.book.quoteCount > 5 ? '+ de 5 ' : this.props.book.quoteCount} citation{this.props.book.quoteCount <= 1 ? '' : 's'}
+                </Text>
+              </View>
+            </View>
           </View>
-          <View style={styles.right}>
-            {
-              generateBadges(this.props.book.quoteCount)
-            }
-          </View>
-        </View>
-        <View style={styles.secondRow}>
-          <View style={styles.left}>
-            <Text style={styles.subtitle}> 
-              {this.props.book.author}
-            </Text>
-          </View>
-          <View style={styles.right}>
-            <Text style={styles.subtitle}> 
-              {this.props.book.quoteCount > 5 ? '+ de 5 ' : this.props.book.quoteCount} citation{this.props.book.quoteCount <= 1 ? '' : 's'}
-            </Text>
-          </View>
-        </View>
-
+        </BoxShadow>
       </View>
+
     );
   }
 }

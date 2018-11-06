@@ -23,7 +23,6 @@ export default class BooksList extends React.Component {
     this.keyboardDidHideListener.remove();
   }
 
-
   _keyboardWillHide(){
     Animated.timing(this.keyboardAvoiding, {
       toValue: 180,
@@ -62,11 +61,10 @@ export default class BooksList extends React.Component {
         minHeight: dimensions.height,
         flex:1,
         justifyContent:'flex-start',
-        marginTop:180
+        marginTop:188
       }
     });
 
-    const searchHandler = () => {}
 
     return (
       <View style={styles.container}>
@@ -111,7 +109,9 @@ export default class BooksList extends React.Component {
           }]
         }}>
           <View style={styles.listContainer}>
-           
+            {
+              this.props.books.map((book,index) => {return <Book key={index} book={book}/>})
+            }
           </View>
         </Animated.View>
 
