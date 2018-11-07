@@ -19,14 +19,14 @@ export default class SearchInput extends React.Component {
       Animated.parallel([
         Animated.sequence([
           Animated.timing(this.opacityAnim, {
-            toValue: 0, 
-            duration: 10,
+            toValue: 0.25, 
+            duration: 20,
           }),
 
           Animated.timing(this.opacityAnim, {
             toValue: 1,
             duration: 200,
-            delay:140
+            delay:120
           })
         ]).start(),
         Animated.timing(this.shadowAnim, {

@@ -8,21 +8,40 @@ import * as base from './../../assets/styles/base';
 import { View, Text, StyleSheet, Image, Dimensions, Animated, Keyboard} from 'react-native';
 
 const FilteredList = (props) => {
-  let list = props.books.map(book => { 
-    if (book.title.includes(filter)) { 
-      book.shown = true
-    } else {
-      book.shown = false
-    }
-    return book
+  let escapePunctuation = /[^A-Za-z0-9_]/g
+
+  let list = props.books.filter(
+    book => (book.title.replace(escapePunctuation,"").match(new RegExp(props.search.replace(escapePunctuation, ""), "i")) ||
+      book.author.replace(escapePunctuation,"").match(new RegExp(props.search.replace(escapePunctuation, ""), "i")))
+  ).map((filteredBook, index) => { 
+    return <Book book={filteredBook} key={index} />
   })
 
+  const dimensions = {  
+    height: Dimensions.get('window').height,
+    width: Dimensions.get('window').width
+  }
 
+  const styles = StyleSheet.create({
+    listContainer:{
+      minHeight: dimensions.height,
+      flex:1,
+      justifyContent:'flex-start',
+      marginTop:188,
+    }
+  })
+
+  
+  return (
+    <View style={styles.listContainer}>
+      {list}
+    </View>
+  )
 }
 
 
 export default class BooksList extends React.Component {
-  state = {search: ''}
+  state = {search: ""}
   keyboardAvoiding = new Animated.Value(180)
     
   componentDidMount () {
@@ -70,13 +89,6 @@ export default class BooksList extends React.Component {
         height: 180,
         zIndex: 0
       },
-     
-      listContainer:{
-        minHeight: dimensions.height,
-        flex:1,
-        justifyContent:'flex-start',
-        marginTop:188
-      }
     });
    
     const searchHandler = (search) => {
@@ -124,7 +136,7 @@ export default class BooksList extends React.Component {
             })
           }]
         }}>
-          <FilteredList books={this.props.books} filter={this.state.search}/>
+          <FilteredList books={this.props.books} search={this.state.search}/>
         </Animated.View>
 
       </View>
