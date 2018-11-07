@@ -18,6 +18,7 @@ const error = (state = [], action) => {
         ...state,
         action.error
       ]
+      
     case types.UPDATE_NOTE_FAILURE:
       return [
         ...state,

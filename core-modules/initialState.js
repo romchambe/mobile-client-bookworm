@@ -4,7 +4,7 @@ export default {
     loggedIn: false, 
     jwt: ''
   },
-  error: [],
+  errors: [],
   user: { 
     isFetching: false, 
     user: {}

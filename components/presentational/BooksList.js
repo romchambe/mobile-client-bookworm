@@ -27,14 +27,23 @@ const FilteredList = (props) => {
       minHeight: dimensions.height,
       flex:1,
       justifyContent:'flex-start',
+
       marginTop:188,
+    },
+    noMatch:{
+      flex: 1,
+      alignItems:'center',
+      textAlign: 'center',
+      marginTop: base.padding.md,
+      fontFamily: 'cabin-italic',
+      color: base.colors.black,
     }
   })
 
   
   return (
     <View style={styles.listContainer}>
-      {list}
+      {list.length > 0 ? list : <Text style={styles.noMatch}>Aucun titre ou auteur ne correspond à votre recherche</Text>}
     </View>
   )
 }

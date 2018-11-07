@@ -5,7 +5,7 @@ import SideMenu from './presentational/SideMenu';
 import Header from './presentational/Header';
 import HeaderTitle from './presentational/HeaderTitle';
 import BooksContainer from './containers/BooksContainer';
-import ErrorContainer from './ErrorContainer';
+import ErrorContainer from './containers/ErrorContainer';
 import AssetLoader from './AssetLoader';
 import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import * as base from './../assets/styles/base';
@@ -19,9 +19,7 @@ import { NativeRouter, Route, Link, Redirect, Switch, withRouter  } from 'react-
 
 
 class Root extends React.Component {
-
   render () {
-
     const dimensions = {  
       height: Dimensions.get('window').height,
       width: Dimensions.get('window').width
@@ -76,7 +74,6 @@ class Root extends React.Component {
               inputRange: [-260, 0], 
               outputRange:[0, 0.6]
             }),
-            
           }} />
         
           <Header>
@@ -86,10 +83,9 @@ class Root extends React.Component {
             </HeaderTitle>
             <CustomIcon name="scan" rounded />
           </Header> 
+          <ErrorContainer />
           <Container>
-            <View>
-              <ErrorContainer />
-            </View>
+           
             <BooksContainer />
           </Container>
          
@@ -114,7 +110,6 @@ class Root extends React.Component {
           position: 'absolute',
           height: dimensions.height,
           left: menuPosition,
-          
         }}>
           <SideMenu user="Romain" noteCount="3"/>
         </Animated.View>
