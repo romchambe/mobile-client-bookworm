@@ -7,13 +7,27 @@ import ListSeparator from './ListSeparator'
 import * as base from './../../assets/styles/base';
 import { View, Text, StyleSheet, Image, Dimensions, Animated, Keyboard} from 'react-native';
 
+const FilteredList = (props) => {
+  let list = props.books.map(book => { 
+    if (book.title.includes(filter)) { 
+      book.shown = true
+    } else {
+      book.shown = false
+    }
+    return book
+  })
+
+
+}
+
+
 export default class BooksList extends React.Component {
+  state = {search: ''}
   keyboardAvoiding = new Animated.Value(180)
     
   componentDidMount () {
     this._keyboardWillShow = this._keyboardWillShow.bind(this)
     this._keyboardWillHide = this._keyboardWillHide.bind(this)
-
     this.keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', this._keyboardWillShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', this._keyboardWillHide);
   }
@@ -64,7 +78,10 @@ export default class BooksList extends React.Component {
         marginTop:188
       }
     });
-
+   
+    const searchHandler = (search) => {
+      this.setState({search: search})
+    }
 
     return (
       <View style={styles.container}>
@@ -79,8 +96,7 @@ export default class BooksList extends React.Component {
           <SearchInput 
             placeholder="Chercher parmi vos livres" 
             onChangeText={(search) => searchHandler(search)} 
-            shadowColor={base.colors.black} 
-            opacity={0.5} 
+            shadow={{color: base.colors.black, opacity: 0.8, radius: 8, offset: {width: 0, height:4,}, elevation: 2}}
           />
         </Animated.View>
 
@@ -108,11 +124,7 @@ export default class BooksList extends React.Component {
             })
           }]
         }}>
-          <View style={styles.listContainer}>
-            {
-              this.props.books.map((book,index) => {return <Book key={index} book={book}/>})
-            }
-          </View>
+          <FilteredList books={this.props.books} filter={this.state.search}/>
         </Animated.View>
 
       </View>

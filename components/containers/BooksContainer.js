@@ -52,10 +52,10 @@ class BooksContainer extends React.Component {
       } else {
         return (
           <BooksList books={[
-            {title: "L'insoutenable légèreté de l'être", author:"Milan Kundera", quoteCount: 7, created_at: "2018-09-25T13:35:34.137Z"},
-            {title: "L'insoupirant de l'âme", author:"Milan Kundera", quoteCount: 7, created_at: "2018-08-25T13:35:34.137Z"},
-            {title: "Bibi et Bubu", author:"Milan Kundera", quoteCount: 7, created_at: "2018-08-25T13:35:34.137Z"},
-            {title: "Bibi et Bertha", author:"Milan Kundera", quoteCount: 7, created_at: "2017-09-25T13:35:34.137Z"}
+            {title: "L'insoutenable légèreté de l'être", author:"Milan Kundera", quoteCount: 97, created_at: "2018-09-25T13:35:34.137Z"},
+            {title: "L'insoupirant de l'âme", author:"Milan Kundera", quoteCount: 15, created_at: "2018-08-25T13:35:34.137Z"},
+            {title: "Bibi et Bubu", author:"Milan Kundera", quoteCount: 1, created_at: "2018-08-25T13:35:34.137Z"},
+            {title: "Bibi et Bertha", author:"Milan Kundera", quoteCount: 8, created_at: "2017-09-25T13:35:34.137Z"}
           ]}/>
         );
       }

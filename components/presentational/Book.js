@@ -3,43 +3,23 @@ import React from 'react';
 
 import * as base from './../../assets/styles/base';
 import { View, Text, StyleSheet, Dimensions } from 'react-native';
-import { BoxShadow } from 'react-native-shadow'
+
 
 export default class Book extends React.Component {
 
   render() {
-    const generateBadges = (count) => {
-      let badges = [];
-      let badgesCount = count > 5 ? 5 : count
-      for (var i = 0; i < badgesCount; i++){
-        badges.push(<View style={styles.badges} key={i} />)
-      }
-      return badges;
-    }
 
     const dimensions = {  
       height: Dimensions.get('window').height,
       width: Dimensions.get('window').width
     }
-    const shadowOpt = {
-
-      width: dimensions.width - 56,
-      height:88,
-      color:base.colors.blueLight,
-      border:10,
-      radius:8,
-      opacity:0.3,
-      x:0,
-      y:6,
-      style: {position: 'relative', }
-    }
+  
 
     const styles = StyleSheet.create({
       container:{
         flex: 1,
         maxHeight:88,
         marginVertical: 8,
-        marginHorizontal: 4,
         backgroundColor: 'white'
       },
       card: { 
@@ -52,6 +32,14 @@ export default class Book extends React.Component {
         backgroundColor: 'white',
         paddingHorizontal: 20,
         borderRadius: 8,
+        elevation: 1,
+        shadowColor: base.colors.blueLight,
+        shadowRadius: 6,
+        shadowOffset:  { 
+          width: 0,
+          height: 4,
+        },
+        shadowOpacity: 1
       },
       firstRow:{
         flex: 1,
@@ -72,8 +60,8 @@ export default class Book extends React.Component {
       },
       right:{
         width: 76,
-        height: 48, 
-        paddingVertical: 2,
+        height: 44, 
+        paddingVertical: 6,
         flexDirection: 'row',
         justifyContent: 'flex-end'
       },
@@ -82,48 +70,59 @@ export default class Book extends React.Component {
         fontFamily:'cabin-bold',
         fontSize: base.fonts.md,
       }, 
-      badges:{
-        height: 10, 
-        width: 10,
-        borderRadius:5,
-        backgroundColor: base.colors.yellowMedium,
-        alignSelf: 'flex-end',
-        marginLeft:6,
-        marginBottom:4
+      badge:{
+        height: 24, 
+        width: 24,
+        borderRadius:12,
+        backgroundColor: base.colors.blueLight,
+        justifyContent: 'center',
+        alignItems:'center',
+        marginTop: -4
+
+      },
+      badgeText:{
+        fontFamily: 'cabin-bold',
+        fontSize: base.fonts.sm, 
+        color: 'white',
+        paddingLeft: 1
       },
       subtitle:{
         fontFamily: 'cabin',
         fontSize: base.fonts.sm,
-        color: base.colors.blueLight
+        color: base.colors.blueLight,
+        marginRight: 8,
       }
     });
 
     return (
        
       <View style={styles.container}>
-        <BoxShadow setting={shadowOpt}>
-          <View style={styles.card}>
-            <View style={styles.firstRow}>
-              <View style={styles.left}>
-                <Text style={styles.title} numberOfLines={1} > 
-                  {this.props.book.title}
-                </Text>
-              </View>
+        <View style={styles.card}>
+          <View style={styles.firstRow}>
+            <View style={styles.left}>
+              <Text style={styles.title} numberOfLines={1} > 
+                {this.props.book.title}
+              </Text>
             </View>
-            <View style={styles.secondRow}>
-              <View style={styles.left}>
-                <Text style={styles.subtitle}> 
-                  {this.props.book.author}
-                </Text>
-              </View>
-              <View style={styles.right}>
-                <Text style={styles.subtitle}> 
-                  {this.props.book.quoteCount > 5 ? '+ de 5 ' : this.props.book.quoteCount} citation{this.props.book.quoteCount <= 1 ? '' : 's'}
+          </View>
+          <View style={styles.secondRow}>
+            <View style={styles.left}>
+              <Text style={styles.subtitle}> 
+                {this.props.book.author}
+              </Text>
+            </View>
+            <View style={styles.right}>
+              <Text style={styles.subtitle}> 
+                Citations: 
+              </Text>
+              <View style={styles.badge}>
+                <Text style={styles.badgeText}>
+                  {this.props.book.quoteCount}
                 </Text>
               </View>
             </View>
           </View>
-        </BoxShadow>
+        </View>
       </View>
 
     );
