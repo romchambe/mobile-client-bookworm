@@ -5,7 +5,7 @@ import { StyleSheet, View, Text, Dimensions, Animated } from 'react-native';
 import * as base from './../../assets/styles/base';
 import { connect } from 'react-redux';
 
-class ErrorContainer extends React.Component {
+class ErrorsContainer extends React.Component {
   height = new Animated.Value(0)
 
   componentDidMount(){
@@ -73,4 +73,4 @@ function mapStateToProps(state){
   }
 }
 
-export default connect(mapStateToProps)(ErrorContainer)
+export default connect(mapStateToProps)(ErrorsContainer)

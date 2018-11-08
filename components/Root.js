@@ -1,24 +1,42 @@
 import React from 'react';
+
 import CustomIcon from './presentational/CustomIcon';
 import Container from './presentational/Container';
 import SideMenu from './presentational/SideMenu';
 import Header from './presentational/Header';
 import HeaderTitle from './presentational/HeaderTitle';
+
 import BooksContainer from './containers/BooksContainer';
-import ErrorContainer from './containers/ErrorContainer';
+import ErrorsContainer from './containers/ErrorsContainer';
+import NewBookContainer from './containers/NewBookContainer';
+
 import AssetLoader from './AssetLoader';
 import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import * as base from './../assets/styles/base';
 
 // Subscribe and dispatch to redux store
 import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'; 
+import * as navigationActions from './../core-modules/actions/navigationActions'
 
 // External components
 import { NativeRouter, Route, Link, Redirect, Switch, withRouter  } from 'react-router-native';
 
-
-
 class Root extends React.Component {
+  constructor(props){
+    super(props)
+    this.navigateTo = this.navigateTo.bind(this)
+  }
+
+  navigateTo(nextPage){
+    switch(nextPage){
+      case 'books': 
+        return this.props.actions.navigateToBooks();
+      case 'new':
+        return this.props.actions.navigateToNew();
+    }
+  }
+
   render () {
     const dimensions = {  
       height: Dimensions.get('window').height,
@@ -29,8 +47,8 @@ class Root extends React.Component {
       flexView: {
         flex: 1
       },
-
     })
+
 
     let menuPosition = new Animated.Value(-260)
    
@@ -47,6 +65,17 @@ class Root extends React.Component {
         duration: 150
       }).start()
     }
+
+    const hideNavigate = (nextPage) => {
+      Animated.timing(menuPosition, {
+        toValue: -260,
+        duration: 150
+      }).start(() => {
+        this.navigateTo(nextPage)
+      })
+    }
+
+
 
     return (
       <View style={styles.flexView}>
@@ -83,10 +112,17 @@ class Root extends React.Component {
             </HeaderTitle>
             <CustomIcon name="scan" rounded />
           </Header> 
-          <ErrorContainer />
+          <ErrorsContainer />
           <Container>
+             <Switch>
            
-            <BooksContainer />
+              <Route exact path="/" component={BooksContainer}/> 
+              <Route exact path="/books" component={BooksContainer}/> 
+              <Route path='/new' component={NewBookContainer}/>
+          
+          
+            </Switch>
+            
           </Container>
          
         </Animated.View>
@@ -111,7 +147,7 @@ class Root extends React.Component {
           height: dimensions.height,
           left: menuPosition,
         }}>
-          <SideMenu user="Romain" noteCount="3"/>
+          <SideMenu user="Romain" noteCount="3" navigate={hideNavigate} />
         </Animated.View>
       </View> 
     );
@@ -125,5 +161,10 @@ function mapStateToProps(state) {
     notes: state.notes
   }
 }
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(navigationActions, dispatch)
+  }
+}
 
-export default withRouter(connect(mapStateToProps)(Root))
+export default withRouter(connect(mapStateToProps,mapDispatchToProps)(Root))

@@ -3,9 +3,9 @@ import { push } from 'connected-react-router';
 
 // Navigation helpers
 
-export function navigateToNotes (){
+export function navigateToBooks (){
   return function(dispatch) {
-    dispatch(push('/notes'))
+    dispatch(push('/books'))
   }
 }
 
@@ -15,8 +15,15 @@ export function navigateToScan (){
   }
 }
 
+export function navigateToNew (){
+  return function(dispatch) {
+    dispatch(push('/new'))
+  }
+}
+
 export function navigateToEdit (){
   return function(dispatch) {
     dispatch(push('/edit'))
   }
 }
+

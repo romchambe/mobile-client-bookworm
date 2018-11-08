@@ -1,12 +1,27 @@
 import React from 'react';
+
 import SideMenuHeader from './SideMenuHeader';
 import SideMenuLink from './SideMenuLink';
 import PublicLink from './PublicLink'
 import * as base from './../../assets/styles/base';
+
 import { View, Text, StyleSheet } from 'react-native';
 
-export default class SideMenu extends React.Component {
-  render() {
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'; 
+import * as navigationActions from './../../core-modules/actions/navigationActions'
+
+class SideMenu extends React.Component {
+  constructor(props){
+    super(props)
+    this.navigate = this.navigate.bind(this)
+  }
+
+  navigate(link){
+    this.props.navigate(link)
+  }
+
+  render() { 
     const styles = StyleSheet.create({
       container:{
         flex: 1,
@@ -25,16 +40,15 @@ export default class SideMenu extends React.Component {
       linkContainer:{
         flex:2, 
         paddingVertical: 40, 
-      }
-      
+      }      
     })
-    return (
 
+    return (
       <View style={styles.container}>
         <SideMenuHeader name={this.props.user} noteCount={this.props.noteCount} />
         <View style={styles.menuContainer}>
-          <SideMenuLink name="book" menuItem="Mes livres" />
-          <SideMenuLink name="note-add" menuItem="Nouveau livre" />
+          <SideMenuLink name="book" menuItem="Mes livres"  link='books' onPress={this.navigate}/>
+          <SideMenuLink name="note-add" menuItem="Nouveau livre" link='new' onPress={this.navigate}/>
           <SideMenuLink name="person" menuItem="Profil" />  
         </View>
         <View style={styles.linkContainer}>
@@ -45,3 +59,11 @@ export default class SideMenu extends React.Component {
     );
   }
 }
+
+function mapDispatchToProps(dispatch){
+  return {
+    actions: bindActionCreators(navigationActions, dispatch)
+  }
+}
+
+export default connect(null, mapDispatchToProps)(SideMenu)
