@@ -25,6 +25,9 @@ import { NativeRouter, Route, Link, Redirect, Switch, withRouter  } from 'react-
 class Root extends React.Component {
   constructor(props){
     super(props)
+    this.state = {
+      menuPosition: new Animated.Value(-260)
+    }
     this.navigateTo = this.navigateTo.bind(this)
   }
 
@@ -48,26 +51,23 @@ class Root extends React.Component {
         flex: 1
       },
     })
-
-
-    let menuPosition = new Animated.Value(-260)
    
     const showMenu = () => {
-      Animated.timing(menuPosition, {
+      Animated.timing(this.state.menuPosition, {
         toValue: 0,
         duration: 150
       }).start()
     }
 
     const hideMenu = () => {
-      Animated.timing(menuPosition, {
+      Animated.timing(this.state.menuPosition, {
         toValue: -260,
         duration: 150
       }).start()
     }
 
     const hideNavigate = (nextPage) => {
-      Animated.timing(menuPosition, {
+      Animated.timing(this.state.menuPosition, {
         toValue: -260,
         duration: 150
       }).start(() => {
@@ -82,7 +82,7 @@ class Root extends React.Component {
         <Animated.View style={{ 
           flex: 1,
           transform: [{
-            translateX: menuPosition.interpolate({
+            translateX: this.state.menuPosition.interpolate({
               inputRange: [-260, 0],
               outputRange: [0, 260]
             }) 
@@ -94,12 +94,12 @@ class Root extends React.Component {
             width:dimensions.width,
             height:dimensions.height,
 
-            zIndex:menuPosition.interpolate({
+            zIndex: this.state.menuPosition.interpolate({
               inputRange: [-260, 0], 
               outputRange:[0, 5]
             }),
             
-            opacity: menuPosition.interpolate({
+            opacity: this.state.menuPosition.interpolate({
               inputRange: [-260, 0], 
               outputRange:[0, 0.6]
             }),
@@ -132,7 +132,7 @@ class Root extends React.Component {
           width:dimensions.width - 260,
           height:dimensions.height,
           transform: [{
-            translateX: menuPosition.interpolate({
+            translateX: this.state.menuPosition.interpolate({
               inputRange: [-260, 0],
               outputRange: [dimensions.width, 260]
             }) 
@@ -145,7 +145,7 @@ class Root extends React.Component {
         <Animated.View style={{
           position: 'absolute',
           height: dimensions.height,
-          left: menuPosition,
+          left: this.state.menuPosition,
         }}>
           <SideMenu user="Romain" noteCount="3" navigate={hideNavigate} />
         </Animated.View>

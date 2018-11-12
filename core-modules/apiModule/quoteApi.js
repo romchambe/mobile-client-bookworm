@@ -1,11 +1,11 @@
 import { buildAddress } from './buildAddress'
 
-class scanApi {
-  static postScan(payload,client) {
-    const address = buildAddress(client, 'scans')
+class quoteApi {
+  static postQuote(payload,client) {
+    const address = buildAddress(client, 'quotes')
     
     const date = new Date;
-    var filename = 'scan-' + date.toLocaleTimeString('fr-FR').substring(0,5) + '.jpg'
+    var filename = 'quote-' + date.toLocaleTimeString('fr-FR').substring(0,5) + '.jpg'
 
     const data = new FormData();
 
@@ -44,4 +44,4 @@ class scanApi {
   // }
 }
 
-export default scanApi
+export default quoteApi

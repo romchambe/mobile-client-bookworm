@@ -93,7 +93,7 @@ class EditFlowContainer extends React.Component {
 function mapStateToProps(state){
   return {
     jwt: state.session.jwt,
-    notes: state.notes,
+    books: state.books,
     scanFlow: state.scanFlow
   }
 }

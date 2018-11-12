@@ -1,8 +1,8 @@
 import { buildAddress } from './buildAddress'
 
-class noteApi {
-  static postCreateNote(payload, client) {
-    const address = buildAddress(client, 'notes')
+class bookApi {
+  static postBook(payload, client) {
+    const address = buildAddress(client, 'books')
     const date = new Date;
     
     var title = 'Draft - ' + date.toLocaleDateString('fr-FR') + ' ' + date.toLocaleTimeString('fr-FR').substring(0,5)
@@ -14,7 +14,7 @@ class noteApi {
         'Content-Type': 'application/json', 
         'AUTHORIZATION': `Bearer ${payload.jwt},`
       }), 
-      body: JSON.stringify({title: title, content: content})
+      body: JSON.stringify({title: title, author: author})
     });
 
     return fetch(request).then(response => {
@@ -22,8 +22,8 @@ class noteApi {
     });
   }
 
-  static getNotesIndex(payload, client) {
-    const address = buildAddress(client, 'notes_index')
+  static getBooks(payload, client) {
+    const address = buildAddress(client, 'books')
 
     
     const request = new Request(address, {
@@ -39,8 +39,8 @@ class noteApi {
     });
   }
 
-  static putUpdateNote(payload, client) {
-    const address = buildAddress(client, 'notes')
+  static updateBook(payload, client) {
+    const address = buildAddress(client, 'books')
     const request = new Request(address, {
       method: 'PUT',
       headers: new Headers({
@@ -62,4 +62,4 @@ class noteApi {
   }
 }
 
-export default noteApi
+export default bookApi

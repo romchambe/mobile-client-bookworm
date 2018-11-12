@@ -2,10 +2,11 @@ import React from 'react';
 
 import Book from './Book'
 import SearchInput from './SearchInput'
+import MainButton from './MainButton'
 import ListSeparator from './ListSeparator'
 
 import * as base from './../../assets/styles/base';
-import { View, Text, StyleSheet, Image, Dimensions, Animated, Keyboard} from 'react-native';
+import { View, Text, StyleSheet, Image, Dimensions, Animated, Keyboard, ScrollView, Easing} from 'react-native';
 
 const FilteredList = (props) => {
   let escapePunctuation = /[^A-Za-z0-9_]/g
@@ -24,10 +25,9 @@ const FilteredList = (props) => {
 
   const styles = StyleSheet.create({
     listContainer:{
-      minHeight: dimensions.height,
+      minHeight: dimensions.height - 264,
       flex:1,
       justifyContent:'flex-start',
-
       marginTop:188,
     },
     noMatch:{
@@ -50,8 +50,11 @@ const FilteredList = (props) => {
 
 
 export default class BooksList extends React.Component {
-  state = {search: ""}
-  keyboardAvoiding = new Animated.Value(180)
+  state = {
+    search: "",
+    keyboardAvoiding: new Animated.Value(180)
+  }
+  
     
   componentDidMount () {
     this._keyboardWillShow = this._keyboardWillShow.bind(this)
@@ -65,17 +68,19 @@ export default class BooksList extends React.Component {
     this.keyboardDidHideListener.remove();
   }
 
-  _keyboardWillHide(){
-    Animated.timing(this.keyboardAvoiding, {
+  _keyboardWillHide(e){
+    Animated.timing(this.state.keyboardAvoiding, {
       toValue: 180,
-      duration: 100
+      duration: e.duration,
+      easing: Easing.bezier(0.1, 0.76, 0.55, 0.9)
     }).start()
   }
 
-  _keyboardWillShow(){
-    Animated.timing(this.keyboardAvoiding, {
+  _keyboardWillShow(e){
+    Animated.timing(this.state.keyboardAvoiding, {
       toValue: 80,
-      duration: 100
+      duration: e.duration,
+       easing: Easing.bezier(0.1, 0.76, 0.55, 0.9)
     }).start()
   }
 
@@ -98,6 +103,17 @@ export default class BooksList extends React.Component {
         height: 180,
         zIndex: 0
       },
+
+      bottomActions:{
+        position:'absolute',
+        bottom: 0,
+        left: 0,
+        height: 72,
+        alignItems: 'center',
+        width: dimensions.width - 2 * base.padding.md,
+        paddingTop: base.padding.xs,
+        paddingBottom: base.padding.md
+      }
     });
    
     const searchHandler = (search) => {
@@ -109,7 +125,7 @@ export default class BooksList extends React.Component {
         <Animated.View style={{ 
           position: 'absolute',
           zIndex: 10,
-          top: this.keyboardAvoiding.interpolate({
+          top: this.state.keyboardAvoiding.interpolate({
             inputRange: [80, 180],
             outputRange: [20, 70],
           })
@@ -129,23 +145,34 @@ export default class BooksList extends React.Component {
           marginHorizontal: - base.padding.md, 
           width: dimensions.width, 
           overflow: 'hidden',
-          height: this.keyboardAvoiding
+          height: this.state.keyboardAvoiding
         }}>
           <Image
             style={styles.imageContainer}
             source={require('./../../assets/cover.jpg')}
           />
         </Animated.View>
-        
-        <Animated.View style={{
+        <ScrollView>
+          <Animated.View style={{
+            transform: [{
+              translateY: this.state.keyboardAvoiding.interpolate({
+                inputRange: [80, 180],
+                outputRange: [-100, 0],
+              })
+            }]
+          }}>
+            <FilteredList books={this.props.books} search={this.state.search}/>
+          </Animated.View>
+        </ScrollView>
+        <Animated.View style={[styles.bottomActions, {
           transform: [{
-            translateY: this.keyboardAvoiding.interpolate({
+            translateY: this.state.keyboardAvoiding.interpolate({
               inputRange: [80, 180],
-              outputRange: [-100, 0],
+              outputRange: [-248, 0],
             })
           }]
-        }}>
-          <FilteredList books={this.props.books} search={this.state.search}/>
+        }]}>
+          <MainButton height={40} legend="Nouveau Livre" onPress={this.props.newBook}/>
         </Animated.View>
 
       </View>

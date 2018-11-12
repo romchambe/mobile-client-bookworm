@@ -6,10 +6,10 @@ import BooksList from './../presentational/BooksList'
 
 import * as base from './../../assets/styles/base';
 
-import * as noteActions from './../../core-modules/actions/noteActions'
+import * as bookActions from './../../core-modules/actions/bookActions'
 import * as navigationActions from './../../core-modules/actions/navigationActions'
 
-import { View, FlatList, Text, Animated, Dimensions, StyleSheet } from 'react-native';
+import { View, FlatList, Text, Animated, Dimensions, StyleSheet, Easing } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
@@ -17,34 +17,34 @@ import { bindActionCreators } from 'redux';
 class BooksContainer extends React.Component {
   constructor(props){
     super(props)
+    this.state = {
+      offset: new Animated.Value(1)
+    }
+    this.navigateToNew = this.navigateToNew.bind(this)
   }
 
-  offset = new Animated.Value(1)
   componentDidMount() {
-
-    Animated.timing(this.offset, {
+    Animated.timing(this.state.offset, {
       toValue: 0,
-      duration: 250,
+      duration: 200
     }).start()
-
-    
   }
 
-  async postCreateNote(e) {
-    await this.props.actions.createNote({jwt: this.props.jwt}, 'mobile');
-    this.props.actions.navigateToEdit();
+  navigateToNew(){
+    Animated.timing(this.state.offset, {
+      toValue: -1,
+      duration: 100,
+    }).start(() => this.props.actions.navigateToNew());
   }
 
-  setCurrentNote = (noteId) => {
-    let note = this.props.notes.notesList.find((item) => {
-      return item.id === noteId
+  setCurrentBook = (bookId) => {
+    let book = this.props.books.booksList.find((item) => {
+      return item.id === bookId
     })
-   
-    this.props.actions.setCurrentNote(note);
+    this.props.actions.setCurrentBook(book);
     this.props.actions.navigateToEdit();
   }
 
-  
 
   render () {
 
@@ -52,54 +52,46 @@ class BooksContainer extends React.Component {
     
     const styles = StyleSheet.create({
       container: {
-        flex: 1
+        flex: 1,
       }
     })
 
-    if (this.props.notes.isFetchingNotes) {
-      return (
-        <AssetLoader />
-      );
-    } else { 
-      if (this.props.notes.notesList.length > 0){
-        return (
-          <EmptyBooksList newBook={this.postCreateNote} />
-        );
-      } else {
-        return (
-          <Animated.View style={
-            [styles.container,{
-              transform: [{
-                translateX: this.offset.interpolate({
-                  inputRange: [0, 1],
-                  outputRange: [0, width]
-                })
-              }] 
-            }]
-          }>
-            <BooksList books={[
-              {title: "L'insoutenable légèreté de l'être", author:"Jean Pierre Connard", quoteCount: 97, created_at: "2018-09-25T13:35:34.137Z"},
-              {title: "L'insoupirant de l'âme", author:"Milan Kundera", quoteCount: 15, created_at: "2018-08-25T13:35:34.137Z"},
-              {title: "Bibi et Bubu", author:"Milan Kundera", quoteCount: 1, created_at: "2018-08-25T13:35:34.137Z"},
-              {title: "Bibi et Bertha", author:"Milan Kundera", quoteCount: 8, created_at: "2017-09-25T13:35:34.137Z"}
-            ]}/>
-          </Animated.View>
-        );
-      }
-    }
+    let content = this.props.books.isFetchingBooks ? 
+      <AssetLoader /> :
+      this.props.books.booksList.length > 0 ? 
+        <BooksList books={this.props.books.booksList} newBook={this.navigateToNew}/> :
+        <EmptyBooksList newBook={this.navigateToNew} /> 
+
+      
+      
+
+    return (
+      <Animated.View style={
+        [styles.container, {
+          transform: [{
+            translateX: this.state.offset.interpolate({
+              inputRange: [-1, 0, 1],
+              outputRange: [- width, 0, width]
+            })
+          }] 
+        }]
+      }>
+        {content}
+      </Animated.View>
+    )
   }
 }
 
 function mapStateToProps(state){
   return {
     jwt: state.session.jwt,
-    notes: state.notes
+    books: state.books
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(Object.assign({},noteActions, navigationActions),dispatch)
+    actions: bindActionCreators(Object.assign({}, bookActions, navigationActions),dispatch)
   }
 }
 export default connect(mapStateToProps, mapDispatchToProps)(BooksContainer)

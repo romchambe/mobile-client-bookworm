@@ -20,18 +20,18 @@ export default class SearchInput extends React.Component {
         Animated.sequence([
           Animated.timing(this.opacityAnim, {
             toValue: 0.25, 
-            duration: 20,
+            duration: 50,
           }),
 
           Animated.timing(this.opacityAnim, {
             toValue: 1,
             duration: 200,
-            delay:120
+            delay:100
           })
         ]).start(),
         Animated.timing(this.shadowAnim, {
           toValue: 0.4,
-          duration: 50
+          duration: 350
         })
       ]).start()
     }
