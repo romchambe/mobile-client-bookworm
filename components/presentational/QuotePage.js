@@ -16,7 +16,6 @@ export default class QuotePage extends React.Component {
     this.state = {
       growBottom: new Animated.Value(0),
       spaced: false,
-
       quoteHeight: 26,
       titleHeight: 26,
       quote: '',
@@ -62,14 +61,10 @@ export default class QuotePage extends React.Component {
   maxTitleHeight = 88
 
   handleQuoteHeight(e){
-    console.log('quote')
-    console.log(e.nativeEvent.contentSize.height)
     this.setState({ quoteHeight: Math.min(e.nativeEvent.contentSize.height, this.maxQuoteHeight)})
   }
 
   handleTitleHeight(e){
-    console.log('title')
-        console.log(e.nativeEvent.contentSize.height)
     this.setState({ titleHeight: Math.min(e.nativeEvent.contentSize.height, this.maxTitleHeight)})
   }
 
@@ -168,7 +163,7 @@ export default class QuotePage extends React.Component {
               }),
             }
           ]}>
-            Ou ajoutez là vous-même!
+            Ou ajoutez-la vous-même!
           </Animated.Text>
 
           <InputLegend legend="Saisissez le texte de votre citation" />
@@ -200,10 +195,7 @@ export default class QuotePage extends React.Component {
               placeholder='Exemple: "Rencontre avec Kurtz"' 
             />
           </Animated.View>
-         
         </ScrollView>
-
-
       </View>
     );
   }

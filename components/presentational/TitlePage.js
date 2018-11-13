@@ -16,7 +16,6 @@ export default class TitlePage extends React.Component {
         paddingHorizontal: base.padding.md
       },
       margin:{
-
         marginBottom: base.padding.md 
       }
     })

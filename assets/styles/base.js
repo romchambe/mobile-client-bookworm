@@ -36,8 +36,8 @@ export const fonts = {
 
   sm: 12,
   md: 14,
-  lg: 16,
-  xl: 20,
+  lg: 18,
+  xl: 24,
   primary: 'cabin'
 }
 

@@ -59,8 +59,9 @@ class BooksContainer extends React.Component {
     let content = this.props.books.isFetchingBooks ? 
       <AssetLoader /> :
       this.props.books.booksList.length > 0 ? 
-        <BooksList books={this.props.books.booksList} newBook={this.navigateToNew}/> :
-        <EmptyBooksList newBook={this.navigateToNew} /> 
+        
+        <EmptyBooksList newBook={this.navigateToNew} /> :
+        <BooksList books={this.props.books.booksList} newBook={this.navigateToNew}/> 
 
       
       

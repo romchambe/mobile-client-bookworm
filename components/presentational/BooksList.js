@@ -4,49 +4,11 @@ import Book from './Book'
 import SearchInput from './SearchInput'
 import MainButton from './MainButton'
 import ListSeparator from './ListSeparator'
+import FilteredList from './FilteredList'
 
 import * as base from './../../assets/styles/base';
 import { View, Text, StyleSheet, Image, Dimensions, Animated, Keyboard, ScrollView, Easing} from 'react-native';
 
-const FilteredList = (props) => {
-  let escapePunctuation = /[^A-Za-z0-9_]/g
-
-  let list = props.books.filter(
-    book => (book.title.replace(escapePunctuation,"").match(new RegExp(props.search.replace(escapePunctuation, ""), "i")) ||
-      book.author.replace(escapePunctuation,"").match(new RegExp(props.search.replace(escapePunctuation, ""), "i")))
-  ).map((filteredBook, index) => { 
-    return <Book book={filteredBook} key={index} />
-  })
-
-  const dimensions = {  
-    height: Dimensions.get('window').height,
-    width: Dimensions.get('window').width
-  }
-
-  const styles = StyleSheet.create({
-    listContainer:{
-      minHeight: dimensions.height - 264,
-      flex:1,
-      justifyContent:'flex-start',
-      marginTop:188,
-    },
-    noMatch:{
-      flex: 1,
-      alignItems:'center',
-      textAlign: 'center',
-      marginTop: base.padding.md,
-      fontFamily: 'cabin-italic',
-      color: base.colors.black,
-    }
-  })
-
-  
-  return (
-    <View style={styles.listContainer}>
-      {list.length > 0 ? list : <Text style={styles.noMatch}>Aucun titre ou auteur ne correspond à votre recherche</Text>}
-    </View>
-  )
-}
 
 
 export default class BooksList extends React.Component {
@@ -103,14 +65,17 @@ export default class BooksList extends React.Component {
         height: 180,
         zIndex: 0
       },
-
+      listContainer:{
+        marginTop: 188,
+        paddingHorizontal: base.padding.md
+      },
       bottomActions:{
         position:'absolute',
         bottom: 0,
         left: 0,
+        right: 0,
         height: 72,
         alignItems: 'center',
-        width: dimensions.width - 2 * base.padding.md,
         paddingTop: base.padding.xs,
         paddingBottom: base.padding.md
       }
@@ -124,6 +89,9 @@ export default class BooksList extends React.Component {
       <View style={styles.container}>
         <Animated.View style={{ 
           position: 'absolute',
+          height:40, 
+          left: 20,
+          right:20,
           zIndex: 10,
           top: this.state.keyboardAvoiding.interpolate({
             inputRange: [80, 180],
@@ -142,7 +110,6 @@ export default class BooksList extends React.Component {
           top: 0, 
           left: 0,
           zIndex: 5, 
-          marginHorizontal: - base.padding.md, 
           width: dimensions.width, 
           overflow: 'hidden',
           height: this.state.keyboardAvoiding
@@ -153,22 +120,30 @@ export default class BooksList extends React.Component {
           />
         </Animated.View>
         <ScrollView>
-          <Animated.View style={{
-            transform: [{
-              translateY: this.state.keyboardAvoiding.interpolate({
-                inputRange: [80, 180],
-                outputRange: [-100, 0],
-              })
-            }]
-          }}>
-            <FilteredList books={this.props.books} search={this.state.search}/>
+          <Animated.View style={[styles.listContainer, 
+            {
+              transform: [{
+                translateY: this.state.keyboardAvoiding.interpolate({
+                  inputRange: [80, 180],
+                  outputRange: [-100, 0],
+                })
+              }]
+            }
+          ]}>
+            <FilteredList books=
+              {[ 
+                {author: 'Milan Kundera', title: "L'insoutenable légèreté de l'être", quoteCount: 5},
+                {author: 'Milan Kundera', title: "L'insoutenable légèreté de l'être", quoteCount: 5}
+              ]} 
+              search={this.state.search}
+            />
           </Animated.View>
         </ScrollView>
         <Animated.View style={[styles.bottomActions, {
           transform: [{
             translateY: this.state.keyboardAvoiding.interpolate({
               inputRange: [80, 180],
-              outputRange: [-248, 0],
+              outputRange: [72, 0],
             })
           }]
         }]}>

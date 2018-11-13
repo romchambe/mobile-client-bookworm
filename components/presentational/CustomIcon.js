@@ -127,10 +127,7 @@ export default class CustomIcon extends React.Component {
     return (
       <TouchableOpacity style={this.props.rounded ? styles.rounded : styles.normal} onPress={this.props.onPress}>
         <View style={styles.centered}>
-          {
-            processedIcon(this.props.name)
-          }
-          
+          { processedIcon(this.props.name) }
         </View>
       </TouchableOpacity>
     );

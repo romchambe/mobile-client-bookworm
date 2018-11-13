@@ -47,16 +47,24 @@ export default class SearchInput extends React.Component {
       container:{
         flex: 1, 
         borderRadius: 4, 
-        marginHorizontal: -4,
         backgroundColor: 'white'
       },
       shadowBox:{
-        flex: 1,
+        position: 'absolute',
+        top:0,
+        bottom:0, 
+        right:0, 
+        left:0,
         alignItems:'center',
       },
       search:{
-        height: 40,
-        width: dimensions.width - 40,
+        position: 'absolute',
+        top:0,
+        bottom:0, 
+        right:0, 
+        left:0,
+        maxHeight: 40,
+       
         paddingHorizontal: base.padding.lg,
         alignItems:'center',
         borderRadius: 4,

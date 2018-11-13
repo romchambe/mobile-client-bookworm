@@ -11,8 +11,7 @@ export default class Container extends React.Component {
       container:{
         flex: 1,
         justifyContent: 'flex-start',
-        paddingHorizontal: base.padding.md,
-        
+        backgroundColor:'transparent',
       }      
     })
 

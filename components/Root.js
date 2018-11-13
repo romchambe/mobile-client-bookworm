@@ -9,6 +9,7 @@ import HeaderTitle from './presentational/HeaderTitle';
 import BooksContainer from './containers/BooksContainer';
 import ErrorsContainer from './containers/ErrorsContainer';
 import NewBookContainer from './containers/NewBookContainer';
+import ScanContainer from './containers/ScanContainer'
 
 import AssetLoader from './AssetLoader';
 import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
@@ -37,6 +38,8 @@ class Root extends React.Component {
         return this.props.actions.navigateToBooks();
       case 'new':
         return this.props.actions.navigateToNew();
+      case 'scan':
+        return this.props.actions.navigateToScan();
     }
   }
 
@@ -110,7 +113,7 @@ class Root extends React.Component {
             <HeaderTitle>
               Mes livres
             </HeaderTitle>
-            <CustomIcon name="scan" rounded />
+            <CustomIcon name="scan" rounded onPress={() => this.navigateTo('scan')}/>
           </Header> 
           <ErrorsContainer />
           <Container>
@@ -119,6 +122,7 @@ class Root extends React.Component {
               <Route exact path="/" component={BooksContainer}/> 
               <Route exact path="/books" component={BooksContainer}/> 
               <Route path='/new' component={NewBookContainer}/>
+              <Route path='/scan' component={ScanContainer}/>
           
           
             </Switch>
