@@ -6,13 +6,18 @@ export default class InputField extends React.Component {
   constructor(props){
     super(props)
     this.handleHeightChange = this.handleHeightChange.bind(this)
+    this.handleChange = this.handleChange.bind(this)
   }
 
   handleHeightChange(e){
-
     if (this.props.handleHeightChange)  {
       return this.props.handleHeightChange(e)
     }
+  }
+
+  handleChange(event){
+    const { text } = event.nativeEvent
+    this.props.handleChange({[this.props.name]: text})
   }
 
   render() {
@@ -34,9 +39,10 @@ export default class InputField extends React.Component {
         {...this.props}
         placeholderTextColor={base.colors.blueLight}
         underlineColorAndroid="transparent"
-        multiline={true}       
+        multiline={ true }        
         autoGrow={ Platform.OS === 'ios' ? false : true }
-        onContentSizeChange={this.handleHeightChange}
+        onContentSizeChange={ this.handleHeightChange }
+        onChange={this.handleChange}
         style={styles.input}
       />
         

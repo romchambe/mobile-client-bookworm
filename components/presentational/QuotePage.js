@@ -18,8 +18,6 @@ export default class QuotePage extends React.Component {
       spaced: false,
       quoteHeight: 26,
       titleHeight: 26,
-      quote: '',
-      title: ''
     }
 
     this.registerScrollView = this.registerScrollView.bind(this)
@@ -27,34 +25,8 @@ export default class QuotePage extends React.Component {
     this.handleTitleChanges = this.handleTitleChanges.bind(this)
     this.handleQuoteHeight = this.handleQuoteHeight.bind(this)
     this.handleTitleHeight = this.handleTitleHeight.bind(this)
+    this.growBottom = this.growBottom.bind(this)
     this.scrollToInput = this.scrollToInput.bind(this)
-  }
-
-  componentDidMount() {
-    this._keyboardWillShow = this._keyboardWillShow.bind(this)
-    this._keyboardWillHide = this._keyboardWillHide.bind(this)
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', this._keyboardWillShow);
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', this._keyboardWillHide);
-  }
-
-  componentWillUnmount () {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
-  }
-
-  _keyboardWillHide(e){
-     this.scrollView.scrollTo({x: 0, y: 0, animated:true})
-  }
-
-  _keyboardWillShow(e){
-    if (!this.state.spaced){
-      Animated.timing(this.state.growBottom, {
-        toValue: 248,
-        duration: e.duration,
-        easing: Easing.bezier(0.1, 0.76, 0.55, 0.9)
-      }).start()
-      this.setState({spaced: true})
-    }
   }
 
   maxQuoteHeight = 152
@@ -76,14 +48,22 @@ export default class QuotePage extends React.Component {
     this.setState({title: e})
   }
 
- 
   registerScrollView(component){
     this.scrollView = component
   }
 
-  scrollToInput(){
+  growBottom(){
+    if (!this.state.spaced){
+      Animated.timing(this.state.growBottom, {
+        toValue: 248,
+        duration: 250,
+        easing: Easing.bezier(0.1, 0.76, 0.55, 0.9)
+      }).start()
+      this.setState({spaced: true})
+    }
+  }
 
-    console.log(this.state.quoteHeight + 72)
+  scrollToInput(){
     this.scrollView.scrollTo({x: 0, y: this.state.quoteHeight + 72, animated:true})
   }
 
@@ -168,9 +148,12 @@ export default class QuotePage extends React.Component {
 
           <InputLegend legend="Saisissez le texte de votre citation" />
           <InputField 
+            onFocus={this.growBottom}
             onChangeText={this.handleQuoteChanges} 
             maximumHeight={this.maxQuoteHeight} 
             handleHeightChange={this.handleQuoteHeight} 
+            handleChange={this.props.handleQuote}
+            name='quote'
             placeholder="Par ex: 'On se mouvait mollement entre les ponts comme des poulpes au fond d'une baignoire d'eau fadasse'" 
           />
           
@@ -189,8 +172,11 @@ export default class QuotePage extends React.Component {
             <InputLegend legend="Donnez un titre à votre citation pour mieux l'identifier" />
             <InputField 
               onFocus={this.scrollToInput}
+              onBlur={() => this.scrollView.scrollTo({x: 0, y: 0, animated:true})}
               onChangeText={this.handleTitleChanges} 
               handleHeightChange={this.handleTitleHeight} 
+              handleChange={this.props.handleQuote}
+              name='title'
               maximumHeight={this.maxTitleHeight} 
               placeholder='Exemple: "Rencontre avec Kurtz"' 
             />

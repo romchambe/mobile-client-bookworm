@@ -19,9 +19,11 @@ export default class CommentPage extends React.Component {
       <View style={styles.container}>
         <InputLegend noMargin legend='Cette citation vous inspire une pensée particulière?' />
         <InputLegend legend=' Ajoutez un commentaire si vous le souhaitez!' />
-        <InputField placeholder='Titre du livre' />
-    
-
+        <InputField 
+          placeholder="Par ex: 'On note ici l'hommage de Molière à Burger Quiz'"
+          handleChange={this.props.handleComment}
+          name='content'
+        />
       </View>
     );
   }

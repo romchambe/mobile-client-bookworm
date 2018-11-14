@@ -21,16 +21,22 @@ class NewBookContainer extends React.Component {
     this.state = {
       currentStep: 0,
       stepOffset: new Animated.Value(0),
-
-      keyboardAvoiding: new Animated.Value(0)
+      keyboardAvoiding: new Animated.Value(0),
+      book: {},
+      quote: {}, 
+      comment: {}
     }
 
-    this.createBook = this.createBook.bind(this)
     this.nextStep = this.nextStep.bind(this)
+
+    this.handleBook = this.handleBook.bind(this)
+    this.handleQuote = this.handleQuote.bind(this)
+    this.handleComment = this.handleComment.bind(this)
   }
 
   steps = ['Livre','Citation','Commentaire']
   
+
   componentDidMount() {
     this._keyboardWillShow = this._keyboardWillShow.bind(this)
     this._keyboardWillHide = this._keyboardWillHide.bind(this)
@@ -43,6 +49,7 @@ class NewBookContainer extends React.Component {
     this.keyboardDidHideListener.remove();
   }
 
+  // Hide bottom actions when keyboard show, show them otherwise
   _keyboardWillHide(e){
     Animated.timing(this.state.keyboardAvoiding, {
       toValue: 0,
@@ -59,10 +66,6 @@ class NewBookContainer extends React.Component {
     }).start()
   }
 
-  async createBook() {
-    await this.props.actions.createBook({jwt: this.props.jwt}, 'mobile');
-    this.props.actions.navigateToEdit();
-  }
 
   nextStep(){
     if (this.state.currentStep < 2){
@@ -77,7 +80,31 @@ class NewBookContainer extends React.Component {
     }
   }
 
-  render () {
+  handleBook(payload){
+    this.setState(
+      (prevState, props) => ({
+        book: Object.assign({}, prevState.book, payload)
+      })
+    )
+  }
+
+  handleQuote(payload){
+    this.setState(
+      (prevState, props) => ({
+        quote: Object.assign({}, prevState.quote, payload)
+      })
+    )
+  }
+
+  handleComment(payload){
+    this.setState(
+      (prevState, props) => ({
+        comment: Object.assign({}, prevState.comment, payload)
+      })
+    )
+  }
+
+  render() {
     const { width, height } = Dimensions.get('window')
   
     const styles = StyleSheet.create({
@@ -124,9 +151,9 @@ class NewBookContainer extends React.Component {
           }
         ]}>
           
-          <TitlePage />
-          <QuotePage />
-          <CommentPage />
+          <TitlePage handleBook={this.handleBook} />
+          <QuotePage handleQuote={this.handleQuote} />
+          <CommentPage handleComment={this.handleComment} />
          
         </Animated.View>
 
