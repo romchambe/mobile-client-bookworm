@@ -19,17 +19,8 @@ class ScanContainer extends React.Component {
     this.state = {
       currentStep: 0,
       stepOffset: new Animated.Value(0),
-      offset: new Animated.Value(1),
     }
     this.nextStep = this.nextStep.bind(this)
-  }
-
-  componentDidMount() {    
-  
-    Animated.timing(this.state.offset, {
-      toValue: 0,
-      duration: 200,
-    }).start()
   }
 
   nextStep(){
@@ -60,30 +51,19 @@ class ScanContainer extends React.Component {
         flexDirection: 'row'
       }, 
     })
-    return (
-      <Animated.View style={
-        [styles.container, {
-          transform: [{
-            translateX: this.state.offset.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, width]
-            })
-          }] 
-        }]
-      }>
-        <Animated.View style={[
-          styles.pageView, {
-            left: this.state.stepOffset.interpolate({
-              inputRange: [0, 2],
-              outputRange: [0, - 2 * width]
-            }),
-          }
-        ]}>
+    return (  
+      <Animated.View style={[
+        styles.pageView, {
+          left: this.state.stepOffset.interpolate({
+            inputRange: [0, 2],
+            outputRange: [0, - 2 * width]
+          }),
+        }
+      ]}>
 
-          <ScanPage nextStep={this.nextStep} />
-          <ResizePage nextStep={this.nextStep} />
-          <FinalPage />
-        </Animated.View>
+        <ScanPage nextStep={this.nextStep} />
+        <ResizePage nextStep={this.nextStep} />
+        <FinalPage />
       </Animated.View>
     )
   }

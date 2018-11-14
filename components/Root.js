@@ -9,7 +9,8 @@ import HeaderTitle from './presentational/HeaderTitle';
 import BooksContainer from './containers/BooksContainer';
 import ErrorsContainer from './containers/ErrorsContainer';
 import NewBookContainer from './containers/NewBookContainer';
-import ScanContainer from './containers/ScanContainer'
+import ScanContainer from './containers/ScanContainer';
+import appearsFromRight from './containers/appearsFromRight'
 
 import AssetLoader from './AssetLoader';
 import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
@@ -119,10 +120,10 @@ class Root extends React.Component {
           <Container>
              <Switch>
            
-              <Route exact path="/" component={BooksContainer}/> 
-              <Route exact path="/books" component={BooksContainer}/> 
-              <Route path='/new' component={NewBookContainer}/>
-              <Route path='/scan' component={ScanContainer}/>
+              <Route exact path="/" component={appearsFromRight(BooksContainer)}/> 
+              <Route exact path="/books" component={appearsFromRight(BooksContainer)}/> 
+              <Route path='/new' component={appearsFromRight(NewBookContainer)}/>
+              <Route path='/scan' component={appearsFromRight(ScanContainer)}/>
           
           
             </Switch>

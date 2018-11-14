@@ -183,7 +183,7 @@ export default class FinalPage extends React.Component {
               transform: [{
                 translateY: this.state.keyboardAvoiding.interpolate({
                   inputRange: [0,248],
-                  outputRange:[0, - 248]
+                  outputRange:[0, - 260]
                 })
               }]
             }

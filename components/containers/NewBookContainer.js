@@ -21,7 +21,7 @@ class NewBookContainer extends React.Component {
     this.state = {
       currentStep: 0,
       stepOffset: new Animated.Value(0),
-      offset: new Animated.Value(1),
+
       keyboardAvoiding: new Animated.Value(0)
     }
 
@@ -36,11 +36,6 @@ class NewBookContainer extends React.Component {
     this._keyboardWillHide = this._keyboardWillHide.bind(this)
     this.keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', this._keyboardWillShow);
     this.keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', this._keyboardWillHide);
-    
-    Animated.timing(this.state.offset, {
-      toValue: 0,
-      duration: 200,
-    }).start()
   }
 
   componentWillUnmount () {
@@ -119,16 +114,7 @@ class NewBookContainer extends React.Component {
       }
     })
     return (
-      <Animated.View style={
-        [styles.container, {
-          transform: [{
-            translateX: this.state.offset.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, width]
-            })
-          }] 
-        }]
-      }>
+      <Animated.View style={styles.container}>
         <Animated.View style={[
           styles.inputView, {
             left: this.state.stepOffset.interpolate({

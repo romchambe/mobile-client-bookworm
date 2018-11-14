@@ -18,20 +18,13 @@ class BooksContainer extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      offset: new Animated.Value(1)
+      outOffset: new Animated.Value(0)
     }
     this.navigateToNew = this.navigateToNew.bind(this)
   }
 
-  componentDidMount() {
-    Animated.timing(this.state.offset, {
-      toValue: 0,
-      duration: 200
-    }).start()
-  }
-
   navigateToNew(){
-    Animated.timing(this.state.offset, {
+    Animated.timing(this.state.outOffset, {
       toValue: -1,
       duration: 100,
     }).start(() => this.props.actions.navigateToNew());
@@ -70,9 +63,9 @@ class BooksContainer extends React.Component {
       <Animated.View style={
         [styles.container, {
           transform: [{
-            translateX: this.state.offset.interpolate({
-              inputRange: [-1, 0, 1],
-              outputRange: [- width, 0, width]
+            translateX: this.state.outOffset.interpolate({
+              inputRange: [-1, 0],
+              outputRange: [- width, 0]
             })
           }] 
         }]
