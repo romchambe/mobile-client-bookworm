@@ -1,7 +1,7 @@
 export const API_URL = {
   development: {
-    mobile: 'https://bookworm-app-api.herokuapp.com/api/v1/',
-    web: 'http://localhost:3000/api/v1/'
+    mobile: 'https://bookworm-app-api.herokuapp.com/api/v2/',
+    web: 'http://localhost:3000/api/v2/'
   },
   production:{}, 
 }

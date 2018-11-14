@@ -6,29 +6,38 @@ export const dimensions = {
 }
   
 export const colors  = {
-  yellow: '#FBE8A6',
-  lightYellow:'#FBE8A6BB',
-  orange: '#EB8F5B',
+  black: '#1E1E24',
+  blue: '#424D79',
+  blueMedium: "#7B82A1", 
+  blueLight:"#AEB3C6",
+
+  yellow: '#FFCF99',
+  yellowMedium: "#F5DDC3",
+  yellowLight:'#F2E9E4',
+  
+  grey: '#9A8C98', 
+  altGrey:'#C9ADA7',
+  
+  orange: '#FFBFA0',
   altOrange: '#F6B26C',
-  deepBlue: '#303C6C',
-  grey: '#B4DFE5', 
-  altGrey:'#71B2BF',
   lightBlue: '#D2FDFF', 
-  red: '#F65E53' 
+  red: '#AF1B3F' 
 }
 
 export const padding = {
-  sm: 10,
-  int: 15,
-  md: 20,
-  lg: 30,
-  xl: 40
+  xs: 8,
+  sm: 12,
+  md: 24,
+  lg: 36,
+  xl: 48
 }
 
 export const fonts = {
+
   sm: 12,
-  md: 18,
-  lg: 28,
+  md: 14,
+  lg: 18,
+  xl: 24,
   primary: 'cabin'
 }
 

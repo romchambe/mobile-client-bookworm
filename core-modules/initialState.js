@@ -4,15 +4,15 @@ export default {
     loggedIn: false, 
     jwt: ''
   },
-  error: [],
+  errors: [],
   user: { 
     isFetching: false, 
     user: {}
   }, 
-  notes: {
-    isFetchingNotes: false, 
-    notesList: [], 
-    currentNote: null
+  books: {
+    isFetchingBooks: false, 
+    booksList: [], 
+    currentBook: null
   },
   scanFlow: {
     step: 1, 
