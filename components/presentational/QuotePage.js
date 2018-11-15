@@ -3,14 +3,14 @@ import * as base from './../../assets/styles/base';
 import InputLegend from './InputLegend'
 import InputField from './InputField'
 import NotebookImage from './NotebookImage'
-
 import MainButton from './MainButton'
+import swipeableComponent from './../containers/swipeableComponent'
 
 import { Animated, Easing, Keyboard, ScrollView, View, Text, StyleSheet, Dimensions } from 'react-native';
 
 
 
-export default class QuotePage extends React.Component {
+class QuotePage extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -186,3 +186,5 @@ export default class QuotePage extends React.Component {
     );
   }
 }
+
+export default swipeableComponent(QuotePage)

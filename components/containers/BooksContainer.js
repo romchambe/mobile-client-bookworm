@@ -3,6 +3,7 @@ import React from 'react';
 import AssetLoader from './../AssetLoader'
 import EmptyBooksList from './../presentational/EmptyBooksList'
 import BooksList from './../presentational/BooksList'
+import appearsFromRight from './appearsFromRight'
 
 import * as base from './../../assets/styles/base';
 
@@ -30,15 +31,6 @@ class BooksContainer extends React.Component {
     }).start(() => this.props.actions.navigateToNew());
   }
 
-  setCurrentBook = (bookId) => {
-    let book = this.props.books.booksList.find((item) => {
-      return item.id === bookId
-    })
-    this.props.actions.setCurrentBook(book);
-    this.props.actions.navigateToEdit();
-  }
-
-
   render () {
 
     const { width, height } = Dimensions.get('window')
@@ -52,9 +44,8 @@ class BooksContainer extends React.Component {
     let content = this.props.books.isFetchingBooks ? 
       <AssetLoader /> :
       this.props.books.booksList.length > 0 ? 
-        
-        <EmptyBooksList newBook={this.navigateToNew} /> :
-        <BooksList books={this.props.books.booksList} newBook={this.navigateToNew}/> 
+        <BooksList books={this.props.books.booksList} newBook={this.navigateToNew}/> :
+        <EmptyBooksList newBook={this.navigateToNew} />
 
       
       
@@ -88,4 +79,4 @@ function mapDispatchToProps(dispatch){
     actions: bindActionCreators(Object.assign({}, bookActions, navigationActions),dispatch)
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(BooksContainer)
+export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(BooksContainer))

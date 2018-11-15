@@ -3,11 +3,12 @@ import * as base from './../../assets/styles/base';
 import InputLegend from './InputLegend'
 import InputField from './InputField'
 import PreviewText from './PreviewText'
+import swipeableComponent from './../containers/swipeableComponent'
 
 import { ScrollView, View, Text, StyleSheet } from 'react-native';
 
 
-export default class TitlePage extends React.Component {
+class TitlePage extends React.Component {
   
   render() {
 
@@ -34,3 +35,5 @@ export default class TitlePage extends React.Component {
     );
   }
 }
+
+export default swipeableComponent(TitlePage)

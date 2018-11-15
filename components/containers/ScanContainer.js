@@ -9,6 +9,7 @@ import * as bookActions from './../../core-modules/actions/bookActions'
 import * as navigationActions from './../../core-modules/actions/navigationActions'
 
 import { View, FlatList, Text, Animated, Dimensions, StyleSheet, ScrollView, Keyboard, Easing } from 'react-native';
+import appearsFromRight from './appearsFromRight'
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
@@ -81,4 +82,4 @@ function mapDispatchToProps(dispatch){
     actions: bindActionCreators(Object.assign({}, bookActions, navigationActions),dispatch)
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(ScanContainer)
+export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(ScanContainer))

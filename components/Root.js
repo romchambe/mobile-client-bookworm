@@ -120,10 +120,10 @@ class Root extends React.Component {
           <Container>
              <Switch>
            
-              <Route exact path="/" component={appearsFromRight(BooksContainer)}/> 
-              <Route exact path="/books" component={appearsFromRight(BooksContainer)}/> 
-              <Route path='/new' component={appearsFromRight(NewBookContainer)}/>
-              <Route path='/scan' component={appearsFromRight(ScanContainer)}/>
+              <Route exact path="/" component={BooksContainer}/> 
+              <Route exact path="/books" component={BooksContainer}/> 
+              <Route path='/new' component={NewBookContainer}/>
+              <Route path='/scan' component={ScanContainer}/>
           
           
             </Switch>
@@ -163,7 +163,6 @@ class Root extends React.Component {
 function mapStateToProps(state) {
   return {
     session: state.session,
-    notes: state.notes
   }
 }
 function mapDispatchToProps(dispatch){

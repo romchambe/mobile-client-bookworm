@@ -2,11 +2,12 @@ import React from 'react';
 import * as base from './../../assets/styles/base';
 import InputLegend from './../presentational/InputLegend'
 import InputField from './../presentational/InputField'
+import swipeableComponent from './../containers/swipeableComponent'
 
 import { View, Text, StyleSheet } from 'react-native';
 
 
-export default class CommentPage extends React.Component {
+class CommentPage extends React.Component {
   render() {
     const styles = StyleSheet.create({
       container:{
@@ -28,3 +29,4 @@ export default class CommentPage extends React.Component {
     );
   }
 }
+export default swipeableComponent(CommentPage)

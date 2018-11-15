@@ -11,6 +11,7 @@ import * as bookActions from './../../core-modules/actions/bookActions'
 import * as navigationActions from './../../core-modules/actions/navigationActions'
 
 import { View, FlatList, Text, Animated, Dimensions, StyleSheet, ScrollView, Keyboard, Easing } from 'react-native';
+import appearsFromRight from './appearsFromRight'
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
@@ -28,6 +29,7 @@ class NewBookContainer extends React.Component {
     }
 
     this.nextStep = this.nextStep.bind(this)
+    this.goToStep = this.goToStep.bind(this)
 
     this.handleBook = this.handleBook.bind(this)
     this.handleQuote = this.handleQuote.bind(this)
@@ -79,6 +81,17 @@ class NewBookContainer extends React.Component {
       ))
     }
   }
+
+  goToStep(action){
+    Animated.timing(this.state.stepOffset, {
+      toValue: this.state.currentStep + action,
+      duration: 200
+    }).start(() => this.setState(
+      (prevState, props) => ({
+        currentStep: prevState.currentStep + action
+      })
+    ))
+  } 
 
   handleBook(payload){
     this.setState(
@@ -151,9 +164,21 @@ class NewBookContainer extends React.Component {
           }
         ]}>
           
-          <TitlePage handleBook={this.handleBook} />
-          <QuotePage handleQuote={this.handleQuote} />
-          <CommentPage handleComment={this.handleComment} />
+          <TitlePage 
+            handleBook={this.handleBook} 
+            swipeMode={-1} 
+            onDismiss={this.goToStep} 
+          />
+          <QuotePage 
+            handleQuote={this.handleQuote} 
+            swipeMode={0} 
+            onDismiss={this.goToStep}
+          />
+          <CommentPage 
+            handleComment={this.handleComment} 
+            swipeMode={1} 
+            onDismiss={this.goToStep} 
+          />
          
         </Animated.View>
 
@@ -176,7 +201,7 @@ class NewBookContainer extends React.Component {
               }),
             }
           ]}/>
-          <MainButton height={40} legend="Suivant" onPress={this.nextStep}/>
+          <MainButton height={40} legend="Suivant" onPress={this.nextStep} />
 
         </Animated.View>
       </Animated.View>
@@ -196,4 +221,4 @@ function mapDispatchToProps(dispatch){
     actions: bindActionCreators(Object.assign({}, bookActions, navigationActions),dispatch)
   }
 }
-export default connect(mapStateToProps, mapDispatchToProps)(NewBookContainer)
+export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(NewBookContainer))
