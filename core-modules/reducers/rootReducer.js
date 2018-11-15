@@ -4,7 +4,7 @@ import session from './sessionReducer'
 import errors from './errorsReducer'
 import user from './userReducer'
 import books from './booksReducer'
-import scanFlow from './scanFlowReducer'
+import flow from './flowReducer'
 import storage from 'redux-persist/lib/storage'
 
 const rootReducer = combineReducers({
@@ -12,7 +12,7 @@ const rootReducer = combineReducers({
   errors,
   user,
   books,
-  scanFlow
+  flow
 })
 
 

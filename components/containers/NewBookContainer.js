@@ -99,6 +99,7 @@ class NewBookContainer extends React.Component {
         book: Object.assign({}, prevState.book, payload)
       })
     )
+    console.log(this.state)
   }
 
   handleQuote(payload){
@@ -107,6 +108,7 @@ class NewBookContainer extends React.Component {
         quote: Object.assign({}, prevState.quote, payload)
       })
     )
+    console.log(this.state)
   }
 
   handleComment(payload){
@@ -168,11 +170,13 @@ class NewBookContainer extends React.Component {
             handleBook={this.handleBook} 
             swipeMode={-1} 
             onDismiss={this.goToStep} 
+            preview={this.props.flow.preview}
           />
           <QuotePage 
             handleQuote={this.handleQuote} 
             swipeMode={0} 
             onDismiss={this.goToStep}
+            preview={this.props.flow.preview}
           />
           <CommentPage 
             handleComment={this.handleComment} 
@@ -212,7 +216,8 @@ class NewBookContainer extends React.Component {
 function mapStateToProps(state){
   return {
     jwt: state.session.jwt,
-    books: state.books
+    books: state.books,
+    flow: state.flow
   }
 }
 

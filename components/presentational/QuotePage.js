@@ -154,6 +154,7 @@ class QuotePage extends React.Component {
             handleHeightChange={this.handleQuoteHeight} 
             handleChange={this.props.handleQuote}
             name='quote'
+            value={this.props.preview ? this.props.preview : null}
             placeholder="Par ex: 'On se mouvait mollement entre les ponts comme des poulpes au fond d'une baignoire d'eau fadasse'" 
           />
           

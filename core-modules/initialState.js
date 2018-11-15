@@ -14,9 +14,10 @@ export default {
     booksList: [], 
     currentBook: null
   },
-  scanFlow: {
-    step: 1, 
-    isUploadingScan: false, 
-    apiResponse: null
+  flow: {
+    started: false,
+    step: null, 
+    title: null,
+    back: null
   }
 }

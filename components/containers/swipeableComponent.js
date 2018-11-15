@@ -14,7 +14,6 @@ const swipeableComponent = WrappedComponent =>
       onMoveShouldSetPanResponderCapture: () => true,
       onPanResponderMove: Animated.event([null, {dx: this.offset}]),
       onPanResponderRelease: (e, {vx, dx}) => {
-     
         if (this.swipeMode(this.props.swipeMode, vx, dx)) {
           Animated.timing(this.offset, {
             toValue: dx > 0 ? this.width : - this.width,
@@ -28,9 +27,7 @@ const swipeableComponent = WrappedComponent =>
         }
       }
     });
-    componentWillUnmount(){
-      console.log('unmount')
-    }
+
     swipeMode(mode, vx, dx){
       return (mode === 0 && (Math.abs(vx) >= 0.5 || Math.abs(dx) >= 0.5 * this.width)) || 
       (mode === -1 && (vx <= - 0.5 || dx <= - 0.5 * this.width)) ||
@@ -42,12 +39,10 @@ const swipeableComponent = WrappedComponent =>
       this.props.onDismiss(action)
       setTimeout(()=>{
         this.offset.setValue(0)
-      }, 100)
+      }, 200)
     }
 
     render() {
-
-    
       const styles = StyleSheet.create({
         container: {
           flex: 1,
@@ -55,7 +50,6 @@ const swipeableComponent = WrappedComponent =>
       })
 
       return (
-      
         <Animated.View style={[
           styles.container, 
             {
@@ -66,7 +60,7 @@ const swipeableComponent = WrappedComponent =>
           ]}
         {...this._panResponder.panHandlers}
         >
-          <WrappedComponent />
+          <WrappedComponent {...this.props} />
         </Animated.View>
       )
     }

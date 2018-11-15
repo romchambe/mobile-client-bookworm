@@ -1,7 +1,7 @@
 import * as types from '../actions/actionTypes';  
 import initialState from '../initialState';  
 
-const scanFlow = (state = initialState, action) => {  
+const flow = (state = initialState, action) => {  
   switch(action.type) {
     case types.UPLOAD_SCAN_REQUEST:
       return Object.assign({}, state, {
@@ -40,4 +40,4 @@ const scanFlow = (state = initialState, action) => {
   }
 }
 
-export default scanFlow
+export default flow

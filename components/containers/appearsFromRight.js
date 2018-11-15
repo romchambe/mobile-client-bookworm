@@ -35,7 +35,7 @@ const appearsFromRight = WrappedComponent =>
             }] 
           }]
         }>
-          <WrappedComponent />
+          <WrappedComponent {...this.props} />
         </Animated.View>
       )
     }

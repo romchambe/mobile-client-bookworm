@@ -11,6 +11,7 @@ import { ScrollView, View, Text, StyleSheet } from 'react-native';
 class TitlePage extends React.Component {
   
   render() {
+    console.log(this.props.preview)
 
     const styles = StyleSheet.create({
       container:{
@@ -24,7 +25,12 @@ class TitlePage extends React.Component {
     })
     return (
       <View style={styles.container}>
-        <PreviewText maxHeight={80} text='"Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in.”' />
+
+        {
+          this.props.preview ?
+          <PreviewText maxHeight={80} text={this.props.preview} /> : 
+          null
+        }  
         <View style={styles.margin} />
         <InputLegend legend='Quel est le titre du livre que vous lisez?' />  
         <InputField placeholder='Titre du livre' name='title' handleChange={this.props.handleBook} />

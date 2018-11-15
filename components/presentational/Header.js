@@ -1,9 +1,11 @@
 import React from 'react';
 import * as base from './../../assets/styles/base';
 
+import { connect } from 'react-redux'
+
 import { View, ScrollView, Text, StyleSheet } from 'react-native';
 
-export default class Header extends React.Component {
+class Header extends React.Component {
   render() {
     const styles = StyleSheet.create({
       container:{
@@ -32,3 +34,5 @@ export default class Header extends React.Component {
     );
   }
 }
+
+export default Header

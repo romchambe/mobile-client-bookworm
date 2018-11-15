@@ -3,14 +3,13 @@ import React from 'react';
 import CustomIcon from './presentational/CustomIcon';
 import Container from './presentational/Container';
 import SideMenu from './presentational/SideMenu';
-import Header from './presentational/Header';
 import HeaderTitle from './presentational/HeaderTitle';
+import Header from './presentational/Header';
 
 import BooksContainer from './containers/BooksContainer';
 import ErrorsContainer from './containers/ErrorsContainer';
 import NewBookContainer from './containers/NewBookContainer';
 import ScanContainer from './containers/ScanContainer';
-import appearsFromRight from './containers/appearsFromRight'
 
 import AssetLoader from './AssetLoader';
 import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
@@ -28,9 +27,10 @@ class Root extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      menuPosition: new Animated.Value(-260)
+      menuPosition: new Animated.Value(-260),
     }
     this.navigateTo = this.navigateTo.bind(this)
+    this.pageTitle = this.pageTitle.bind(this)
   }
 
   navigateTo(nextPage){
@@ -41,6 +41,19 @@ class Root extends React.Component {
         return this.props.actions.navigateToNew();
       case 'scan':
         return this.props.actions.navigateToScan();
+    }
+  }
+
+  pageTitle(location){
+    switch(location){
+      case '/':
+        return 'Mes livres';
+      case 'books':
+        return 'Mes livres';
+      case '/new':
+        return 'Nouveau' //this.props.flow.title;
+      case '/scan':
+        return 'Scan' //this.props.flow.title;
     }
   }
 
@@ -107,25 +120,29 @@ class Root extends React.Component {
               inputRange: [-260, 0], 
               outputRange:[0, 0.6]
             }),
-          }} />
-        
+          }}/>
           <Header>
-            <CustomIcon name="menu" rounded onPress={showMenu}/>
+            <CustomIcon 
+              name={this.props.flow.started ?  "keyboard-arrow-left" :"menu"} 
+              onPress={this.props.flow.started ? null : showMenu }
+              rounded
+            />
             <HeaderTitle>
-              Mes livres
+              {this.pageTitle(this.props.pathname)}
             </HeaderTitle>
-            <CustomIcon name="scan" rounded onPress={() => this.navigateTo('scan')}/>
+            <CustomIcon 
+              rounded
+              name={ this.props.flow.started ? "close" : "scan"}  
+              onPress={ this.props.flow.started ? () => this.navigateTo('books') : () => this.navigateTo('scan')}
+            />
           </Header> 
           <ErrorsContainer />
           <Container>
-             <Switch>
-           
+            <Switch>
               <Route exact path="/" component={BooksContainer}/> 
               <Route exact path="/books" component={BooksContainer}/> 
               <Route path='/new' component={NewBookContainer}/>
               <Route path='/scan' component={ScanContainer}/>
-          
-          
             </Switch>
             
           </Container>
@@ -163,6 +180,8 @@ class Root extends React.Component {
 function mapStateToProps(state) {
   return {
     session: state.session,
+    pathname: state.router.location.pathname,
+    flow: state.flow
   }
 }
 function mapDispatchToProps(dispatch){
