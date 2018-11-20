@@ -5,6 +5,7 @@ import LoginForm from './../presentational/LoginForm'
 
 import * as base from './../../assets/styles/base';
 import * as sessionActions from './../../core-modules/actions/sessionActions'
+import * as userActions from './../../core-modules/actions/userActions'
 
 import { Animated, Keyboard, Easing, View, StyleSheet, Dimensions } from 'react-native';
 import appearsFromRight from './appearsFromRight'
@@ -20,37 +21,57 @@ class AuthContainer extends React.Component {
       form: '',
       stepOffset: new Animated.Value(0),
       login: {},
-      signup: {}
+      registration: {}
     }
 
     this.goToStep = this.goToStep.bind(this)
     this.handleLogin = this.handleLogin.bind(this)
-    this.handleSignup = this.handleSignup.bind(this)
+    this.handleRegistration = this.handleRegistration.bind(this)
+    this.handleFbLogin = this.handleFbLogin.bind(this)
+    this.postLogin = this.postLogin.bind(this)
+    this.postRegistration = this.postRegistration.bind(this)
   }
   
   handleLogin(payload){
     this.setState(
       (prevState, props) => ({
-        book: Object.assign({}, prevState.login, payload)
+        login: Object.assign({}, prevState.login, payload)
       })
     )
   }
 
-  handleSignup(payload){
+  handleRegistration(payload){
     this.setState(
       (prevState, props) => ({
-        quote: Object.assign({}, prevState.signup, payload)
+        registration: Object.assign({}, prevState.registration, payload)
       })
     )
+    console.log(this.state)
   }
 
-  goToStep(step,type){
+  handleFbLogin(e){
+    e.preventDefault()
+    this.props.actions.fbLoginUser('mobile');
+  }
+
+  postLogin(){  
+    this.props.actions.loginUser({ login: this.state.login }, 'mobile')
+  }
+
+  postRegistration(){
+    this.props.actions.createUser({ registration:this.state.registration }, 'mobile')
+  }
+
+  goToStep(action,type){
+    this.setState({
+      form: type
+    })
     Animated.timing(this.state.stepOffset, {
-      toValue: step,
+      toValue: this.state.currentStep + action,
       duration: 200
     }).start(() => this.setState(
       (prevState, props) => ({
-        currentStep: prevState.currentStep + action
+        currentStep: prevState.currentStep + action,
       })
     ))
   } 
@@ -67,7 +88,8 @@ class AuthContainer extends React.Component {
         top: 0,
         width: 2 * width,
         paddingTop: base.padding.lg,
-        flexDirection: 'row'
+        flexDirection: 'row',
+        height: height - 76
       }, 
     })
 
@@ -81,12 +103,15 @@ class AuthContainer extends React.Component {
             }),
           }
         ]}>
-          <LoginHome goToStep={this.goToStep}/>
+          <LoginHome 
+            goToStep={this.goToStep}
+            handleFbLogin={this.handleFbLogin}
+          />
           <LoginForm 
             form={this.state.form}
             goToStep={this.goToStep}
-            handleLogin={this.handleLogin} 
-            handleSignup={this.handleSignup}
+            handleForm={this.state.form === 'login' ? this.handleLogin : this.handleRegistration} 
+            handleSubmit={this.state.form === 'login' ? this.postLogin : this.postRegistration}
           />
         </Animated.View>
       </Animated.View>
@@ -97,7 +122,7 @@ class AuthContainer extends React.Component {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(sessionActions,dispatch)
+    actions: bindActionCreators(Object.assign({}, sessionActions, userActions),dispatch)
   }
 }
 export default connect(null, mapDispatchToProps)(AuthContainer)

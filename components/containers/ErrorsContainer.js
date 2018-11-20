@@ -8,12 +8,11 @@ import { connect } from 'react-redux';
 class ErrorsContainer extends React.Component {
   height = new Animated.Value(0)
 
-  componentDidMount(){
-    if (this.props.errors.length > 0){
-      Animated.timing(this.height, {
-        toValue: Math.min(this.props.errors.length * 26,78),
-        duration: 150
-      }).start()
+  shouldComponentUpdate(nextProps, nextState){
+    if (nextProps.errors.length > 0){
+      return true
+    } else {
+      return false
     }
   }
 
@@ -25,6 +24,10 @@ class ErrorsContainer extends React.Component {
   }
   
   render () {
+    Animated.timing(this.height, {
+      toValue: Math.min(this.props.errors.length * 26,78),
+      duration: 150
+    }).start()
 
     const dimensions = {  
       height: Dimensions.get('window').height,
@@ -33,9 +36,13 @@ class ErrorsContainer extends React.Component {
 
     const styles = StyleSheet.create({
       container: {
+        position:'absolute',
+        top:76,
+        right: 0,
+        left: 0,
+        zIndex: 20,
         width: dimensions.width,
         backgroundColor: base.colors.red,
-
         overflow: 'scroll'
       }, 
       text:{
@@ -55,7 +62,7 @@ class ErrorsContainer extends React.Component {
       return null 
     } else {
       return (      
-        <Animated.View style={[styles.container, {height: this.height}]}>
+        <Animated.View style={[styles.container, { height: this.height }]}>
             {
               this.props.errors.map(
                 (error, index) => {return (<Text key={index} style={styles.text}>{error}</Text>)}

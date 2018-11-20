@@ -1,7 +1,7 @@
 import { buildAddress } from './buildAddress'
 
 class sessionApi {
-  static postLogin(credentials, client) {
+  static postLogin(payload, client) {
     const address = buildAddress(client, 'login');
 
     const request = new Request(address, {
@@ -9,7 +9,7 @@ class sessionApi {
       headers: new Headers({
         'Content-Type': 'application/json'
       }), 
-      body: JSON.stringify({login: credentials})
+      body: JSON.stringify(payload)
     });
 
     return fetch(request).then(response => {

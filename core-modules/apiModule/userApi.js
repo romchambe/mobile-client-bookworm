@@ -8,7 +8,7 @@ class userApi {
       headers: new Headers({
         'Content-Type': 'application/json'
       }), 
-      body: JSON.stringify({registration: payload})
+      body: JSON.stringify(payload)
     });
 
     return fetch(request).then(response => {

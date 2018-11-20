@@ -5,10 +5,10 @@ import InputField from './InputField'
 import MainButton from './MainButton'
 import NoteTaking from './NoteTaking'
 
-import { ScrollView, View, Text, StyleSheet, Animated, Keyboard, Easing } from 'react-native';
+import { ScrollView, View, Text, StyleSheet, Animated, Image, Keyboard, Easing, Dimensions } from 'react-native';
 
 
-class LoginPage extends React.Component {
+export default class LoginForm extends React.Component {
   constructor(props){
     super(props)
     this.state = {
@@ -47,53 +47,65 @@ class LoginPage extends React.Component {
 
   
   render() {
+    const { width, height } = Dimensions.get('window')
+
     const styles = StyleSheet.create({
       container:{
         flex:1,
         justifyContent: 'flex-start',
         paddingHorizontal: base.padding.md,
-        paddingTop: base.padding.lg
       },
       margin:{
-        marginBottom: base.padding.md 
+        marginBottom: 16
       },
-    
-      tagline:{
-        fontFamily: 'cabin-medium',
-        fontSize: 14,
-        textAlign:'center',
-        color: base.colors.black,
-        marginTop: base.padding.lg
+      field: {
+        marginBottom: 16
       },
-      imageContainer:{
-        flex: 1,
-        alignItems: 'center',
-        minHeight: 212
-      }
+      formContainer:{
+        flex:3,
+        justifyContent:'flex-start'
+      },
+      buttonContainer:{
+        position: 'absolute',
+        bottom: 0,
+        left: 0, 
+        right: 0,
+        height: 96,
+        justifyContent: 'center',
+        alignItems:'center'
+      },
     })
+
+    const nameField = 
+      <View style={styles.field}>
+        <InputLegend legend='Votre prénom' />  
+        <InputField placeholder="Moi c'est Wormsie, et toi?" handleChange={this.props.handleForm} />
+      </View>
+
     return (
       <View style={styles.container}>
-       
-       
-        <View style={styles.imageContainer}>
-          <NoteTaking/>
+        <View style={styles.formContainer}>
+          { this.props.form === 'login' ? null : nameField }
+          <View style={styles.margin} />
+          <InputLegend legend='Email' />  
+          <InputField 
+            name="email" 
+            placeholder="On préfère un vrai mais on ira pas vérifier ;)" 
+            handleChange={this.props.handleForm}
+          />
+          <View style={styles.margin} />
+          <InputLegend legend="Mot de passe" />
+          <InputField name="password" placeholder="Au moins 6 caractères" handleChange={this.props.handleForm}/>
         </View>
-         <Text style={styles.tagline} >
-          Bookworm vous permet de scanner des citations dans vos livres favoris à l'aide de votre téléphone :)
-        </Text>
-        <View style={styles.margin} />
-        <View style={styles.margin} />
-        <InputLegend legend='Votre prénom' />  
-        <InputField placeholder="Faisons un peu connaissance" handleChange={this.props.handleName} />
-        <View style={styles.margin} />
-        <InputLegend legend='Votre email' />  
-        <InputField placeholder="On préfère un vrai mais on ira pas vérifier ;)" handleChange={this.props.handleEmail} />
-        <View style={styles.margin} />
-        <InputLegend legend="Qui en est l'auteur?" />
-        <InputField placeholder="Au moins 6 caractères" handleChange={this.props.handlePassword}/>
+        <View style={styles.buttonContainer}>
+          <MainButton 
+            height={40} 
+            legend={this.props.form === 'login' ? 'Se connecter' : 'Créer un compte'} 
+            onPress={this.props.handleSubmit}
+          />
+        </View>
       </View>
     );
   }
 }
 
-export default LoginPage

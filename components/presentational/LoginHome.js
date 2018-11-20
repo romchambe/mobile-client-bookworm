@@ -5,47 +5,24 @@ import InputField from './InputField'
 import MainButton from './MainButton'
 import NoteTaking from './NoteTaking'
 
-import { ScrollView, View, Text, StyleSheet, Animated, Keyboard, Easing } from 'react-native';
+import {  TouchableOpacity, Image, View, Text, StyleSheet, Animated, Keyboard, Easing } from 'react-native';
 
 
-class LoginHome extends React.Component {
+export default class LoginHome extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      keyboardAvoiding: new Animated.Value(0),
-    }
+    this.goToRegistration = this.goToRegistration.bind(this)
+    this.goToLogin = this.goToLogin.bind(this)
   }
 
-  componentDidMount() {
-    this._keyboardWillShow = this._keyboardWillShow.bind(this)
-    this._keyboardWillHide = this._keyboardWillHide.bind(this)
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', this._keyboardWillShow);
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', this._keyboardWillHide);
+  goToLogin(){ 
+    this.props.goToStep(1, 'login')
   }
 
-  componentWillUnmount () {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
+  goToRegistration(){
+    this.props.goToStep(1, 'registration')
   }
 
-  // Hide bottom actions when keyboard show, show them otherwise
-  _keyboardWillHide(e){
-    Animated.timing(this.state.keyboardAvoiding, {
-      toValue: 0,
-      duration: e.duration,
-      easing: Easing.bezier(0.1, 0.76, 0.55, 0.9)
-    }).start()
-  }
-
-  _keyboardWillShow(e){
-    Animated.timing(this.state.keyboardAvoiding, {
-      toValue: 248,
-      duration: e.duration,
-       easing: Easing.bezier(0.1, 0.76, 0.55, 0.9)
-    }).start()
-  }
-
-  
   render() {
     const styles = StyleSheet.create({
       container:{
@@ -56,29 +33,53 @@ class LoginHome extends React.Component {
       margin:{
         marginBottom: base.padding.sm
       },
-    
+      imageContainer:{
+        flex: 1,
+        alignItems: 'center',
+        minHeight: 256,
+        maxHeight: 256
+      }, 
+      
+      socialLoginContainer: {
+        height: 88,
+        paddingVertical: base.padding.md,
+        marginTop: base.padding.lg,
+        alignItems:'center',
+        justifyContent:'center',
+        borderBottomWidth: 1,
+        borderBottomColor: base.colors.altGrey,
+      },
+      buttonContainer:{
+        flex:1,
+        paddingVertical: base.padding.md,
+        alignItems: 'center',
+        justifyContent:'flex-start'
+      },
       tagline:{
         fontFamily: 'cabin-medium',
         fontSize: 14,
         textAlign:'center',
         color: base.colors.black,
+        marginTop: base.padding.md
       },
-      imageContainer:{
-        flex: 1,
-        alignItems: 'center',
-        maxHeight: 212,
-        minHeight: 212
+      facebookButton: {
+        width:248,
+        height:40,
+        borderRadius: 25,
+        flexDirection:'row',
+        justifyContent:'center',
+        alignItems:'center',
+        backgroundColor:'#3D5B98'
       }, 
-      taglineContainer:{
-        flex: 1,
-        alignItems: 'center',
-        marginTop: base.padding.xl
+      facebookText:{
+        color: 'white',
+        fontFamily: "cabin-bold"
       },
-      buttonContainer:{
-        flex:1,
-        marginTop: base.padding.lg,
-        alignItems: 'center'
-      }
+      image: {
+        width: 24, 
+        height: 24,
+        marginRight: base.padding.sm
+      },
     })
 
     return (
@@ -87,22 +88,24 @@ class LoginHome extends React.Component {
        
         <View style={styles.imageContainer}>
           <NoteTaking/>
-        </View>
-        <View style={styles.taglineContainer}>
           <Text style={styles.tagline} >
             Bookworm vous permet de scanner des citations dans vos livres favoris à l'aide de votre téléphone :)
           </Text>
         </View>
+       
+        <View style={styles.socialLoginContainer}>
+          <TouchableOpacity style={styles.facebookButton} onPress={this.props.handleFbLogin}>
+            <Image style={styles.image} source={require('./../../assets/facebook-white.png')}  />
+            <Text style={styles.facebookText}>Continuer avec Facebook</Text>
+          </TouchableOpacity>
+        </View>
+    
         <View style={styles.buttonContainer}>
-          <MainButton height={40} legend="Créer un compte" onPress={}/>
+          <MainButton height={40} legend="Créer un compte" onPress={this.goToRegistration}/>
           <View style={styles.margin} />
-          <MainButton inverted height={40} legend="Se connecter" />
+          <MainButton inverted height={40} legend="Se connecter" onPress={this.goToLogin}/>
         </View> 
-
-        
       </View>
     );
   }
 }
-
-export default LoginHome
