@@ -24,6 +24,10 @@ class BooksContainer extends React.Component {
     this.navigateToNew = this.navigateToNew.bind(this)
   }
 
+  componentDidMount(){
+    // this.props.actions.readBooksIndex({jwt: this.props.jwt}, 'mobile')
+  }
+
   navigateToNew(){
     Animated.timing(this.state.outOffset, {
       toValue: -1,
@@ -32,7 +36,6 @@ class BooksContainer extends React.Component {
   }
 
   render () {
-
     const { width, height } = Dimensions.get('window')
     
     const styles = StyleSheet.create({
@@ -46,9 +49,6 @@ class BooksContainer extends React.Component {
       this.props.books.booksList.length > 0 ? 
         <BooksList books={this.props.books.booksList} newBook={this.navigateToNew}/> :
         <EmptyBooksList newBook={this.navigateToNew} />
-
-      
-      
 
     return (
       <Animated.View style={

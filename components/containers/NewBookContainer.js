@@ -10,7 +10,7 @@ import * as base from './../../assets/styles/base';
 import * as bookActions from './../../core-modules/actions/bookActions'
 import * as navigationActions from './../../core-modules/actions/navigationActions'
 
-import { View, FlatList, Text, Animated, Dimensions, StyleSheet, ScrollView, Keyboard, Easing } from 'react-native';
+import { View, Text, Animated, Dimensions, StyleSheet, ScrollView, Keyboard, Easing } from 'react-native';
 import appearsFromRight from './appearsFromRight'
 
 import { connect } from 'react-redux';
@@ -99,7 +99,6 @@ class NewBookContainer extends React.Component {
         book: Object.assign({}, prevState.book, payload)
       })
     )
-    console.log(this.state)
   }
 
   handleQuote(payload){
@@ -108,7 +107,6 @@ class NewBookContainer extends React.Component {
         quote: Object.assign({}, prevState.quote, payload)
       })
     )
-    console.log(this.state)
   }
 
   handleComment(payload){

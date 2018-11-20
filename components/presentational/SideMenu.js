@@ -5,7 +5,7 @@ import SideMenuLink from './SideMenuLink';
 import PublicLink from './PublicLink'
 import * as base from './../../assets/styles/base';
 
-import { View, Text, StyleSheet } from 'react-native';
+import { View, Text, StyleSheet, TouchableOpacity } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
@@ -45,7 +45,7 @@ class SideMenu extends React.Component {
 
     return (
       <View style={styles.container}>
-        <SideMenuHeader name={this.props.user} noteCount={this.props.noteCount} />
+        <SideMenuHeader name={this.props.user} bookCount={this.props.bookCount} />
         <View style={styles.menuContainer}>
           <SideMenuLink name="book" menuItem="Mes livres"  link='books' onPress={this.navigate}/>
           <SideMenuLink name="note-add" menuItem="Nouveau livre" link='new' onPress={this.navigate}/>
@@ -54,6 +54,10 @@ class SideMenu extends React.Component {
         <View style={styles.linkContainer}>
           <PublicLink link="À propos de Bookworm" />
           <PublicLink link="Politique de confidentialité" />
+          <TouchableOpacity onPress={this.props.logout}> 
+            <Text> Deconnexion </Text>
+          </TouchableOpacity>
+
         </View>
       </View>
     );

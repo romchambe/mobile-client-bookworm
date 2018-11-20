@@ -23,8 +23,7 @@ class bookApi {
   }
 
   static getBooks(payload, client) {
-    const address = buildAddress(client, 'books')
-
+    const address = buildAddress(client, 'books/index')
     
     const request = new Request(address, {
       method: 'GET',

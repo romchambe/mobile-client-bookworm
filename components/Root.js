@@ -10,6 +10,7 @@ import BooksContainer from './containers/BooksContainer';
 import ErrorsContainer from './containers/ErrorsContainer';
 import NewBookContainer from './containers/NewBookContainer';
 import ScanContainer from './containers/ScanContainer';
+import AuthContainer from './containers/AuthContainer'
 
 import AssetLoader from './AssetLoader';
 import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
@@ -19,6 +20,7 @@ import * as base from './../assets/styles/base';
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
 import * as navigationActions from './../core-modules/actions/navigationActions'
+import * as sessionActions from './../core-modules/actions/sessionActions'
 
 // External components
 import { NativeRouter, Route, Link, Redirect, Switch, withRouter  } from 'react-router-native';
@@ -47,8 +49,8 @@ class Root extends React.Component {
   pageTitle(location){
     switch(location){
       case '/':
-        return 'Mes livres';
-      case 'books':
+        return this.props.session.loggedIn ? 'Mes livres' : 'Bookworm';
+      case '/books':
         return 'Mes livres';
       case '/new':
         return 'Nouveau' //this.props.flow.title;
@@ -92,8 +94,6 @@ class Root extends React.Component {
       })
     }
 
-
-
     return (
       <View style={styles.flexView}>
         <Animated.View style={{ 
@@ -122,29 +122,34 @@ class Root extends React.Component {
             }),
           }}/>
           <Header>
-            <CustomIcon 
-              name={this.props.flow.started ?  "keyboard-arrow-left" :"menu"} 
-              onPress={this.props.flow.started ? null : showMenu }
-              rounded
-            />
+            {
+              this.props.session.loggedIn ? <CustomIcon 
+                name={this.props.flow.started ?  "keyboard-arrow-left" :"menu"} 
+                onPress={this.props.flow.started ? null : showMenu }
+                rounded
+              /> : null
+            }
+            
             <HeaderTitle>
               {this.pageTitle(this.props.pathname)}
             </HeaderTitle>
-            <CustomIcon 
-              rounded
-              name={ this.props.flow.started ? "close" : "scan"}  
-              onPress={ this.props.flow.started ? () => this.navigateTo('books') : () => this.navigateTo('scan')}
-            />
+            {
+              this.props.session.loggedIn ? <CustomIcon 
+                rounded
+                name={ this.props.flow.started ? "close" : "scan"}  
+                onPress={ this.props.flow.started ? () => this.navigateTo('books') : () => this.navigateTo('scan')}
+              /> : null 
+            }
+
           </Header> 
           <ErrorsContainer />
           <Container>
             <Switch>
-              <Route exact path="/" component={BooksContainer}/> 
+              <Route exact path="/" component={this.props.session.loggedIn ? BooksContainer : AuthContainer}/> 
               <Route exact path="/books" component={BooksContainer}/> 
               <Route path='/new' component={NewBookContainer}/>
               <Route path='/scan' component={ScanContainer}/>
             </Switch>
-            
           </Container>
          
         </Animated.View>
@@ -169,7 +174,7 @@ class Root extends React.Component {
           height: dimensions.height,
           left: this.state.menuPosition,
         }}>
-          <SideMenu user="Romain" noteCount="3" navigate={hideNavigate} />
+          <SideMenu user="Romain" bookCount="3" navigate={hideNavigate} logout={this.props.actions.logout} />
         </Animated.View>
       </View> 
     );
@@ -186,7 +191,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(navigationActions, dispatch)
+    actions: bindActionCreators(Object.assign({}, navigationActions, sessionActions), dispatch)
   }
 }
 

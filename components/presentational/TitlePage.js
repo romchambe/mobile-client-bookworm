@@ -11,8 +11,6 @@ import { ScrollView, View, Text, StyleSheet } from 'react-native';
 class TitlePage extends React.Component {
   
   render() {
-    console.log(this.props.preview)
-
     const styles = StyleSheet.create({
       container:{
         flex:1,
