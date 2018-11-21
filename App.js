@@ -60,6 +60,7 @@ class App extends React.Component {
       'cabin-italic': require('./assets/Cabin/Cabin-Italic.ttf'),
       'cabin-medium': require('./assets/Cabin/Cabin-Medium.ttf'),
       'cabin-semi-bold': require('./assets/Cabin/Cabin-SemiBold.ttf'),
+      'cabin-semi-bold-italic': require('./assets/Cabin/Cabin-SemiBoldItalic.ttf'),
       'cabin-medium-italic': require('./assets/Cabin/Cabin-MediumItalic.ttf'),
       'cabin-bold-italic': require('./assets/Cabin/Cabin-BoldItalic.ttf'),
     });
