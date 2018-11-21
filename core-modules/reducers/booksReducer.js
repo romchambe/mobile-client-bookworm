@@ -10,7 +10,7 @@ const books = (state = initialState, action) => {
     case types.CREATE_BOOK_SUCCESS:
       return Object.assign({}, state, {
         isFetchingBooks: false, 
-        BooksList: [...state.booksList, action.book],
+        booksList: [...state.booksList, action.book],
         currentBook: action.book
       })
     case types.CREATE_BOOK_FAILURE:
@@ -35,7 +35,7 @@ const books = (state = initialState, action) => {
       })
     case types.READ_BOOKS_INDEX_SUCCESS: 
       return Object.assign({}, state, {
-        isFetchingBooks: false, booksList: action.booksList
+        isFetchingBooks: false, booksList: action.payload
       })
     case types.READ_BOOKS_INDEX_SUCCESS: 
       return Object.assign({}, state, {

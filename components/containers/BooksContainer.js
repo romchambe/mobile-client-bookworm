@@ -25,7 +25,7 @@ class BooksContainer extends React.Component {
   }
 
   componentDidMount(){
-    // this.props.actions.readBooksIndex({jwt: this.props.jwt}, 'mobile')
+    this.props.actions.readBooksIndex({jwt: this.props.jwt}, 'mobile')
   }
 
   navigateToNew(){

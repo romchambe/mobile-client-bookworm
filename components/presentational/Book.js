@@ -117,7 +117,7 @@ export default class Book extends React.Component {
               </Text>
               <View style={styles.badge}>
                 <Text style={styles.badgeText}>
-                  {this.props.book.quoteCount}
+                  {this.props.book.quote_count}
                 </Text>
               </View>
             </View>

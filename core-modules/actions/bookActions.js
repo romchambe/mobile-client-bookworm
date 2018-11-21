@@ -15,7 +15,7 @@ export function readBooksIndexRequest(){
   return {type: types.READ_BOOKS_INDEX_REQUEST}
 }
 export function readBooksIndexSuccess(payload){
-  return {type: types.READ_BOOKS_INDEX_SUCCESS, booksList: payload}
+  return {type: types.READ_BOOKS_INDEX_SUCCESS, payload: payload}
 }
 export function readBooksIndexFailure(error){
   return {type: types.READ_BOOKS_INDEX_FAILURE, error: error}
@@ -60,7 +60,7 @@ export function readBooksIndex (payload,client){
       if (response.error){
         dispatch(readBooksIndexFailure(response.message))
       } else {
-        dispatch(readBooksIndexSuccess(response))
+        dispatch(readBooksIndexSuccess(response.booksList))
       }
     }).catch(error => {
       dispatch(readBooksIndexFailure(error.message));

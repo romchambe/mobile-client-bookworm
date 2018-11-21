@@ -130,11 +130,8 @@ export default class BooksList extends React.Component {
               }]
             }
           ]}>
-            <FilteredList books=
-              {[ 
-                {author: 'Milan Kundera', title: "L'insoutenable légèreté de l'être", quoteCount: 5},
-                {author: 'Milan Kundera', title: "L'insoutenable légèreté de l'être", quoteCount: 5}
-              ]} 
+            <FilteredList 
+              books={this.props.books} 
               search={this.state.search}
             />
           </Animated.View>
