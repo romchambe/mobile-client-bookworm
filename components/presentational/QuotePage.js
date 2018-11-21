@@ -130,7 +130,7 @@ class QuotePage extends React.Component {
           <MainButton height={40} legend='Scannez une citation' />
         </Animated.View>
         
-        <ScrollView contentContainerStyle={styles.complete} ref={this.registerScrollView}>
+        <ScrollView contentContainerStyle={styles.complete} ref={this.registerScrollView}  keyboardShouldPersistTaps={'always'}>
           <Animated.Text style={[styles.prompt,
             {
               height: this.state.growBottom.interpolate({

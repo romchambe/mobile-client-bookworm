@@ -22,7 +22,6 @@ class NewBookContainer extends React.Component {
     this.state = {
       currentStep: 0,
       stepOffset: new Animated.Value(0),
-      keyboardAvoiding: new Animated.Value(0),
       book: {},
       quote: {}, 
       comment: {}
@@ -37,36 +36,6 @@ class NewBookContainer extends React.Component {
   }
 
   steps = ['Livre','Citation','Commentaire']
-  
-
-  componentDidMount() {
-    this._keyboardWillShow = this._keyboardWillShow.bind(this)
-    this._keyboardWillHide = this._keyboardWillHide.bind(this)
-    this.keyboardDidShowListener = Keyboard.addListener('keyboardWillShow', this._keyboardWillShow);
-    this.keyboardDidHideListener = Keyboard.addListener('keyboardWillHide', this._keyboardWillHide);
-  }
-
-  componentWillUnmount () {
-    this.keyboardDidShowListener.remove();
-    this.keyboardDidHideListener.remove();
-  }
-
-  // Hide bottom actions when keyboard show, show them otherwise
-  _keyboardWillHide(e){
-    Animated.timing(this.state.keyboardAvoiding, {
-      toValue: 0,
-      duration: e.duration,
-      easing: Easing.bezier(0.1, 0.76, 0.55, 0.9)
-    }).start()
-  }
-
-  _keyboardWillShow(e){
-    Animated.timing(this.state.keyboardAvoiding, {
-      toValue: 248,
-      duration: e.duration,
-       easing: Easing.bezier(0.1, 0.76, 0.55, 0.9)
-    }).start()
-  }
 
 
   nextStep(){
@@ -144,6 +113,7 @@ class NewBookContainer extends React.Component {
         position:'absolute',
         left: 0,
         bottom: 0,
+        height: 136,
         overflow:'hidden',
         backgroundColor: 'white',
         alignItems: 'center',
@@ -184,14 +154,7 @@ class NewBookContainer extends React.Component {
          
         </Animated.View>
 
-        <Animated.View style={[
-          styles.bottomActions, {
-            height: this.state.keyboardAvoiding.interpolate({
-              inputRange:[0, 248],
-              outputRange:[136, 0]
-            })
-          }
-        ]}>
+        <Animated.View style={styles.bottomActions}>
           
         
           <Steps steps={this.steps} activeIndex={this.state.currentStep}/>

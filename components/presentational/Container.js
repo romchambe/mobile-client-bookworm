@@ -16,7 +16,7 @@ export default class Container extends React.Component {
     })
 
     return (
-      <ScrollView scrollEnabled={false} contentContainerStyle={styles.container} keyboardShouldPersistTaps='handled'>
+      <ScrollView scrollEnabled={false} contentContainerStyle={styles.container} keyboardShouldPersistTaps={'handled'}>
         {this.props.children}
       </ScrollView>
     );
