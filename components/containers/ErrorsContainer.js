@@ -8,14 +8,6 @@ import { connect } from 'react-redux';
 class ErrorsContainer extends React.Component {
   height = new Animated.Value(0)
 
-  shouldComponentUpdate(nextProps, nextState){
-    if (nextProps.errors.length > 0){
-      return true
-    } else {
-      return false
-    }
-  }
-
   componentWillUnmount(){
     Animated.timing(this.height, {
       toValue: 0,
@@ -24,10 +16,13 @@ class ErrorsContainer extends React.Component {
   }
   
   render () {
-    Animated.timing(this.height, {
-      toValue: Math.min(this.props.errors.length * 26,78),
-      duration: 150
-    }).start()
+    if (this.props.errors.length > 0){
+      Animated.timing(this.height, {
+        toValue: Math.min(this.props.errors.length * 26,78),
+        duration: 150
+      }).start()  
+    }
+    
 
     const dimensions = {  
       height: Dimensions.get('window').height,
