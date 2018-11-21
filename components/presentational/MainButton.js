@@ -13,14 +13,16 @@ export default class mainButton extends React.Component {
         alignItems: 'center',
         borderRadius: height / 2, 
         width: 200,
+        paddingHorizontal: height / 2,
         borderWidth: this.props.inverted ? 1 : 0,
         borderColor: this.props.inverted ? base.colors.yellow : 'transparent'
       }, 
       buttonText:{
-
         textAlign: 'center',
         fontFamily: this.props.inverted ? 'cabin-semi-bold' : 'cabin-bold',
-        color: base.colors.blue
+        color: base.colors.blue, 
+
+        minWidth:160
       }
     })
     return (

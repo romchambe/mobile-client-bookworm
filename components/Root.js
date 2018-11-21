@@ -131,7 +131,9 @@ class Root extends React.Component {
               this.props.session.loggedIn || this.props.flow.step > 0 ? 
                 <CustomIcon 
                   name={this.props.flow.started ? "keyboard-arrow-left" : "menu"} 
-                  onPress={this.props.flow.started ? () => this.props.actions.updateFlow({next: -1, title: null}) : showMenu }
+                  onPress={this.props.flow.started ? () => {
+                    this.props.flow.back()
+                  } : showMenu }
                   rounded={this.props.flow.started ? false : true}
                 /> : null
             }

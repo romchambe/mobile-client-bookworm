@@ -18,7 +18,6 @@ class AuthContainer extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      currentStep: 0,
       form: '',
       stepOffset: new Animated.Value(0),
       login: {},
@@ -47,11 +46,9 @@ class AuthContainer extends React.Component {
         registration: Object.assign({}, prevState.registration, payload)
       })
     )
-    console.log(this.state)
   }
 
-  handleFbLogin(e){
-    e.preventDefault()
+  handleFbLogin(){
     this.props.actions.fbLoginUser('mobile');
   }
 
@@ -68,10 +65,14 @@ class AuthContainer extends React.Component {
       form: type
     })
     Animated.timing(this.state.stepOffset, {
-      toValue: this.state.currentStep + action,
+      toValue: this.props.flow.step + action,
       duration: 200
     }).start(
-      () => this.props.actions.updateFlow({next: action, title: type === 'login' ? 'Se connecter' : 'Créer un compte'})
+      () => this.props.actions.updateFlow({
+        next: action, 
+        title: type === 'login' ? 'Se connecter' : type === 'registration' ? 'Créer un compte' : null, 
+        back: () => this.goToStep(-1) 
+      })
     )
   } 
 
@@ -127,9 +128,15 @@ class AuthContainer extends React.Component {
   }
 }
 
+function mapStateToProps(state){
+  return {
+    flow: state.flow
+  }
+}
+
 function mapDispatchToProps(dispatch){
   return {
     actions: bindActionCreators(Object.assign({}, sessionActions, userActions, flowActions),dispatch)
   }
 }
-export default connect(null, mapDispatchToProps)(AuthContainer)
+export default connect(mapStateToProps, mapDispatchToProps)(AuthContainer)

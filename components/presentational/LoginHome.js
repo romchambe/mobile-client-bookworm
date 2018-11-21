@@ -29,6 +29,7 @@ export default class LoginHome extends React.Component {
         flex:1,
         justifyContent: 'flex-start',
         paddingHorizontal: base.padding.md,
+
       },
       margin:{
         marginBottom: base.padding.sm
@@ -53,7 +54,7 @@ export default class LoginHome extends React.Component {
         flex:1,
         paddingVertical: base.padding.md,
         alignItems: 'center',
-        justifyContent:'flex-start'
+        justifyContent:'flex-start', 
       },
       tagline:{
         fontFamily: 'cabin-medium',
@@ -65,7 +66,7 @@ export default class LoginHome extends React.Component {
       facebookButton: {
         width:248,
         height:40,
-        borderRadius: 25,
+        borderRadius: 20,
         flexDirection:'row',
         justifyContent:'center',
         alignItems:'center',
@@ -73,7 +74,9 @@ export default class LoginHome extends React.Component {
       }, 
       facebookText:{
         color: 'white',
-        fontFamily: "cabin-bold"
+        fontFamily: "cabin-bold",
+        minWidth: 172, 
+        textAlign: 'center'
       },
       image: {
         width: 24, 
