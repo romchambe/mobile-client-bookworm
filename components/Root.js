@@ -60,7 +60,7 @@ class Root extends React.Component {
       case '/new':
         return this.props.flow.title ? this.props.flow.title : 'Nouveau livre';
       case '/scan':
-        return 'Scan' //this.props.flow.title;
+        return this.props.flow.title ? this.props.flow.title : 'Scan';
     }
   }
 

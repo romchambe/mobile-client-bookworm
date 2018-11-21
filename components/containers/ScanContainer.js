@@ -6,6 +6,7 @@ import FinalPage from './../presentational/FinalPage'
 
 import * as base from './../../assets/styles/base';
 import * as bookActions from './../../core-modules/actions/bookActions'
+import * as flowActions from './../../core-modules/actions/flowActions'
 import * as navigationActions from './../../core-modules/actions/navigationActions'
 
 import { View, FlatList, Text, Animated, Dimensions, StyleSheet, ScrollView, Keyboard, Easing } from 'react-native';
@@ -18,10 +19,10 @@ class ScanContainer extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      currentStep: 0,
       stepOffset: new Animated.Value(0),
     }
     this.nextStep = this.nextStep.bind(this)
+    this.goToStep = this.goToStep.bind(this)
   }
 
   nextStep(){
@@ -34,6 +35,32 @@ class ScanContainer extends React.Component {
           currentStep: prevState.currentStep + 1
         })
       ))
+    }
+  }
+
+  componentDidMount(){
+    this.props.actions.startFlow()
+  }
+
+  componentWillUnmount(){
+    this.props.actions.cleanFlow()
+  }
+
+
+  steps = ['Scan', 'Recadrer', 'Ajout de la citation']
+
+  goToStep(action){
+    if (this.props.flow.step + action < 3 && this.props.flow.step + action > -1){
+      Animated.timing(this.state.stepOffset, {
+        toValue: this.props.flow.step + action,
+        duration: 200
+      }).start(
+        () => this.props.actions.updateFlow({
+          next: action, 
+          title: this.steps[this.props.flow.step + action], 
+          back: () => this.goToStep(-1) 
+        })
+      )  
     }
   }
 
@@ -62,8 +89,8 @@ class ScanContainer extends React.Component {
         }
       ]}>
 
-        <ScanPage nextStep={this.nextStep} />
-        <ResizePage nextStep={this.nextStep} />
+        <ScanPage nextStep={() => this.goToStep(1)} />
+        <ResizePage nextStep={() => this.goToStep(1)} />
         <FinalPage />
       </Animated.View>
     )
@@ -73,13 +100,14 @@ class ScanContainer extends React.Component {
 function mapStateToProps(state){
   return {
     jwt: state.session.jwt,
-    books: state.books
+    books: state.books,
+    flow: state.flow
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(Object.assign({}, bookActions, navigationActions),dispatch)
+    actions: bindActionCreators(Object.assign({}, bookActions, navigationActions, flowActions), dispatch)
   }
 }
 export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(ScanContainer))
