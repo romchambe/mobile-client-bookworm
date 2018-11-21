@@ -8,6 +8,7 @@ import Steps from './../presentational/Steps'
 import * as base from './../../assets/styles/base';
 
 import * as bookActions from './../../core-modules/actions/bookActions'
+import * as flowActions from './../../core-modules/actions/flowActions'
 import * as navigationActions from './../../core-modules/actions/navigationActions'
 
 import { View, Text, Animated, Dimensions, StyleSheet, ScrollView, Keyboard, Easing } from 'react-native';
@@ -27,7 +28,6 @@ class NewBookContainer extends React.Component {
       comment: {}
     }
 
-    this.nextStep = this.nextStep.bind(this)
     this.goToStep = this.goToStep.bind(this)
 
     this.handleBook = this.handleBook.bind(this)
@@ -37,29 +37,27 @@ class NewBookContainer extends React.Component {
 
   steps = ['Livre','Citation','Commentaire']
 
+  componentDidMount(){
+    this.props.actions.startFlow()
+  }
 
-  nextStep(){
-    if (this.state.currentStep < 2){
-      Animated.timing(this.state.stepOffset, {
-        toValue: this.state.currentStep + 1,
-        duration: 200
-      }).start(() => this.setState(
-        (prevState, props) => ({
-          currentStep: prevState.currentStep + 1
-        })
-      ))
-    }
+  componentWillUnmount(){
+    this.props.actions.cleanFlow()
   }
 
   goToStep(action){
-    Animated.timing(this.state.stepOffset, {
-      toValue: this.state.currentStep + action,
-      duration: 200
-    }).start(() => this.setState(
-      (prevState, props) => ({
-        currentStep: prevState.currentStep + action
-      })
-    ))
+    if (this.props.flow.step + action < 3 && this.props.flow.step + action > -1){
+      Animated.timing(this.state.stepOffset, {
+        toValue: this.props.flow.step + action,
+        duration: 200
+      }).start(
+        () => this.props.actions.updateFlow({
+          next: action, 
+          title: this.steps[this.props.flow.step + action], 
+          back: () => this.goToStep(-1) 
+        })
+      )  
+    }
   } 
 
   handleBook(payload){
@@ -166,7 +164,7 @@ class NewBookContainer extends React.Component {
               }),
             }
           ]}/>
-          <MainButton height={40} legend="Suivant" onPress={this.nextStep} />
+          <MainButton height={40} legend="Suivant" onPress={() => this.goToStep(1)} />
 
         </Animated.View>
       </Animated.View>
@@ -184,7 +182,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(Object.assign({}, bookActions, navigationActions),dispatch)
+    actions: bindActionCreators(Object.assign({}, bookActions, navigationActions, flowActions),dispatch)
   }
 }
 export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(NewBookContainer))

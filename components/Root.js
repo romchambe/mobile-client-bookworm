@@ -58,7 +58,7 @@ class Root extends React.Component {
       case '/books':
         return 'Mes livres';
       case '/new':
-        return 'Nouveau' //this.props.flow.title;
+        return this.props.flow.title ? this.props.flow.title : 'Nouveau livre';
       case '/scan':
         return 'Scan' //this.props.flow.title;
     }
@@ -128,14 +128,14 @@ class Root extends React.Component {
           }}/>
           <Header>
             { 
-              this.props.session.loggedIn || this.props.flow.step > 0 ? 
+              (this.props.session.loggedIn && (!this.props.flow.started || this.props.flow.step > 0)) || this.props.flow.step > 0 ? 
                 <CustomIcon 
                   name={this.props.flow.started ? "keyboard-arrow-left" : "menu"} 
                   onPress={this.props.flow.started ? () => {
                     this.props.flow.back()
                   } : showMenu }
                   rounded={this.props.flow.started ? false : true}
-                /> : null
+                /> : <View style={{height: 36, width: 36, backgroundColor:'transparent'}} />
             }
             
             <HeaderTitle>
@@ -146,7 +146,7 @@ class Root extends React.Component {
                 rounded={this.props.flow.started ? false : true}
                 name={ this.props.flow.started ? "close" : "scan"}  
                 onPress={ this.props.flow.started ? () => this.navigateTo('books') : () => this.navigateTo('scan')}
-              /> : null 
+              /> :  <View style={{height: 36, width: 36, backgroundColor:'transparent'}} />
             }
 
           </Header> 
