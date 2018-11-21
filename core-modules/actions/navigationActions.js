@@ -21,6 +21,12 @@ export function navigateToNew (){
   }
 }
 
+export function navigateToProfile (){
+  return function(dispatch) {
+    dispatch(push('/profile'))
+  }
+}
+
 export function navigateToEdit (){
   return function(dispatch) {
     dispatch(push('/edit'))

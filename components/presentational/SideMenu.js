@@ -49,15 +49,11 @@ class SideMenu extends React.Component {
         <View style={styles.menuContainer}>
           <SideMenuLink name="book" menuItem="Mes livres"  link='books' onPress={this.navigate}/>
           <SideMenuLink name="note-add" menuItem="Nouveau livre" link='new' onPress={this.navigate}/>
-          <SideMenuLink name="person" menuItem="Profil" />  
+          <SideMenuLink name="person" menuItem="Profil" link='profile' onPress={this.navigate}/>  
         </View>
         <View style={styles.linkContainer}>
           <PublicLink link="À propos de Bookworm" />
           <PublicLink link="Politique de confidentialité" />
-          <TouchableOpacity onPress={this.props.logout}> 
-            <Text> Deconnexion </Text>
-          </TouchableOpacity>
-
         </View>
       </View>
     );

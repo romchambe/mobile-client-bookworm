@@ -7,7 +7,7 @@ export default class mainButton extends React.Component {
     const height = this.props.height
     const styles = StyleSheet.create({
       mainButton:{
-        backgroundColor: this.props.inverted ? 'transparent' : base.colors.yellow,
+        backgroundColor: this.props.inverted ? 'transparent' : this.props.danger ? base.colors.red : base.colors.yellow,
         height: height,
         justifyContent: 'center',
         alignItems: 'center',
@@ -20,7 +20,7 @@ export default class mainButton extends React.Component {
       buttonText:{
         textAlign: 'center',
         fontFamily: this.props.inverted ? 'cabin-semi-bold' : 'cabin-bold',
-        color: base.colors.blue, 
+        color: this.props.danger ? 'white' : base.colors.blue, 
 
         minWidth:160
       }

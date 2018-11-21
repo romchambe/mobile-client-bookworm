@@ -10,7 +10,9 @@ import BooksContainer from './containers/BooksContainer';
 import ErrorsContainer from './containers/ErrorsContainer';
 import NewBookContainer from './containers/NewBookContainer';
 import ScanContainer from './containers/ScanContainer';
-import AuthContainer from './containers/AuthContainer'
+import AuthContainer from './containers/AuthContainer';
+import BookEditContainer from './containers/BookEditContainer';
+import ProfileContainer from './containers/ProfileContainer';
 
 import AssetLoader from './AssetLoader';
 import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
@@ -44,6 +46,8 @@ class Root extends React.Component {
         return this.props.actions.navigateToNew();
       case 'scan':
         return this.props.actions.navigateToScan();
+      case 'profile':
+        return this.props.actions.navigateToProfile();
     }
   }
 
@@ -57,6 +61,8 @@ class Root extends React.Component {
             'Bookworm';
       case '/books':
         return 'Mes livres';
+      case '/profile':
+        return 'Mon profil';
       case '/new':
         return this.props.flow.title ? this.props.flow.title : 'Nouveau livre';
       case '/scan':
@@ -156,6 +162,8 @@ class Root extends React.Component {
               <Route exact path="/" component={this.props.session.loggedIn ? BooksContainer : AuthContainer}/> 
               <Route exact path="/books" component={BooksContainer}/> 
               <Route path='/new' component={NewBookContainer}/>
+              <Route path='/edit' component={BookEditContainer}/>
+              <Route path='/profile' component={ProfileContainer}/>
               <Route path='/scan' component={ScanContainer}/>
             </Switch>
           </Container>
@@ -186,7 +194,6 @@ class Root extends React.Component {
             user={this.props.user.username} 
             bookCount={this.props.booksList.length}
             navigate={hideNavigate} 
-            logout={this.props.actions.logout} 
           />
         </Animated.View>
       </View> 
