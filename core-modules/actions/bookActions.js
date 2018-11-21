@@ -45,6 +45,7 @@ export function createBook (payload,client){
         dispatch(createBookFailure(response.message))
       } else {
         dispatch(createBookSuccess(response));
+        dispatch(push('/books'))
       }
     }).catch(error => {
       dispatch(createBookFailure(error.message));
@@ -75,7 +76,7 @@ export function updateBook (payload, client){
         dispatch(updateBookFailure(response.message))
       } else {
         dispatch(updateBookSuccess(response))
-        dispatch(push('/Books'))
+        dispatch(push('/books'))
       }
     }).catch(error => {
       dispatch(updateBookFailure(error.message));

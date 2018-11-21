@@ -21,7 +21,6 @@ class NewBookContainer extends React.Component {
   constructor(props){
     super(props)
     this.state = {
-      currentStep: 0,
       stepOffset: new Animated.Value(0),
       book: {},
       quote: {}, 
@@ -30,6 +29,7 @@ class NewBookContainer extends React.Component {
 
     this.goToStep = this.goToStep.bind(this)
 
+    this.postBook = this.postBook.bind(this)
     this.handleBook = this.handleBook.bind(this)
     this.handleQuote = this.handleQuote.bind(this)
     this.handleComment = this.handleComment.bind(this)
@@ -59,6 +59,11 @@ class NewBookContainer extends React.Component {
       )  
     }
   } 
+
+  postBook(payload){
+    console.log(payload)
+    this.props.actions.createBook(payload, 'mobile')
+  }
 
   handleBook(payload){
     this.setState(
@@ -121,6 +126,8 @@ class NewBookContainer extends React.Component {
         marginHorizontal: base.padding.md
       }
     })
+
+    let { stepOffset, ...payload } = this.state
     return (
       <Animated.View style={styles.container}>
         <Animated.View style={[
@@ -155,16 +162,24 @@ class NewBookContainer extends React.Component {
         <Animated.View style={styles.bottomActions}>
           
         
-          <Steps steps={this.steps} activeIndex={this.state.currentStep}/>
+          <Steps steps={this.steps} activeIndex={this.props.flow.step}/>
           <Animated.View style={[
             styles.bar, {
               left: this.state.stepOffset.interpolate({
                 inputRange: [0, 2],
-                outputRange:[0, 2 * (width - 52) / 3]
+                outputRange:[0, 2 * (width - 42) / 3]
               }),
             }
           ]}/>
-          <MainButton height={40} legend="Suivant" onPress={() => this.goToStep(1)} />
+          <MainButton 
+            height={40} 
+            legend={ this.props.flow.step === 2 ? "Sauvegarder" : "Suivant"}  
+            onPress={
+              this.props.flow.step === 2 ? 
+              () => this.postBook({jwt: this.props.jwt, ...payload}) : 
+              () => this.goToStep(1)
+            }
+          />
 
         </Animated.View>
       </Animated.View>

@@ -41,7 +41,7 @@ class QuotePage extends React.Component {
   }
 
   handleQuoteChanges(e){
-    this.setState({quote: e})
+    this.setState({content: e})
   }
 
   handleTitleChanges(e){
@@ -153,7 +153,7 @@ class QuotePage extends React.Component {
             maximumHeight={this.maxQuoteHeight} 
             handleHeightChange={this.handleQuoteHeight} 
             handleChange={this.props.handleQuote}
-            name='quote'
+            name='content'
             value={this.props.preview ? this.props.preview : null}
             placeholder="Par ex: 'On se mouvait mollement entre les ponts comme des poulpes au fond d'une baignoire d'eau fadasse'" 
           />

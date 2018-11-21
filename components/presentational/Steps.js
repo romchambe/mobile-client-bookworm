@@ -10,7 +10,6 @@ export default class Badge extends React.Component {
       container: {
         flex: 1,
         flexDirection: 'row',
-        marginHorizontal:6,
         paddingTop: 8
       },
       step:{
@@ -19,7 +18,7 @@ export default class Badge extends React.Component {
         alignItems: 'center',
         justifyContent: 'center',
         borderBottomColor: base.colors.blueLight,
-        borderBottomWidth: 3
+        borderBottomWidth: 3, 
       },
       stepHint:{
         fontFamily: 'cabin-bold',

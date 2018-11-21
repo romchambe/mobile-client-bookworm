@@ -4,6 +4,7 @@ class bookApi {
   static postBook(payload, client) {
     const address = buildAddress(client, 'books')
     const date = new Date;
+    const {jwt, ...data} = payload
     
     var title = 'Draft - ' + date.toLocaleDateString('fr-FR') + ' ' + date.toLocaleTimeString('fr-FR').substring(0,5)
     var content = payload.content ? payload.content : null
@@ -12,9 +13,9 @@ class bookApi {
       method: 'POST',
       headers: new Headers({
         'Content-Type': 'application/json', 
-        'AUTHORIZATION': `Bearer ${payload.jwt},`
+        'AUTHORIZATION': `Bearer ${jwt},`
       }), 
-      body: JSON.stringify({title: title, author: author})
+      body: JSON.stringify(data)
     });
 
     return fetch(request).then(response => {
