@@ -22,10 +22,15 @@ class BooksContainer extends React.Component {
       outOffset: new Animated.Value(0)
     }
     this.navigateToNew = this.navigateToNew.bind(this)
+    this.navigateToBook = this.navigateToBook.bind(this)
   }
 
   componentDidMount(){
     this.props.actions.readBooksIndex({jwt: this.props.jwt}, 'mobile')
+  }
+
+  navigateToBook(payload){
+    this.props.actions.navigateToEdit(payload)
   }
 
   navigateToNew(){
@@ -47,7 +52,7 @@ class BooksContainer extends React.Component {
     let content = this.props.books.isFetchingBooks ? 
       <AssetLoader /> :
       this.props.books.booksList.length > 0 ? 
-        <BooksList books={this.props.books.booksList} newBook={this.navigateToNew}/> :
+        <BooksList books={this.props.books.booksList} newBook={this.navigateToNew} goToBook={this.navigateToBook}/> :
         <EmptyBooksList newBook={this.navigateToNew} />
 
     return (

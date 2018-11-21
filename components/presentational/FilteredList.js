@@ -9,8 +9,8 @@ const FilteredList = (props) => {
   let list = props.books.filter(
     book => (book.title.replace(escapePunctuation,"").match(new RegExp(props.search.replace(escapePunctuation, ""), "i")) ||
       book.author.replace(escapePunctuation,"").match(new RegExp(props.search.replace(escapePunctuation, ""), "i")))
-  ).map((filteredBook, index) => { 
-    return <Book book={filteredBook} key={index} />
+  ).map(filteredBook => { 
+    return <Book book={filteredBook} key={filteredBook.id} id={filteredBook.id} onPress={props.goToBook}/>
   })
 
   const dimensions = {  

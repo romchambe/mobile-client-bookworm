@@ -2,10 +2,20 @@ import React from 'react';
 
 
 import * as base from './../../assets/styles/base';
-import { View, Text, StyleSheet, Dimensions } from 'react-native';
+import { View, Text, StyleSheet, Dimensions, TouchableOpacity } from 'react-native';
 
 
 export default class Book extends React.Component {
+  constructor(props){
+    super(props)
+    this.goToBook = this.goToBook.bind(this)
+  }
+
+  goToBook(){
+    console.log(this.props.id)
+    this.props.onPress(this.props.id)
+  }
+
 
   render() {
 
@@ -95,9 +105,8 @@ export default class Book extends React.Component {
     });
 
     return (
-       
       <View style={styles.container}>
-        <View style={styles.card}>
+        <TouchableOpacity style={styles.card} onPress={this.goToBook}>
           <View style={styles.firstRow}>
             <View style={styles.left}>
               <Text style={styles.title} numberOfLines={1} > 
@@ -122,7 +131,7 @@ export default class Book extends React.Component {
               </View>
             </View>
           </View>
-        </View>
+        </TouchableOpacity>
       </View>
 
     );

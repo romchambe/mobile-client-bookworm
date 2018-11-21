@@ -17,6 +17,20 @@ const books = (state = initialState, action) => {
       return Object.assign({}, state, {
         isFetchingBooks: false
       })
+
+    case types.READ_BOOK_REQUEST:
+      return Object.assign({}, state, {
+        isFetchingBooks: true
+      })
+    case types.READ_BOOK_SUCCESS:
+      return Object.assign({}, state, {
+        isFetchingBooks: false, currentBook: action.payload
+      })
+    case types.READ_BOOK_FAILURE:
+      return Object.assign({}, state, {
+        isFetchingBooks: false
+      })
+
     case types.UPDATE_BOOK_REQUEST:
       return Object.assign({}, state, {
         isFetchingBooks: true
@@ -29,6 +43,7 @@ const books = (state = initialState, action) => {
       return Object.assign({}, state, {
         isFetchingBooks: false
       })
+
     case types.READ_BOOKS_INDEX_REQUEST: 
       return Object.assign({}, state, {
         isFetchingBooks: true
@@ -41,10 +56,7 @@ const books = (state = initialState, action) => {
       return Object.assign({}, state, {
         isFetchingBooks: false
       })
-    case types.SET_CURRENT_BOOK:
-      return Object.assign({}, state, {
-        currentBook: action.book
-      })
+
     case types.LOGOUT:
       return Object.assign({}, state, {
         booksList: [],

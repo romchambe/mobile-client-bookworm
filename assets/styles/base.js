@@ -21,7 +21,7 @@ export const colors  = {
   orange: '#FFBFA0',
   altOrange: '#F6B26C',
   lightBlue: '#D2FDFF', 
-  red: '#92140C' 
+  red: '#F15152' 
 }
 
 export const padding = {

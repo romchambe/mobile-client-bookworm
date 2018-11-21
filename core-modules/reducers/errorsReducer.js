@@ -8,11 +8,25 @@ const error = (state = [], action) => {
         ...state,
         action.error
       ]
+
     case types.CREATE_USER_FAILURE:
       return [
         ...state,
         action.error
       ]
+
+    case types.READ_BOOK_FAILURE:
+      return [
+        ...state,
+        action.error
+      ]
+
+    case types.READ_BOOKS_INDEX_FAILURE:
+      return [
+        ...state,
+        action.error
+      ]
+
     case types.UPLOAD_SCAN_FAILURE:
       return [
         ...state,

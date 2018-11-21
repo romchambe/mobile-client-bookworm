@@ -24,7 +24,7 @@ class bookApi {
   }
 
   static getBooks(payload, client) {
-    const address = buildAddress(client, 'books/index')
+    const address = buildAddress(client, 'books')
     
     const request = new Request(address, {
       method: 'GET',
@@ -32,6 +32,21 @@ class bookApi {
         'Content-Type': 'application/json',
         'AUTHORIZATION': `Bearer ${payload.jwt},`
       })
+    });
+
+    return fetch(request).then(response => {
+      return response.json();
+    });
+  }
+
+  static getBook(payload, client){
+    const address = buildAddress(client, 'books/' + payload.id.toString())
+    const request = new Request(address, {
+      method: 'GET',
+      headers: new Headers({
+        'Content-Type': 'application/json', 
+        'AUTHORIZATION': `Bearer ${payload.jwt},`
+      }), 
     });
 
     return fetch(request).then(response => {

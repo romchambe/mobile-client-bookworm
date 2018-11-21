@@ -4,7 +4,8 @@ import appearsFromRight from './appearsFromRight'
 
 import * as base from './../../assets/styles/base';
 
-import * as sessionActions from './../../core-modules/actions/sessionActions'
+import * as bookActions from './../../core-modules/actions/bookActions'
+import * as flowActions from './../../core-modules/actions/flowActions'
 
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
 
@@ -14,13 +15,20 @@ import { bindActionCreators } from 'redux';
 class BookEditContainer extends React.Component {
   constructor(props){
     super(props)
-    this.logout = this.logout.bind(this)
   }
 
-  logout(){
-    this.props.actions.logout()
+  componentDidMount(){
+    this.props.actions.startFlow()
+    this.props.actions.readBook({
+      jwt: this.props.jwt, 
+      id: this.props.match.params.id
+    }, 'mobile')
   }
  
+  componentWillUnmount(){
+    this.props.actions.cleanFlow()
+  }
+
 
   render () {
     const { width, height } = Dimensions.get('window')
@@ -36,11 +44,7 @@ class BookEditContainer extends React.Component {
 
     return (
       <View style={styles.container}>
-        <MainButton 
-          danger
-          height={40}
-          onPress={this.props.actions.logout} 
-        />
+        <Text>{JSON.stringify(this.props.book)}</Text>
       </View>
     )
   }
@@ -48,13 +52,14 @@ class BookEditContainer extends React.Component {
 
 function mapStateToProps(state){
   return {
-    user: state.user
+    jwt: state.session.jwt,
+    book: state.books.currentBook
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(sessionActions, dispatch)
+    actions: bindActionCreators(Object.assign({}, bookActions, flowActions), dispatch)
   }
 }
 export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(BookEditContainer))

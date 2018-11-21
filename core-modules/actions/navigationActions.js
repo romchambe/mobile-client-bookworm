@@ -27,9 +27,9 @@ export function navigateToProfile (){
   }
 }
 
-export function navigateToEdit (){
+export function navigateToEdit(payload){
   return function(dispatch) {
-    dispatch(push('/edit'))
+    dispatch(push(`/edit/${payload}`))
   }
 }
 

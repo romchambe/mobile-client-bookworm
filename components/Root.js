@@ -52,6 +52,9 @@ class Root extends React.Component {
   }
 
   pageTitle(location){
+    if (location.includes('/edit')){
+      return this.props.flow.title ? this.props.flow.title : '';
+    }
     switch(location){
       case '/':
         return this.props.session.loggedIn ? 
@@ -162,7 +165,7 @@ class Root extends React.Component {
               <Route exact path="/" component={this.props.session.loggedIn ? BooksContainer : AuthContainer}/> 
               <Route exact path="/books" component={BooksContainer}/> 
               <Route path='/new' component={NewBookContainer}/>
-              <Route path='/edit' component={BookEditContainer}/>
+              <Route path='/edit/:id' component={BookEditContainer}/>
               <Route path='/profile' component={ProfileContainer}/>
               <Route path='/scan' component={ScanContainer}/>
             </Switch>
@@ -192,7 +195,7 @@ class Root extends React.Component {
         }}>
           <SideMenu 
             user={this.props.user.username} 
-            bookCount={this.props.booksList.length}
+            bookCount={this.props.books.booksList.length}
             navigate={hideNavigate} 
           />
         </Animated.View>
@@ -205,7 +208,7 @@ class Root extends React.Component {
 function mapStateToProps(state) {
   return {
     session: state.session,
-    booksList: state.books.booksList,
+    books: state.books,
     pathname: state.router.location.pathname,
     flow: state.flow,
     user: state.user

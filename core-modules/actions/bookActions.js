@@ -11,6 +11,17 @@ export function createBookSuccess(payload){
 export function createBookFailure(error){
   return {type: types.CREATE_BOOK_FAILURE, error: error}
 }
+
+export function readBookRequest(){
+  return { type: types.READ_BOOK_REQUEST}
+}
+export function readBookSuccess(payload){
+  return { type: types.READ_BOOK_SUCCESS, payload: payload }
+}
+export function readBookFailure(error){
+  return { type: types.READ_BOOK_FAILURE, error: error}
+}
+
 export function readBooksIndexRequest(){
   return {type: types.READ_BOOKS_INDEX_REQUEST}
 }
@@ -24,17 +35,11 @@ export function readBooksIndexFailure(error){
 export function updateBookRequest(){
   return {type: types.UPDATE_BOOK_REQUEST}
 }
-
-export function updateBookSuccess(){
-  return {type: types.UPDATE_BOOK_SUCCESS}
+export function updateBookSuccess(payload){
+  return {type: types.UPDATE_BOOK_SUCCESS, payload: payload}
 }
-
 export function updateBookFailure(error){
   return {type: types.UPDATE_BOOK_FAILURE, error: error}
-}
-
-export function setCurrentBook(payload) {  
-  return {type: types.SET_CURRENT_BOOK,book: payload}
 }
 
 export function createBook (payload,client){
@@ -64,6 +69,21 @@ export function readBooksIndex (payload,client){
       }
     }).catch(error => {
       dispatch(readBooksIndexFailure(error.message));
+    });
+  }
+}
+
+export function readBook(payload,client){
+  return function(dispatch){
+    dispatch(readBookRequest())
+    return bookApi.getBook(payload, client).then(response => {
+      if (response.error){
+        dispatch(readBookFailure(response.message))
+      } else {
+        dispatch(readBookSuccess(response))
+      }
+    }).catch(error => {
+      dispatch(readBookFailure(error.message));
     });
   }
 }

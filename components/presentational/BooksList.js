@@ -17,7 +17,6 @@ export default class BooksList extends React.Component {
     keyboardAvoiding: new Animated.Value(180)
   }
   
-    
   componentDidMount () {
     this._keyboardWillShow = this._keyboardWillShow.bind(this)
     this._keyboardWillHide = this._keyboardWillHide.bind(this)
@@ -119,7 +118,7 @@ export default class BooksList extends React.Component {
             source={require('./../../assets/cover.jpg')}
           />
         </Animated.View>
-        <ScrollView>
+        <ScrollView keyboardShouldPersistTaps={'always'}>
           <Animated.View style={[styles.listContainer, 
             {
               transform: [{
@@ -133,6 +132,7 @@ export default class BooksList extends React.Component {
             <FilteredList 
               books={this.props.books} 
               search={this.state.search}
+              goToBook={this.props.goToBook}
             />
           </Animated.View>
         </ScrollView>

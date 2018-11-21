@@ -16,6 +16,11 @@ const flow = (state = initialState, action) => {
       })  
     case types.CLEAN_FLOW:
       return Object.assign({}, state, initialState.flow)
+    
+    case types.READ_BOOK_SUCCESS:
+      return Object.assign({}, state, {
+        title: action.payload.book.title
+      })
     default: 
       return state;
   }
