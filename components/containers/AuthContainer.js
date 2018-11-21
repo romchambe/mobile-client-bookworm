@@ -6,6 +6,7 @@ import LoginForm from './../presentational/LoginForm'
 import * as base from './../../assets/styles/base';
 import * as sessionActions from './../../core-modules/actions/sessionActions'
 import * as userActions from './../../core-modules/actions/userActions'
+import * as flowActions from './../../core-modules/actions/flowActions'
 
 import { Animated, Keyboard, Easing, View, StyleSheet, Dimensions } from 'react-native';
 import appearsFromRight from './appearsFromRight'
@@ -69,12 +70,18 @@ class AuthContainer extends React.Component {
     Animated.timing(this.state.stepOffset, {
       toValue: this.state.currentStep + action,
       duration: 200
-    }).start(() => this.setState(
-      (prevState, props) => ({
-        currentStep: prevState.currentStep + action,
-      })
-    ))
+    }).start(
+      () => this.props.actions.updateFlow({next: action, title: type === 'login' ? 'Se connecter' : 'Créer un compte'})
+    )
   } 
+
+  componentDidMount(){
+    this.props.actions.startFlow()
+  }
+
+  componentWillUnmount(){
+    this.props.actions.cleanFlow()
+  }
 
   render() {
     const { width, height } = Dimensions.get('window')
@@ -122,7 +129,7 @@ class AuthContainer extends React.Component {
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(Object.assign({}, sessionActions, userActions),dispatch)
+    actions: bindActionCreators(Object.assign({}, sessionActions, userActions, flowActions),dispatch)
   }
 }
 export default connect(null, mapDispatchToProps)(AuthContainer)

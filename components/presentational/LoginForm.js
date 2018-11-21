@@ -86,7 +86,6 @@ export default class LoginForm extends React.Component {
       <View style={styles.container}>
         <View style={styles.formContainer}>
           { this.props.form === 'login' ? null : nameField }
-          <View style={styles.margin} />
           <InputLegend legend='Email' />  
           <InputField 
             name="email" 

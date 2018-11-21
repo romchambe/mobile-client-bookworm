@@ -29,14 +29,4 @@ export function postScan (payload,client){
   }
 }
 
-export function incrementStep() {
-  return {type: types.INCREMENT_STEP};
-}
-
-export function cleanScanFlow() {
-  return {type: types.CLEAN_SCAN_FLOW};
-}
-
-
-
 

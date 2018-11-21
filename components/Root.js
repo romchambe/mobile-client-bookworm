@@ -21,6 +21,7 @@ import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
 import * as navigationActions from './../core-modules/actions/navigationActions'
 import * as sessionActions from './../core-modules/actions/sessionActions'
+import * as flowActions from './../core-modules/actions/flowActions'
 
 // External components
 import { NativeRouter, Route, Link, Redirect, Switch, withRouter  } from 'react-router-native';
@@ -49,7 +50,11 @@ class Root extends React.Component {
   pageTitle(location){
     switch(location){
       case '/':
-        return this.props.session.loggedIn ? 'Mes livres' : 'Bookworm';
+        return this.props.session.loggedIn ? 
+          'Mes livres' : 
+          this.props.flow.title ? 
+            this.props.flow.title : 
+            'Bookworm';
       case '/books':
         return 'Mes livres';
       case '/new':
@@ -122,12 +127,13 @@ class Root extends React.Component {
             }),
           }}/>
           <Header>
-            {
-              this.props.session.loggedIn ? <CustomIcon 
-                name={this.props.flow.started ?  "keyboard-arrow-left" :"menu"} 
-                onPress={this.props.flow.started ? null : showMenu }
-                rounded
-              /> : null
+            { 
+              this.props.session.loggedIn || this.props.flow.step > 0 ? 
+                <CustomIcon 
+                  name={this.props.flow.started ? "keyboard-arrow-left" : "menu"} 
+                  onPress={this.props.flow.started ? () => this.props.actions.updateFlow({next: -1, title: null}) : showMenu }
+                  rounded={this.props.flow.started ? false : true}
+                /> : null
             }
             
             <HeaderTitle>
@@ -135,7 +141,7 @@ class Root extends React.Component {
             </HeaderTitle>
             {
               this.props.session.loggedIn ? <CustomIcon 
-                rounded
+                rounded={this.props.flow.started ? false : true}
                 name={ this.props.flow.started ? "close" : "scan"}  
                 onPress={ this.props.flow.started ? () => this.navigateTo('books') : () => this.navigateTo('scan')}
               /> : null 
@@ -191,7 +197,7 @@ function mapStateToProps(state) {
 }
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(Object.assign({}, navigationActions, sessionActions), dispatch)
+    actions: bindActionCreators(Object.assign({}, navigationActions, sessionActions, flowActions), dispatch)
   }
 }
 
