@@ -34,7 +34,7 @@ export default class SideMenuHeader extends React.Component {
       <View style={styles.container}>
         <Badge name={this.props.name}/> 
         <Text style={styles.username} numberOfLines={1} >{this.props.name}</Text>
-        <Text style={styles.noteCount}> {this.props.noteCount} notes </Text>
+        <Text style={styles.noteCount}>{this.props.bookCount} livre{ this.props.bookCount > 1 ? 's': null}</Text>
       </View>
     );
   }

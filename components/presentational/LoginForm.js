@@ -79,7 +79,11 @@ export default class LoginForm extends React.Component {
     const nameField = 
       <View style={styles.field}>
         <InputLegend legend='Votre prénom' />  
-        <InputField placeholder="Moi c'est Wormsie, et toi?" handleChange={this.props.handleForm} />
+        <InputField 
+          name="username"
+          placeholder="Moi c'est Wormsie, et toi?" 
+          handleChange={this.props.handleForm} 
+        />
       </View>
 
     return (

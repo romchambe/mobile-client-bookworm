@@ -16,14 +16,9 @@ const user = (state = initialState, action) => {
         isFetching: false
       })
     case types.LOGIN_SUCCESS:
-      return Object.assign({}, state, {
-        user: action.user
-      })
-      case types.LOGOUT:
-      return Object.assign({}, state, {
-        isFetching: false,
-        user: {}
-      })
+      return Object.assign({}, state, action.user)
+    case types.LOGOUT:
+      return Object.assign({}, initialState.user)
     default: 
       return state;
   }

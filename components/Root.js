@@ -182,7 +182,12 @@ class Root extends React.Component {
           height: dimensions.height,
           left: this.state.menuPosition,
         }}>
-          <SideMenu user="Romain" bookCount="3" navigate={hideNavigate} logout={this.props.actions.logout} />
+          <SideMenu 
+            user={this.props.user.username} 
+            bookCount={this.props.booksList.length}
+            navigate={hideNavigate} 
+            logout={this.props.actions.logout} 
+          />
         </Animated.View>
       </View> 
     );
@@ -193,8 +198,10 @@ class Root extends React.Component {
 function mapStateToProps(state) {
   return {
     session: state.session,
+    booksList: state.books.booksList,
     pathname: state.router.location.pathname,
-    flow: state.flow
+    flow: state.flow,
+    user: state.user
   }
 }
 function mapDispatchToProps(dispatch){

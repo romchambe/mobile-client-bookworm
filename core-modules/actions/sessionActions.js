@@ -25,7 +25,6 @@ export function loginUser(credentials,client) {
   return function(dispatch) {
     dispatch(loginRequest());
     return sessionApi.postLogin(credentials,client).then(response => { 
-      console.log(JSON.stringify(response))
       if (response.error){
         dispatch(loginFailure(response.message))
       } else {

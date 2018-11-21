@@ -7,7 +7,9 @@ export default {
   errors: [],
   user: { 
     isFetching: false, 
-    user: {}
+    username: '',
+    email:'',
+    id: ''
   }, 
   books: {
     isFetchingBooks: false, 
