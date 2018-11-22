@@ -48,7 +48,7 @@ class BookEditContainer extends React.Component {
     }).start(
       () => this.props.actions.updateFlow({
         next: action, 
-        title: type === 'login' ? 'Se connecter' : type === 'registration' ? 'Créer un compte' : null, 
+        title: type === 'new' ? 'Nouvelle citation' : type === 'edit' ? 'Modifier' : this.props.book.book.title, 
         back: () => this.goToStep(-1) 
       })
     )
@@ -100,7 +100,8 @@ class BookEditContainer extends React.Component {
 function mapStateToProps(state){
   return {
     jwt: state.session.jwt,
-    book: state.books.currentBook
+    book: state.books.currentBook,
+    flow: state.flow
   }
 }
 

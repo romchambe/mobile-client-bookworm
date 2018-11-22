@@ -3,9 +3,7 @@ import * as base from './../../assets/styles/base';
 import InputLegend from './InputLegend'
 import InputField from './InputField'
 import MainButton from './MainButton'
-import Quote from './Quote'
-import QuoteTitle from './QuoteTitle'
-import Comment from './Comment'
+
 
 
 import {  ScrollView, View, Text, StyleSheet, Animated } from 'react-native';
@@ -51,27 +49,14 @@ export default class BookFormPage extends React.Component {
       }
     })
 
-    const quotes = !!this.props.book ? this.props.book.quotes.map(quote => {
-      return (
-        <View key={quote.quote.id} style={styles.quoteContainer}>
-          <QuoteTitle content={quote.quote.title} />
-          <Quote content={quote.quote.content} />
-          {
-            quote.comments.map(comment => {
-              return <Comment key={comment.id} content={comment.content} />
-            }
-          )}
-        </View>
-      )
-    }) : null
-
+    
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          {quotes}
+          <Text> Coucou </Text>
         </ScrollView>
         <View style={styles.bottomActions}>
-          
+          <MainButton height={40} legend="Sauvegarder" />
         </View>
       </View>
     )

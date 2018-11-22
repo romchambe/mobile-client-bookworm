@@ -12,16 +12,16 @@ import {  ScrollView, View, Text, StyleSheet, Animated } from 'react-native';
 export default class BookHomePage extends React.Component {
   constructor(props){
     super(props)
-    this.goToRegistration = this.goToRegistration.bind(this)
-    this.goToLogin = this.goToLogin.bind(this)
+    this.goToNew = this.goToNew.bind(this)
+    this.goToEdit = this.goToEdit.bind(this)
   }
 
-  goToLogin(){ 
-    this.props.goToStep(1, 'login')
+  goToNew(){ 
+    this.props.goToStep(1, 'new')
   }
 
-  goToRegistration(){
-    this.props.goToStep(1, 'registration')
+  goToEdit(){
+    this.props.goToStep(1, 'edit')
   }
 
   render() {
@@ -72,8 +72,8 @@ export default class BookHomePage extends React.Component {
           {quotes}
         </ScrollView>
         <View style={styles.bottomActions}>
-          <CustomIcon name="edit" rounded dimension={44} style={{marginRight:base.padding.xs}}/>
-          <CustomIcon name="add" rounded dimension={44} style={{marginLeft:base.padding.xs}} /> 
+          <CustomIcon name="edit" rounded dimension={44} style={{marginRight:base.padding.xs}} onPress={this.goToEdit}/>
+          <CustomIcon name="add" rounded dimension={44} style={{marginLeft:base.padding.xs}} onPress={this.goToNew}/> 
         </View>
       </View>
     )
