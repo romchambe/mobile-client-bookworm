@@ -38,10 +38,17 @@ class BookEditContainer extends React.Component {
     this.props.actions.cleanCurrentBook()
   }
 
-  goToStep(action,type){
+  goToStep(action,type,payload){
+    console.log(payload)
+    let item = type === 'edit' && payload.type === 'quote' ?
+      this.props.book.quotes.find(quote => quote.quote.id === payload.id) : 
+      this.props.book.quotes.find(comment => quote.comments.find(comment.id === payload.id))
+    console.log(item)
     this.setState({
-      form: type
+      form: type,
+      payload: type === 'edit' ? item : {}
     })
+
     Animated.timing(this.state.stepOffset, {
       toValue: this.props.flow.step + action,
       duration: 200
@@ -87,6 +94,7 @@ class BookEditContainer extends React.Component {
           <BookFormPage
             form={this.state.form}
             goToStep={this.goToStep}
+            payload={this.state.payload}
           />
         </Animated.View>
       </Animated.View>

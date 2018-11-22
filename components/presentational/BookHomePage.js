@@ -21,7 +21,6 @@ export default class BookHomePage extends React.Component {
   }
 
   toggleTouch(){
-
     this.setState(
       (prevState, props) => ({
         touchDisabled:  !prevState.touchDisabled
@@ -33,8 +32,9 @@ export default class BookHomePage extends React.Component {
     this.props.goToStep(1, 'new')
   }
 
-  goToEdit(){
-    this.props.goToStep(1, 'edit')
+  goToEdit(payload){
+    console.log(payload)
+    this.props.goToStep(1, 'edit', payload)
   }
 
   render() {
@@ -69,6 +69,7 @@ export default class BookHomePage extends React.Component {
             title={quote.quote.title} 
             content={quote.quote.content} 
             disabled={this.state.touchDisabled}
+            onPress={this.goToEdit}
           />
           {
             quote.comments.map(comment => {
@@ -77,6 +78,7 @@ export default class BookHomePage extends React.Component {
                 id={comment.id}
                 content={comment.content} 
                 disabled={this.state.touchDisabled}
+                onPress={this.goToEdit}
               />
             }
           )}

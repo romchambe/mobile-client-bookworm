@@ -47,24 +47,28 @@ export default class Comment extends React.Component {
       }
     })
     return (
-      <AnimatedTouchable disabled={this.props.disabled} style={[
-        styles.container,
-        {
-          elevation: this.shadow,
-          shadowRadius: this.shadow.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, 6]
-          }),
-          shadowOffset:  { 
-            width: 0,
-            height: this.shadow.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, 4]
+      <AnimatedTouchable 
+        disabled={this.props.disabled} 
+        onPress={() => this.props.onPress({id: this.props.id, type: 'comment'})}
+        style={[
+          styles.container,
+          {
+            elevation: this.shadow,
+            shadowRadius: this.shadow.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 6]
             }),
-          },
-          shadowOpacity: this.shadow
-        } 
-      ]}>
+            shadowOffset:  { 
+              width: 0,
+              height: this.shadow.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 4]
+              }),
+            },
+            shadowOpacity: this.shadow
+          } 
+        ]}
+      >
         <View style={styles.iconContainer}>
           <CustomIcon name="comment" dimension={24}/>
         </View>

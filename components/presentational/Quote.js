@@ -42,24 +42,28 @@ export default class Quote extends React.Component {
       }
     })
     return (
-      <AnimatedTouchable disabled={this.props.disabled} id={this.props.id} style={[
-        styles.quoteContainer,
-        {
-          elevation: this.shadow,
-          shadowRadius: this.shadow.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, 6]
-          }),
-          shadowOffset:  { 
-            width: 0,
-            height: this.shadow.interpolate({
-              inputRange: [0, 1],
-              outputRange: [0, 4]
+      <AnimatedTouchable 
+        disabled={this.props.disabled} 
+        onPress={() => this.props.onPress({id: this.props.id, type: 'quote'})}
+        style={[
+          styles.quoteContainer,
+          {
+            elevation: this.shadow,
+            shadowRadius: this.shadow.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 6]
             }),
-          },
-          shadowOpacity: this.shadow
-        } 
-      ]}>)
+            shadowOffset:  { 
+              width: 0,
+              height: this.shadow.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 4]
+              }),
+            },
+            shadowOpacity: this.shadow
+          } 
+        ]}
+      >
         <QuoteTitle content={this.props.title} />
 
         <Text style={styles.legend}>"{this.props.content}"</Text>

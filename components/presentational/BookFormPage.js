@@ -47,12 +47,12 @@ export default class BookFormPage extends React.Component {
         paddingBottom: base.padding.md
       }
     })
-
     
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          <Text> Coucou </Text>
+          <Text> {JSON.stringify(this.props.payload)} </Text>
+
         </ScrollView>
         <View style={styles.bottomActions}>
           <MainButton height={40} legend="Sauvegarder" />
