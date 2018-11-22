@@ -33,7 +33,6 @@ export default class BookHomePage extends React.Component {
   }
 
   goToEdit(payload){
-    console.log(payload)
     this.props.goToStep(1, 'edit', payload)
   }
 
@@ -76,6 +75,7 @@ export default class BookHomePage extends React.Component {
               return <Comment 
                 key={comment.id} 
                 id={comment.id}
+                quoteId={comment.quote_id}
                 content={comment.content} 
                 disabled={this.state.touchDisabled}
                 onPress={this.goToEdit}

@@ -10,17 +10,7 @@ import {  ScrollView, View, Text, StyleSheet, Animated } from 'react-native';
 
 export default class BookFormPage extends React.Component {
   constructor(props){
-    super(props)
-    this.goToRegistration = this.goToRegistration.bind(this)
-    this.goToLogin = this.goToLogin.bind(this)
-  }
-
-  goToLogin(){ 
-    this.props.goToStep(1, 'login')
-  }
-
-  goToRegistration(){
-    this.props.goToStep(1, 'registration')
+    super(props) 
   }
 
   render() {
@@ -29,9 +19,13 @@ export default class BookFormPage extends React.Component {
         flex:1,
         justifyContent: 'flex-start',
       },
+      margin:{
+        marginBottom: base.padding.md 
+      },
       contentContainer: {
         flexGrow: 1,
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        paddingHorizontal: base.padding.md
       },
       quoteContainer:{
         justifyContent: 'flex-start',
@@ -47,12 +41,31 @@ export default class BookFormPage extends React.Component {
         paddingBottom: base.padding.md
       }
     })
+
+    const form = this.props.form === 'edit' ? (
+      <View style={styles.container}>
+        <View style={styles.margin} />
+        <InputLegend legend='Titre de la citation' />  
+        <InputField 
+          placeholder='Il vous permet de repérer plus vite votre citation' 
+          name='title' 
+          handleChange={this.props.handleBook} 
+        />
+        <View style={styles.margin} />
+        <InputLegend legend="Contenu" />
+        <InputField 
+          placeholder="Votre citation" 
+          name='content' 
+          handleChange={this.props.handleBook}
+        />
+      </View>
+    ) : null
     
     return (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
-          <Text> {JSON.stringify(this.props.payload)} </Text>
-
+          {form}
+          <Text>{JSON.stringify(this.props.payload)}</Text>
         </ScrollView>
         <View style={styles.bottomActions}>
           <MainButton height={40} legend="Sauvegarder" />

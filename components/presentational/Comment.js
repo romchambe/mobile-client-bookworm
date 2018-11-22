@@ -49,7 +49,7 @@ export default class Comment extends React.Component {
     return (
       <AnimatedTouchable 
         disabled={this.props.disabled} 
-        onPress={() => this.props.onPress({id: this.props.id, type: 'comment'})}
+        onPress={() => this.props.onPress({id: this.props.id, type: 'comment', quoteId: this.props.quoteId})}
         style={[
           styles.container,
           {

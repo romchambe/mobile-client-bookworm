@@ -39,14 +39,17 @@ class BookEditContainer extends React.Component {
   }
 
   goToStep(action,type,payload){
-    console.log(payload)
     let item = type === 'edit' && payload.type === 'quote' ?
-      this.props.book.quotes.find(quote => quote.quote.id === payload.id) : 
-      this.props.book.quotes.find(comment => quote.comments.find(comment.id === payload.id))
-    console.log(item)
+      this.props.book.quotes.find(quote => quote.quote.id === payload.id).quote : 
+      type === 'edit' && payload.type === 'quote' ?
+        this.props.book.quotes.find(quote => 
+          quote.quote.id === payload.quoteId
+        ).comments.find(comment => comment.id === payload.id) :
+        null
+
     this.setState({
       form: type,
-      payload: type === 'edit' ? item : {}
+      payload: item
     })
 
     Animated.timing(this.state.stepOffset, {
@@ -56,9 +59,10 @@ class BookEditContainer extends React.Component {
       () => this.props.actions.updateFlow({
         next: action, 
         title: type === 'new' ? 'Nouvelle citation' : type === 'edit' ? 'Modifier' : this.props.book.book.title, 
-        back: () => this.goToStep(-1) 
+        back: () => this.goToStep(-1, 'back') 
       })
     )
+
   } 
 
   render () {
