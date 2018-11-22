@@ -69,6 +69,23 @@ export default class CustomIcon extends React.Component {
         size: 20,
         styles: {
           color: colors.blue, 
+          paddingLeft: 1,
+        }
+      },
+      add: {
+        type: 'Material',
+        size: 22,
+        styles: {
+          color: colors.blue, 
+          paddingLeft: 1,
+          paddingTop: 1, 
+        }
+      },
+      magnify: {
+        type: 'MaterialCommunityIcons',
+        size: 20,
+        styles: {
+          color: colors.blue, 
         }
       },
       scan:{
@@ -96,9 +113,13 @@ export default class CustomIcon extends React.Component {
         case 'note-add':
           return <MaterialIcons name={this.props.name} size={ icons.noteAdd.size } style={icons.noteAdd.styles} /> ;
         case 'comment':
-          return <MaterialIcons name={this.props.name} size={ icons.comment.size } style={[icons.comment.styles, this.props.style]} /> ;
+          return <MaterialIcons name={this.props.name} size={ icons.comment.size } style={icons.comment.styles} /> ;
         case 'edit':
-          return <MaterialIcons name={this.props.name} size={ icons.edit.size } style={[icons.edit.styles, this.props.style]} /> ;
+          return <MaterialIcons name={this.props.name} size={ icons.edit.size } style={icons.edit.styles} /> ;
+        case 'add':
+          return <MaterialIcons name={this.props.name} size={ icons.add.size } style={icons.add.styles} /> ;
+        case 'magnify':
+          return <MaterialCommunityIcons name={this.props.name} size={ icons.magnify.size } style={ icons.magnify.styles } />;
         case 'scan':
           return (
             <Svg height={icons.scan.size} width={icons.scan.size} fill={colors.blue} viewBox="0 0 20 20">
@@ -143,7 +164,7 @@ export default class CustomIcon extends React.Component {
 
 
     return (
-      <TouchableOpacity style={this.props.rounded ? styles.rounded : styles.normal} onPress={this.props.onPress}>
+      <TouchableOpacity style={[this.props.rounded ? styles.rounded : styles.normal, this.props.style]} onPress={this.props.onPress}>
         <View style={styles.centered}>
           { processedIcon(this.props.name) }
         </View>

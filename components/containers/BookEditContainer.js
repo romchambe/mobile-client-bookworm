@@ -1,10 +1,8 @@
 import React from 'react';
 
 import appearsFromRight from './appearsFromRight'
-import MainButton from './../presentational/MainButton'
-import QuoteTitle from './../presentational/QuoteTitle'
-import Quote from './../presentational/Quote'
-import Comment from './../presentational/Comment'
+import BookHomePage from './../presentational/BookHomePage'
+import BookFormPage from './../presentational/BookFormPage'
 
 import * as base from './../../assets/styles/base';
 
@@ -24,6 +22,7 @@ class BookEditContainer extends React.Component {
       form: '',
       stepOffset: new Animated.Value(0),
     }
+    this.goToStep = this.goToStep.bind(this)
   }
 
   componentDidMount(){
@@ -57,56 +56,44 @@ class BookEditContainer extends React.Component {
 
   render () {
     const { width, height } = Dimensions.get('window')
-    
+
     const styles = StyleSheet.create({
       container: {
-        flex: 1,
+        flex:1,
+      },
+      inputView: {
+        position: 'absolute',
+        top: 0,
+        width: 2 * width,
         paddingTop: base.padding.lg,
-        paddingHorizontal: base.padding.md
-      },
-      contentContainer: {
-        flexGrow: 1,
-        justifyContent: 'flex-start'
-      },
-      quoteContainer:{
-        justifyContent: 'flex-start',
-      },
-      bottomActions:{
-        position:'absolute',
-        bottom: 0,
-        left: 0,
-        right: 0,
-        height: 72,
-        alignItems: 'center',
-        paddingTop: base.padding.xs,
-        paddingBottom: base.padding.md
-      }
+        flexDirection: 'row',
+        height: height - 76
+      }, 
     })
-
-    const quotes = !!this.props.book ? this.props.book.quotes.map(quote => {
-      return (
-        <View key={quote.quote.id} style={styles.quoteContainer}>
-          <QuoteTitle content={quote.quote.title} />
-          <Quote content={quote.quote.content} />
-          {
-            quote.comments.map(comment => {
-              return <Comment key={comment.id} content={comment.content} />
-            }
-          )}
-        </View>
-      )
-    }) : null
-
+    
     return (
-      <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
-          {quotes}
-        </ScrollView>
-        <View style={styles.bottomActions}>
-          <MainButton height={40} legend="Nouvelle Citation" onPress={this.newQuote}/>
-        </View>
-      </View>
+      <Animated.View style={styles.container}>
+        <Animated.View style={[
+          styles.inputView, {
+            left: this.state.stepOffset.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, - width]
+            }),
+          }
+        ]}>
+          <BookHomePage
+            book={this.props.book}
+            goToStep={this.goToStep}
+          />
+          <BookFormPage
+            form={this.state.form}
+            goToStep={this.goToStep}
+          />
+        </Animated.View>
+      </Animated.View>
+
     )
+    
   }
 }
 
