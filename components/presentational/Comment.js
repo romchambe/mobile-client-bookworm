@@ -9,34 +9,30 @@ export default class Comment extends React.Component {
       container: {
         flex: 1,
         flexDirection:'row',
-        alignItems: 'center',
+        alignItems: 'flex-start',
         marginTop: base.padding.xs
       },
       iconContainer:{
-        flex: 1,
-        maxWidth: 32,
-
+        width: 40,
+        paddingRight: 4
       },
       textContainer:{
         flex: 1,
-        backgroundColor: base.colors.yellowLight,
-        borderRadius: 6,
-        paddingHorizontal: base.padding.sm,
-        paddingVertical: base.padding.xs,
+        paddingLeft: 4
       },
       legend:{
-        fontFamily: 'cabin-italic',
+        fontFamily: 'cabin',
         fontSize: base.fonts.md,
-        color:base.colors.black,
+        color:base.colors.blueMedium,
       }
     })
     return (
       <View style={styles.container}>
         <View style={styles.iconContainer}>
-          <CustomIcon name="comment" style={{paddingRight: base.padding.xs}}/>
+          <CustomIcon name="comment" />
         </View>
         <View style={styles.textContainer}>
-          <Text style={styles.legend}>"{this.props.content}"</Text>
+          <Text style={styles.legend}>{this.props.content}</Text>
         </View>
       </View>
     );

@@ -58,9 +58,17 @@ export default class CustomIcon extends React.Component {
       },
       comment: {
         type: 'Material',
-        size: 20,
+        size: 24,
         styles: {
           color: colors.yellowMedium, 
+          paddingTop: -4
+        }
+      },
+      edit: {
+        type: 'Material',
+        size: 20,
+        styles: {
+          color: colors.blue, 
         }
       },
       scan:{
@@ -89,6 +97,8 @@ export default class CustomIcon extends React.Component {
           return <MaterialIcons name={this.props.name} size={ icons.noteAdd.size } style={icons.noteAdd.styles} /> ;
         case 'comment':
           return <MaterialIcons name={this.props.name} size={ icons.comment.size } style={[icons.comment.styles, this.props.style]} /> ;
+        case 'edit':
+          return <MaterialIcons name={this.props.name} size={ icons.edit.size } style={[icons.edit.styles, this.props.style]} /> ;
         case 'scan':
           return (
             <Svg height={icons.scan.size} width={icons.scan.size} fill={colors.blue} viewBox="0 0 20 20">

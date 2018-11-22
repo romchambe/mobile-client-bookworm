@@ -12,7 +12,7 @@ import * as bookActions from './../../core-modules/actions/bookActions'
 import * as flowActions from './../../core-modules/actions/flowActions'
 
 
-import { View, Text, Dimensions, ScrollView, StyleSheet } from 'react-native';
+import { View, Text, Dimensions, ScrollView, StyleSheet, Animated } from 'react-native';
 
 import { connect } from 'react-redux';
 import { bindActionCreators } from 'redux'; 
@@ -20,6 +20,10 @@ import { bindActionCreators } from 'redux';
 class BookEditContainer extends React.Component {
   constructor(props){
     super(props)
+    this.state = { 
+      form: '',
+      stepOffset: new Animated.Value(0),
+    }
   }
 
   componentDidMount(){
@@ -34,6 +38,22 @@ class BookEditContainer extends React.Component {
     this.props.actions.cleanFlow()
     this.props.actions.cleanCurrentBook()
   }
+
+  goToStep(action,type){
+    this.setState({
+      form: type
+    })
+    Animated.timing(this.state.stepOffset, {
+      toValue: this.props.flow.step + action,
+      duration: 200
+    }).start(
+      () => this.props.actions.updateFlow({
+        next: action, 
+        title: type === 'login' ? 'Se connecter' : type === 'registration' ? 'Créer un compte' : null, 
+        back: () => this.goToStep(-1) 
+      })
+    )
+  } 
 
   render () {
     const { width, height } = Dimensions.get('window')

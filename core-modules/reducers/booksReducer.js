@@ -11,7 +11,6 @@ const books = (state = initialState, action) => {
       return Object.assign({}, state, {
         isFetchingBooks: false, 
         booksList: [...state.booksList, action.book],
-        currentBook: action.book
       })
     case types.CREATE_BOOK_FAILURE:
       return Object.assign({}, state, {
@@ -58,7 +57,6 @@ const books = (state = initialState, action) => {
       })
 
     case types.CLEAN_CURRENT_BOOK: 
-    console.log(initialState.books.currentBook)
       return Object.assign({}, state, {
         currentBook: initialState.books.currentBook
       })
