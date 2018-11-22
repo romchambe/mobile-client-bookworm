@@ -15,15 +15,18 @@ export default class BookHomePage extends React.Component {
     this.state = {
       touchDisabled: true
     }
-    this.activateTouch = this.activateTouch.bind(this)
+    this.toggleTouch = this.toggleTouch.bind(this)
     this.goToNew = this.goToNew.bind(this)
     this.goToEdit = this.goToEdit.bind(this)
   }
 
-  activateTouch(){
-    this.setState({
-      touchDisabled: false
-    })
+  toggleTouch(){
+
+    this.setState(
+      (prevState, props) => ({
+        touchDisabled:  !prevState.touchDisabled
+      })
+    )
   }
 
   goToNew(){ 
@@ -86,10 +89,19 @@ export default class BookHomePage extends React.Component {
         <ScrollView contentContainerStyle={styles.contentContainer}>
           {quotes}
         </ScrollView>
-        <View style={styles.bottomActions}>
-          <CustomIcon name="edit" rounded dimension={44} style={{marginRight:base.padding.xs}} onPress={this.activateTouch}/>
-          <CustomIcon name="add" rounded dimension={44} style={{marginLeft:base.padding.xs}} onPress={this.goToNew}/> 
-        </View>
+        {
+          this.state.touchDisabled ? (
+            <View style={styles.bottomActions}>
+              <CustomIcon name="edit" rounded dimension={44} style={{marginRight:base.padding.xs}} onPress={this.toggleTouch}/>
+              <CustomIcon name="add" rounded dimension={44} style={{marginLeft:base.padding.xs}} onPress={this.goToNew}/> 
+            </View>
+          ) : (
+            <View style={styles.bottomActions}>
+              <CustomIcon name="close" rounded dimension={44} onPress={this.toggleTouch}/> 
+            </View>
+          )
+        }
+        
       </View>
     )
   }

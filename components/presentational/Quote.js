@@ -15,12 +15,18 @@ export default class Quote extends React.Component {
         toValue: 1,
         duration: 250
       }).start()
+    } else {
+      Animated.timing(this.shadow,{
+        toValue: 0,
+        duration: 250
+      }).start()
     }
 
     const styles = StyleSheet.create({
       quoteContainer:{
         marginHorizontal: 16,
-        padding: base.padding.xs,
+        paddingVertical: base.padding.xs,
+        paddingHorizontal: 12,
         justifyContent: 'flex-start',
         backgroundColor: 'white',
         borderRadius: 4,

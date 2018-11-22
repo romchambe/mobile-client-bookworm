@@ -14,6 +14,11 @@ export default class Comment extends React.Component {
         toValue: 1,
         duration: 250
       }).start()
+    } else {
+      Animated.timing(this.shadow,{
+        toValue: 0,
+        duration: 250
+      }).start()
     }
 
     const styles = StyleSheet.create({
@@ -29,8 +34,7 @@ export default class Comment extends React.Component {
         shadowColor: base.colors.blueLight,
       },
       iconContainer:{
-        width: 40,
-        paddingRight: 4
+        width: 32,
       },
       textContainer:{
         flex: 1,
@@ -62,7 +66,7 @@ export default class Comment extends React.Component {
         } 
       ]}>
         <View style={styles.iconContainer}>
-          <CustomIcon name="comment" />
+          <CustomIcon name="comment" dimension={24}/>
         </View>
         <View style={styles.textContainer}>
           <Text style={styles.legend}>{this.props.content}</Text>
