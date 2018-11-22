@@ -42,6 +42,10 @@ export function updateBookFailure(error){
   return {type: types.UPDATE_BOOK_FAILURE, error: error}
 }
 
+export function cleanCurrentBook(){
+  return {type: types.CLEAN_CURRENT_BOOK}
+}
+
 export function createBook (payload,client){
   return function(dispatch) {
     dispatch(createBookRequest())

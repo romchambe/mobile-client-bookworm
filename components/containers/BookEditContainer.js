@@ -32,6 +32,7 @@ class BookEditContainer extends React.Component {
  
   componentWillUnmount(){
     this.props.actions.cleanFlow()
+    this.props.actions.cleanCurrentBook()
   }
 
   render () {

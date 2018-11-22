@@ -57,6 +57,12 @@ const books = (state = initialState, action) => {
         isFetchingBooks: false
       })
 
+    case types.CLEAN_CURRENT_BOOK: 
+    console.log(initialState.books.currentBook)
+      return Object.assign({}, state, {
+        currentBook: initialState.books.currentBook
+      })
+
     case types.LOGOUT:
       return Object.assign({}, state, {
         booksList: [],
