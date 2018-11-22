@@ -28,7 +28,6 @@ export default class BookFormPage extends React.Component {
       container:{
         flex:1,
         justifyContent: 'flex-start',
-        paddingHorizontal: base.padding.md,
       },
       contentContainer: {
         flexGrow: 1,

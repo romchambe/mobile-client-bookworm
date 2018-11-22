@@ -12,8 +12,18 @@ import {  ScrollView, View, Text, StyleSheet, Animated } from 'react-native';
 export default class BookHomePage extends React.Component {
   constructor(props){
     super(props)
+    this.state = {
+      touchDisabled: true
+    }
+    this.activateTouch = this.activateTouch.bind(this)
     this.goToNew = this.goToNew.bind(this)
     this.goToEdit = this.goToEdit.bind(this)
+  }
+
+  activateTouch(){
+    this.setState({
+      touchDisabled: false
+    })
   }
 
   goToNew(){ 
@@ -29,14 +39,10 @@ export default class BookHomePage extends React.Component {
       container:{
         flex:1,
         justifyContent: 'flex-start',
-        paddingHorizontal: base.padding.md,
       },
       contentContainer: {
         flexGrow: 1,
         justifyContent: 'flex-start'
-      },
-      quoteContainer:{
-        justifyContent: 'flex-start',
       },
       bottomActions:{
         position:'absolute',
@@ -54,12 +60,21 @@ export default class BookHomePage extends React.Component {
 
     const quotes = !!this.props.book ? this.props.book.quotes.map(quote => {
       return (
-        <View key={quote.quote.id} style={styles.quoteContainer}>
-          <QuoteTitle content={quote.quote.title} />
-          <Quote content={quote.quote.content} />
+        <View key={quote.quote.id} > 
+          <Quote 
+            id={quote.quote.id} 
+            title={quote.quote.title} 
+            content={quote.quote.content} 
+            disabled={this.state.touchDisabled}
+          />
           {
             quote.comments.map(comment => {
-              return <Comment key={comment.id} content={comment.content} />
+              return <Comment 
+                key={comment.id} 
+                id={comment.id}
+                content={comment.content} 
+                disabled={this.state.touchDisabled}
+              />
             }
           )}
         </View>
@@ -72,7 +87,7 @@ export default class BookHomePage extends React.Component {
           {quotes}
         </ScrollView>
         <View style={styles.bottomActions}>
-          <CustomIcon name="edit" rounded dimension={44} style={{marginRight:base.padding.xs}} onPress={this.goToEdit}/>
+          <CustomIcon name="edit" rounded dimension={44} style={{marginRight:base.padding.xs}} onPress={this.activateTouch}/>
           <CustomIcon name="add" rounded dimension={44} style={{marginLeft:base.padding.xs}} onPress={this.goToNew}/> 
         </View>
       </View>

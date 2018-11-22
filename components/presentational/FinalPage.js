@@ -170,10 +170,7 @@ export default class FinalPage extends React.Component {
           </Animated.Text>
 
           <FilteredList 
-            books={[
-              {author: 'Milan Kundera', title: "L'insoutenable légèreté de l'être", quoteCount: 5},
-              {author: 'Milan Kundera', title: "L'insoutenable légèreté de l'être", quoteCount: 5}
-            ]}
+            books={this.props.books}
             search={this.state.search} 
           />
         </ScrollView>

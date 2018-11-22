@@ -1,22 +1,63 @@
 import React from 'react';
 import * as base from './../../assets/styles/base';
-import CustomIcon from './CustomIcon'
-import { View, Text, StyleSheet } from 'react-native';
+import QuoteTitle from './QuoteTitle'
+import { View, Text, StyleSheet, TouchableOpacity, Animated } from 'react-native';
+
+const AnimatedTouchable = Animated.createAnimatedComponent(TouchableOpacity)
 
 export default class Quote extends React.Component {
+  
+  shadow = new Animated.Value(0)
+
   render() {
+    if (!this.props.disabled) {
+      Animated.timing(this.shadow,{
+        toValue: 1,
+        duration: 250
+      }).start()
+    }
+
     const styles = StyleSheet.create({
-      
+      quoteContainer:{
+        marginHorizontal: 16,
+        padding: base.padding.xs,
+        justifyContent: 'flex-start',
+        backgroundColor: 'white',
+        borderRadius: 4,
+        shadowColor: base.colors.blueLight,
+        marginBottom: base.padding.xs,
+        marginTop: base.padding.lg
+      },
       legend:{
         fontFamily: 'cabin-semi-bold',
         fontSize: base.fonts.md,
         color:base.colors.blue,
-        marginBottom: base.padding.xs,
+
       }
     })
     return (
+      <AnimatedTouchable disabled={this.props.disabled} id={this.props.id} style={[
+        styles.quoteContainer,
+        {
+          elevation: this.shadow,
+          shadowRadius: this.shadow.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 6]
+          }),
+          shadowOffset:  { 
+            width: 0,
+            height: this.shadow.interpolate({
+              inputRange: [0, 1],
+              outputRange: [0, 4]
+            }),
+          },
+          shadowOpacity: this.shadow
+        } 
+      ]}>)
+        <QuoteTitle content={this.props.title} />
 
-      <Text style={styles.legend}>"{this.props.content}"</Text>
+        <Text style={styles.legend}>"{this.props.content}"</Text>
+      </AnimatedTouchable>
     );
   }
 }

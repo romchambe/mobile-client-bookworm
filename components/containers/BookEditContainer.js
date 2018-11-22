@@ -65,7 +65,6 @@ class BookEditContainer extends React.Component {
         position: 'absolute',
         top: 0,
         width: 2 * width,
-        paddingTop: base.padding.lg,
         flexDirection: 'row',
         height: height - 76
       }, 

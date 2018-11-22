@@ -91,7 +91,7 @@ class ScanContainer extends React.Component {
 
         <ScanPage nextStep={() => this.goToStep(1)} />
         <ResizePage nextStep={() => this.goToStep(1)} />
-        <FinalPage />
+        <FinalPage books={this.props.books.booksList}/>
       </Animated.View>
     )
   }
