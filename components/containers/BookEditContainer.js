@@ -40,12 +40,16 @@ class BookEditContainer extends React.Component {
 
   goToStep(action,type,payload){
     let item = type === 'edit' && payload.type === 'quote' ?
-      this.props.book.quotes.find(quote => quote.quote.id === payload.id).quote : 
-      type === 'edit' && payload.type === 'comment' ?
-        this.props.book.quotes.find(quote => 
-          quote.quote.id === payload.quoteId
-        ).comments.find(comment => comment.id === payload.id) :
-        null
+      {
+        type: payload.type, 
+        content: this.props.book.quotes.find(quote => quote.quote.id === payload.id).quote
+      } : type === 'edit' && payload.type === 'comment' ?
+        {
+          type: payload.type, 
+          content: this.props.book.quotes.find(quote => 
+            quote.quote.id === payload.quoteId
+          ).comments.find(comment => comment.id === payload.id) 
+        } : null
 
     this.setState({
       form: type,

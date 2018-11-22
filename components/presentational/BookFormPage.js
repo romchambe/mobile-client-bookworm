@@ -44,19 +44,27 @@ export default class BookFormPage extends React.Component {
 
     const form = this.props.form === 'edit' ? (
       <View style={styles.container}>
-        <View style={styles.margin} />
-        <InputLegend legend='Titre de la citation' />  
-        <InputField 
-          placeholder='Il vous permet de repérer plus vite votre citation' 
-          name='title' 
-          handleChange={this.props.handleBook} 
-        />
+        {
+          this.props.payload.type === 'quote' ? (
+            <View style={styles.margin}>
+              <InputLegend legend='Titre de la citation' />  
+              <InputField 
+                placeholder='Il vous permet de repérer plus vite votre citation' 
+                name='title' 
+                handleChange={this.props.handleBook} 
+                value={this.props.payload.content.title}
+              />
+            </View>
+          ) : null
+        }
+        
         <View style={styles.margin} />
         <InputLegend legend="Contenu" />
         <InputField 
           placeholder="Votre citation" 
           name='content' 
           handleChange={this.props.handleBook}
+          value={this.props.payload.content.content}
         />
       </View>
     ) : null
@@ -65,7 +73,6 @@ export default class BookFormPage extends React.Component {
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer}>
           {form}
-          <Text>{JSON.stringify(this.props.payload)}</Text>
         </ScrollView>
         <View style={styles.bottomActions}>
           <MainButton height={40} legend="Sauvegarder" />
