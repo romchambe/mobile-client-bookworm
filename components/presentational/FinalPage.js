@@ -88,7 +88,6 @@ export default class FinalPage extends React.Component {
         borderBottomWidth: 1, 
         marginHorizontal: base.padding.md,
         overflow:'hidden', 
-
       },
       chooseBook:{
        flexGrow: 1,
@@ -99,6 +98,7 @@ export default class FinalPage extends React.Component {
       },
       previewContainer: {
         maxHeight: 80,
+        width: width -  2 * base.padding.md,
         overflow: 'hidden',
         marginBottom: base.padding.xs
       },
@@ -119,10 +119,12 @@ export default class FinalPage extends React.Component {
         paddingTop: base.padding.xs,
         height:72,
         justifyContent:'center',
-        alignItems:'center'
+        alignItems:'center',
+        backgroundColor: 'white'
       },
       searchContainer: {
-        width: width - 40, height: 40
+        width: width - 40, 
+        height: 40,
       }
     })
 
@@ -177,24 +179,24 @@ export default class FinalPage extends React.Component {
             search={this.state.search} 
           />
         </ScrollView>
-        <View style={styles.bottomActions}>
-          <Animated.View style={[styles.searchContainer,
-            {
-              transform: [{
-                translateY: this.state.keyboardAvoiding.interpolate({
-                  inputRange: [0,248],
-                  outputRange:[0, - 260]
-                })
-              }]
-            }
-          ]}>
+        <Animated.View style={[styles.bottomActions,
+          {
+            transform: [{
+              translateY: this.state.keyboardAvoiding.interpolate({
+                inputRange: [0,248],
+                outputRange:[0, - 260]
+              })
+            }]
+          }
+        ]}>
+          <Animated.View style={styles.searchContainer}>
             <SearchInput 
               placeholder="Chercher parmi vos livres" 
               onChangeText={this.handleSearch} 
               shadow={{color: base.colors.blue, opacity: 1, radius: 3, offset: {width: 0, height:2,}, elevation: 1}}
             />
           </Animated.View>
-        </View>
+        </Animated.View>
       </View>
     );
   }

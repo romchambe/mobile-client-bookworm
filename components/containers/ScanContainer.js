@@ -84,7 +84,6 @@ class ScanContainer extends React.Component {
       ]}>
 
         <ScanPage handlePicture={this.handlePicture} />
-        
         <FinalPage books={this.props.books.booksList} extracted={this.props.flow.payload}/>
       </Animated.View>
     )
