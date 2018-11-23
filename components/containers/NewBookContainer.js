@@ -62,7 +62,6 @@ class NewBookContainer extends React.Component {
   } 
 
   postBook(payload){
-    console.log(payload)
     this.props.actions.createBook(payload, 'mobile')
   }
 

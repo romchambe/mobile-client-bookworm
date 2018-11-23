@@ -54,7 +54,7 @@ export function createBook (payload,client){
         dispatch(createBookFailure(response.message))
       } else {
         dispatch(createBookSuccess(response));
-        dispatch(push('/books'))
+        dispatch(push(`edit/${response.book.id}`))
       }
     }).catch(error => {
       dispatch(createBookFailure(error.message));

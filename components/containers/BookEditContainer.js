@@ -101,7 +101,6 @@ class BookEditContainer extends React.Component {
         }, 'mobile').then(() => this.goToStep(-1, 'back'))
       }
     )
-
   }
 
   submitNew(){

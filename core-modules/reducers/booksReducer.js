@@ -3,19 +3,11 @@ import initialState from '../initialState';
 
 const books = (state = initialState, action) => {  
   switch(action.type) {
-    
-    case types.CREATE_BOOK_SUCCESS:
-      return Object.assign({}, state, {
-        booksList: [...state.booksList, action.book],
-      })
 
-    
     case types.READ_BOOK_SUCCESS:
       return Object.assign({}, state, {
         currentBook: action.payload
       })
-    
-
    
     case types.READ_BOOKS_INDEX_SUCCESS: 
       return Object.assign({}, state, {

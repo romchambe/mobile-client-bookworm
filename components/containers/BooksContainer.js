@@ -35,7 +35,6 @@ class BooksContainer extends React.Component {
   }
 
   render () {
-          console.log(this.props)
     const { width, height } = Dimensions.get('window')
     
     const styles = StyleSheet.create({
