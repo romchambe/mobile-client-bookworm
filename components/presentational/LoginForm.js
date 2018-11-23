@@ -98,7 +98,12 @@ export default class LoginForm extends React.Component {
           />
           <View style={styles.margin} />
           <InputLegend legend="Mot de passe" />
-          <InputField name="password" placeholder="Au moins 6 caractères" handleChange={this.props.handleForm}/>
+          <InputField 
+            name="password" 
+            placeholder="Au moins 6 caractères" 
+            handleChange={this.props.handleForm}
+            secureTextEntry
+          />
         </View>
         <View style={styles.buttonContainer}>
           <MainButton 

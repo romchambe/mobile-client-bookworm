@@ -39,7 +39,7 @@ export default class InputField extends React.Component {
         {...this.props}
         placeholderTextColor={base.colors.blueLight}
         underlineColorAndroid="transparent"
-        multiline={ true }        
+        multiline={ this.props.secureTextEntry ? false : true }        
         autoGrow={ Platform.OS === 'ios' ? false : true }
         onContentSizeChange={ this.handleHeightChange }
         onChange={this.handleChange}
