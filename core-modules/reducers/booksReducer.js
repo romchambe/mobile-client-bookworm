@@ -30,15 +30,15 @@ const books = (state = initialState, action) => {
         isFetchingBooks: false
       })
 
-    case types.UPDATE_BOOK_REQUEST:
+    case types.UPDATE_DEPENDENTS_REQUEST:
       return Object.assign({}, state, {
         isFetchingBooks: true
       })
-    case types.UPDATE_BOOK_SUCCESS:
+    case types.UPDATE_DEPENDENTS_SUCCESS:
       return Object.assign({}, state, {
         isFetchingBooks: false
       })
-    case types.UPDATE_BOOK_FAILURE:
+    case types.UPDATE_DEPENDENTS_FAILURE:
       return Object.assign({}, state, {
         isFetchingBooks: false
       })

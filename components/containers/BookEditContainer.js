@@ -26,6 +26,8 @@ class BookEditContainer extends React.Component {
     this.goToStep = this.goToStep.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     this.handleNew = this.handleNew.bind(this)
+    this.submitEdit = this.submitEdit.bind(this)
+    this.submitNew = this.submitNew.bind(this)
   }
 
   componentDidMount(){
@@ -83,10 +85,22 @@ class BookEditContainer extends React.Component {
         edit: Object.assign({}, prevState.edit, payload)
       })
     )
-    console.log(this.state.edit)
   }
 
   handleNew(){
+
+  }
+
+  submitEdit(){
+    this.props.actions.updateDependents({jwt: this.props.jwt, edit: this.state.edit}, 'mobile')
+    this.goToStep(-1, 'back')
+    this.props.actions.readBook({
+      jwt: this.props.jwt, 
+      id: this.props.match.params.id
+    }, 'mobile')
+  }
+
+  submitNew(){
 
   }
 
@@ -125,6 +139,7 @@ class BookEditContainer extends React.Component {
             goToStep={this.goToStep}
             payload={this.state.payload}
             handleForm={this.state.form === 'edit' ? this.handleEdit : this.handleNew}
+            handleSubmit={this.state.form === 'edit' ? this.submitEdit : this.submitNew}
           />
         </Animated.View>
       </Animated.View>

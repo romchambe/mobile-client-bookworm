@@ -75,7 +75,7 @@ export default class BookFormPage extends React.Component {
           {form}
         </ScrollView>
         <View style={styles.bottomActions}>
-          <MainButton height={40} legend="Sauvegarder" />
+          <MainButton height={40} legend="Sauvegarder" onPress={this.props.handleSubmit}/>
         </View>
       </View>
     )

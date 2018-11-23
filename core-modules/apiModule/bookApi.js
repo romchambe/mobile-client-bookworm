@@ -54,21 +54,15 @@ class bookApi {
     });
   }
 
-  static updateBook(payload, client) {
-    const address = buildAddress(client, 'books')
+  static updateDependents(payload, client) {
+    const address = buildAddress(client, payload.edit.type === 'quote' ? 'quotes' : 'comments')
     const request = new Request(address, {
       method: 'PUT',
       headers: new Headers({
         'Content-Type': 'application/json', 
         'AUTHORIZATION': `Bearer ${payload.jwt},`
       }), 
-      body: JSON.stringify({
-        id: payload.id,
-        title: payload.title,
-        book: payload.book,
-        content: payload.content,
-
-      })
+      body: JSON.stringify(payload.edit)
     });
 
     return fetch(request).then(response => {

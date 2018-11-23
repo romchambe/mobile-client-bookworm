@@ -32,14 +32,14 @@ export function readBooksIndexFailure(error){
   return {type: types.READ_BOOKS_INDEX_FAILURE, error: error}
 }
 
-export function updateBookRequest(){
-  return {type: types.UPDATE_BOOK_REQUEST}
+export function updateDependentsRequest(){
+  return {type: types.UPDATE_DEPENDENTS_REQUEST}
 }
-export function updateBookSuccess(payload){
-  return {type: types.UPDATE_BOOK_SUCCESS, payload: payload}
+export function updateDependentsSuccess(payload){
+  return {type: types.UPDATE_DEPENDENTS_SUCCESS, payload: payload}
 }
-export function updateBookFailure(error){
-  return {type: types.UPDATE_BOOK_FAILURE, error: error}
+export function updateDependentsFailure(error){
+  return {type: types.UPDATE_DEPENDENTS_FAILURE, error: error}
 }
 
 export function cleanCurrentBook(){
@@ -92,18 +92,17 @@ export function readBook(payload,client){
   }
 }
 
-export function updateBook (payload, client){
+export function updateDependents (payload, client){
   return function(dispatch) {
-    dispatch(updateBookRequest())
-    return bookApi.updateBook(payload,client).then(response => {
+    dispatch(updateDependentsRequest())
+    return bookApi.updateDependents(payload,client).then(response => {
       if (response.error){
-        dispatch(updateBookFailure(response.message))
+        dispatch(updateDependentsFailure(response.message))
       } else {
-        dispatch(updateBookSuccess(response))
-        dispatch(push('/books'))
+        dispatch(updateDependentsSuccess(response))
       }
     }).catch(error => {
-      dispatch(updateBookFailure(error.message));
+      dispatch(updateDependentsFailure(error.message));
     });
   } 
 }
