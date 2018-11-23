@@ -21,8 +21,11 @@ class BookEditContainer extends React.Component {
     this.state = { 
       form: '',
       stepOffset: new Animated.Value(0),
+      edit:{}
     }
     this.goToStep = this.goToStep.bind(this)
+    this.handleEdit = this.handleEdit.bind(this)
+    this.handleNew = this.handleNew.bind(this)
   }
 
   componentDidMount(){
@@ -42,10 +45,12 @@ class BookEditContainer extends React.Component {
     let item = type === 'edit' && payload.type === 'quote' ?
       {
         type: payload.type, 
+        id: payload.id,
         content: this.props.book.quotes.find(quote => quote.quote.id === payload.id).quote
       } : type === 'edit' && payload.type === 'comment' ?
         {
           type: payload.type, 
+          id: payload.id,
           content: this.props.book.quotes.find(quote => 
             quote.quote.id === payload.quoteId
           ).comments.find(comment => comment.id === payload.id) 
@@ -53,7 +58,11 @@ class BookEditContainer extends React.Component {
 
     this.setState({
       form: type,
-      payload: item
+      payload: item,
+      edit: type === 'back' ? {} : Object.assign({}, {
+        type: payload.type, 
+        id: payload.id
+      })
     })
 
     Animated.timing(this.state.stepOffset, {
@@ -66,8 +75,20 @@ class BookEditContainer extends React.Component {
         back: () => this.goToStep(-1, 'back') 
       })
     )
-
   } 
+
+  handleEdit(payload){
+    this.setState(
+      (prevState, props) => ({
+        edit: Object.assign({}, prevState.edit, payload)
+      })
+    )
+    console.log(this.state.edit)
+  }
+
+  handleNew(){
+
+  }
 
   render () {
     const { width, height } = Dimensions.get('window')
@@ -103,12 +124,11 @@ class BookEditContainer extends React.Component {
             form={this.state.form}
             goToStep={this.goToStep}
             payload={this.state.payload}
+            handleForm={this.state.form === 'edit' ? this.handleEdit : this.handleNew}
           />
         </Animated.View>
       </Animated.View>
-
     )
-    
   }
 }
 

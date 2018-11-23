@@ -51,7 +51,7 @@ export default class BookFormPage extends React.Component {
               <InputField 
                 placeholder='Il vous permet de repérer plus vite votre citation' 
                 name='title' 
-                handleChange={this.props.handleBook} 
+                handleChange={this.props.handleForm} 
                 value={this.props.payload.content.title}
               />
             </View>
@@ -63,7 +63,7 @@ export default class BookFormPage extends React.Component {
         <InputField 
           placeholder="Votre citation" 
           name='content' 
-          handleChange={this.props.handleBook}
+          handleChange={this.props.handleForm}
           value={this.props.payload.content.content}
         />
       </View>
@@ -71,7 +71,7 @@ export default class BookFormPage extends React.Component {
     
     return (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.contentContainer}>
+        <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps={'always'}>
           {form}
         </ScrollView>
         <View style={styles.bottomActions}>
