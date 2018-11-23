@@ -40,7 +40,7 @@ export function loginUser(credentials,client) {
 export function logoutUser() {  
   return function(dispatch) {
     dispatch(logout());
-    dispatch(push('/'));
+    dispatch(push('/login'));
   }
 }
 

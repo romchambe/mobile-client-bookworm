@@ -64,6 +64,8 @@ class Root extends React.Component {
             'Bookworm';
       case '/books':
         return 'Mes livres';
+      case '/login':
+        return 'Bookworm';
       case '/profile':
         return 'Mon profil';
       case '/new':
@@ -163,6 +165,7 @@ class Root extends React.Component {
           <Container>
             <Switch>
               <Route exact path="/" component={this.props.session.loggedIn ? BooksContainer : AuthContainer}/> 
+              <Route exact path="/login" component={AuthContainer} /> 
               <Route exact path="/books" component={BooksContainer}/> 
               <Route path='/new' component={NewBookContainer}/>
               <Route path='/edit/:id' component={BookEditContainer}/>

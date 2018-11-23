@@ -43,7 +43,7 @@ class ProfileContainer extends React.Component {
           danger
           legend="Se déconnecter"
           height={40}
-          onPress={this.props.actions.logout} 
+          onPress={this.props.actions.logoutUser} 
         />
       </View>
     )
