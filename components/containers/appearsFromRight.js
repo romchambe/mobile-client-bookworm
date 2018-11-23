@@ -2,6 +2,7 @@ import React, { Component } from "react";
 
 import { Animated, View, Dimensions, StyleSheet } from 'react-native'
 
+
 const appearsFromRight = WrappedComponent =>
   class FromRightHOC extends Component {
     state = {
@@ -40,5 +41,6 @@ const appearsFromRight = WrappedComponent =>
       )
     }
   }
+
 
 export default appearsFromRight;

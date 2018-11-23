@@ -18,9 +18,6 @@ import { bindActionCreators } from 'redux';
 class BooksContainer extends React.Component {
   constructor(props){
     super(props)
-    this.state = {
-      outOffset: new Animated.Value(0)
-    }
     this.navigateToNew = this.navigateToNew.bind(this)
     this.navigateToBook = this.navigateToBook.bind(this)
   }
@@ -34,13 +31,11 @@ class BooksContainer extends React.Component {
   }
 
   navigateToNew(){
-    Animated.timing(this.state.outOffset, {
-      toValue: -1,
-      duration: 100,
-    }).start(() => this.props.actions.navigateToNew());
+    this.props.actions.navigateToNew()
   }
 
   render () {
+          console.log(this.props)
     const { width, height } = Dimensions.get('window')
     
     const styles = StyleSheet.create({
@@ -49,25 +44,15 @@ class BooksContainer extends React.Component {
       }
     })
 
-    let content = this.props.books.isFetchingBooks ? 
-      <AssetLoader /> :
-      this.props.books.booksList.length > 0 ? 
+    let content = this.props.fetching ? <AssetLoader /> : 
+      this.props.books.booksList.length > 0 ?  
         <BooksList books={this.props.books.booksList} newBook={this.navigateToNew} goToBook={this.navigateToBook}/> :
         <EmptyBooksList newBook={this.navigateToNew} />
 
     return (
-      <Animated.View style={
-        [styles.container, {
-          transform: [{
-            translateX: this.state.outOffset.interpolate({
-              inputRange: [-1, 0],
-              outputRange: [- width, 0]
-            })
-          }] 
-        }]
-      }>
-        {content}
-      </Animated.View>
+      <View style={styles.container}>
+        { content }
+      </View>
     )
   }
 }
@@ -75,7 +60,8 @@ class BooksContainer extends React.Component {
 function mapStateToProps(state){
   return {
     jwt: state.session.jwt,
-    books: state.books
+    books: state.books,
+    fetching: state.fetching
   }
 }
 

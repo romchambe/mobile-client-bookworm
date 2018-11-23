@@ -13,12 +13,12 @@ class AssetLoader extends React.Component {
         flex:1,
         flexDirection: 'column', 
         justifyContent: 'center',
-        backgroundColor: colors.deepBlue
+
       }
     }) 
     return (      
       <View style={stylesheet.centered}>
-        <ActivityIndicator color={colors.yellow} />
+        <ActivityIndicator color={colors.blue} />
       </View>
     )
   }

@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AssetLoader from './../AssetLoader'
 import TitlePage from './../presentational/TitlePage'
 import QuotePage from './../presentational/QuotePage'
 import CommentPage from './../presentational/CommentPage'
@@ -128,7 +129,8 @@ class NewBookContainer extends React.Component {
     })
 
     let { stepOffset, ...payload } = this.state
-    return (
+
+    return this.props.fetching ? <AssetLoader /> : (
       <Animated.View style={styles.container}>
         <Animated.View style={[
           styles.inputView, {
@@ -191,7 +193,8 @@ function mapStateToProps(state){
   return {
     jwt: state.session.jwt,
     books: state.books,
-    flow: state.flow
+    flow: state.flow,
+    fetching: state.fetching
   }
 }
 

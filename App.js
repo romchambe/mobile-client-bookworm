@@ -69,7 +69,6 @@ class App extends React.Component {
   render() {
     if (!this.state.isReady) {
       return (
-       
         <AppLoading
           startAsync={this._loadAssetsAsync}
           onFinish={() => {

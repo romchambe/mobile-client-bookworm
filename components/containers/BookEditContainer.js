@@ -1,5 +1,6 @@
 import React from 'react';
 
+import AssetLoader from './../AssetLoader'
 import appearsFromRight from './appearsFromRight'
 import BookHomePage from './../presentational/BookHomePage'
 import BookFormPage from './../presentational/BookFormPage'
@@ -92,12 +93,15 @@ class BookEditContainer extends React.Component {
   }
 
   submitEdit(){
-    this.props.actions.updateDependents({jwt: this.props.jwt, edit: this.state.edit}, 'mobile')
-    this.goToStep(-1, 'back')
-    this.props.actions.readBook({
-      jwt: this.props.jwt, 
-      id: this.props.match.params.id
-    }, 'mobile')
+    this.props.actions.updateDependents({jwt: this.props.jwt, edit: this.state.edit}, 'mobile').then( 
+      () => {
+        this.props.actions.readBook({
+          jwt: this.props.jwt, 
+          id: this.props.match.params.id
+        }, 'mobile').then(() => this.goToStep(-1, 'back'))
+      }
+    )
+
   }
 
   submitNew(){
@@ -120,7 +124,7 @@ class BookEditContainer extends React.Component {
       }, 
     })
     
-    return (
+    return this.props.fetching ? <AssetLoader /> : (
       <Animated.View style={styles.container}>
         <Animated.View style={[
           styles.inputView, {
@@ -151,7 +155,8 @@ function mapStateToProps(state){
   return {
     jwt: state.session.jwt,
     book: state.books.currentBook,
-    flow: state.flow
+    flow: state.flow,
+    fetching: state.fetching
   }
 }
 

@@ -1,5 +1,7 @@
 import React from 'react';
 
+import AssetLoader from './AssetLoader'
+
 import CustomIcon from './presentational/CustomIcon';
 import Container from './presentational/Container';
 import SideMenu from './presentational/SideMenu';
@@ -14,7 +16,6 @@ import AuthContainer from './containers/AuthContainer';
 import BookEditContainer from './containers/BookEditContainer';
 import ProfileContainer from './containers/ProfileContainer';
 
-import AssetLoader from './AssetLoader';
 import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import * as base from './../assets/styles/base';
 
@@ -36,6 +37,8 @@ class Root extends React.Component {
     }
     this.navigateTo = this.navigateTo.bind(this)
     this.pageTitle = this.pageTitle.bind(this)
+    this.showMenu = this.showMenu.bind(this)
+    this.hideMenu = this.hideMenu.bind(this)
   }
 
   navigateTo(nextPage){
@@ -75,6 +78,23 @@ class Root extends React.Component {
     }
   }
 
+  showMenu() {
+    Animated.timing(this.state.menuPosition, {
+      toValue: 0,
+      duration: 150
+    }).start()
+  }
+
+  hideMenu(nextPage){
+    let action = !!nextPage ? () => {
+      this.navigateTo(nextPage)
+    } : null
+    Animated.timing(this.state.menuPosition, {
+      toValue: -260,
+      duration: 150
+    }).start(action)
+  }
+
   render () {
     const dimensions = {  
       height: Dimensions.get('window').height,
@@ -86,29 +106,6 @@ class Root extends React.Component {
         flex: 1
       },
     })
-   
-    const showMenu = () => {
-      Animated.timing(this.state.menuPosition, {
-        toValue: 0,
-        duration: 150
-      }).start()
-    }
-
-    const hideMenu = () => {
-      Animated.timing(this.state.menuPosition, {
-        toValue: -260,
-        duration: 150
-      }).start()
-    }
-
-    const hideNavigate = (nextPage) => {
-      Animated.timing(this.state.menuPosition, {
-        toValue: -260,
-        duration: 150
-      }).start(() => {
-        this.navigateTo(nextPage)
-      })
-    }
 
     return (
       <View style={styles.flexView}>
@@ -144,7 +141,7 @@ class Root extends React.Component {
                   name={this.props.flow.started ? "keyboard-arrow-left" : "menu"} 
                   onPress={this.props.flow.started ? () => {
                     this.props.flow.back()
-                  } : showMenu }
+                  } : this.showMenu }
                   rounded={this.props.flow.started ? false : true}
                 /> : <View style={{height: 36, width: 36, backgroundColor:'transparent'}} />
             }
@@ -188,7 +185,7 @@ class Root extends React.Component {
           }],
           
         }}>
-          <TouchableOpacity style={styles.flexView} onPress={hideMenu}>
+          <TouchableOpacity style={styles.flexView} onPress={this.hideMenu}>
           </TouchableOpacity>
         </Animated.View>
         <Animated.View style={{
@@ -198,8 +195,8 @@ class Root extends React.Component {
         }}>
           <SideMenu 
             user={this.props.user.username} 
-            bookCount={this.props.books.booksList.length}
-            navigate={hideNavigate} 
+            bookCount={this.props.books.length}
+            navigate={this.hideMenu} 
           />
         </Animated.View>
       </View> 
@@ -210,8 +207,9 @@ class Root extends React.Component {
 
 function mapStateToProps(state) {
   return {
+    fetching: state.fetching,
     session: state.session,
-    books: state.books,
+    books: state.books.booksList, 
     pathname: state.router.location.pathname,
     flow: state.flow,
     user: state.user

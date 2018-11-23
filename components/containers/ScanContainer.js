@@ -79,7 +79,8 @@ class ScanContainer extends React.Component {
         flexDirection: 'row'
       }, 
     })
-    return (  
+    return (
+      
       <Animated.View style={[
         styles.pageView, {
           left: this.state.stepOffset.interpolate({

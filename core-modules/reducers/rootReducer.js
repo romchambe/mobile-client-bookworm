@@ -5,6 +5,7 @@ import errors from './errorsReducer'
 import user from './userReducer'
 import books from './booksReducer'
 import flow from './flowReducer'
+import fetching from './fetchingReducer'
 import storage from 'redux-persist/lib/storage'
 
 const rootReducer = combineReducers({
@@ -12,7 +13,8 @@ const rootReducer = combineReducers({
   errors,
   user,
   books,
-  flow
+  flow,
+  fetching
 })
 
 

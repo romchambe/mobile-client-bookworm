@@ -1,18 +1,16 @@
 export default {  
+  fetching: false, 
   session: { 
-    isFetching: false, 
     loggedIn: false, 
     jwt: ''
   },
   errors: [],
   user: { 
-    isFetching: false, 
     username: '',
     email:'',
     id: ''
   }, 
   books: {
-    isFetchingBooks: false, 
     booksList: [], 
     currentBook: null
   },

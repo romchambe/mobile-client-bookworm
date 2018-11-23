@@ -2,6 +2,7 @@ import React from 'react';
 
 import LoginHome from './../presentational/LoginHome'
 import LoginForm from './../presentational/LoginForm'
+import AssetLoader from './../AssetLoader'
 
 import * as base from './../../assets/styles/base';
 import * as sessionActions from './../../core-modules/actions/sessionActions'
@@ -101,7 +102,7 @@ class AuthContainer extends React.Component {
       }, 
     })
 
-    return (
+    return this.props.fetching ? <AssetLoader /> : (
       <Animated.View style={styles.container}>
         <Animated.View style={[
           styles.inputView, {
@@ -123,14 +124,14 @@ class AuthContainer extends React.Component {
           />
         </Animated.View>
       </Animated.View>
-
     )
   }
 }
 
 function mapStateToProps(state){
   return {
-    flow: state.flow
+    flow: state.flow,
+    fetching: state.fetching
   }
 }
 
