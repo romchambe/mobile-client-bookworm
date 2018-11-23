@@ -12,7 +12,6 @@ export default class Book extends React.Component {
   }
 
   goToBook(){
-    console.log(this.props.id)
     this.props.onPress(this.props.id)
   }
 

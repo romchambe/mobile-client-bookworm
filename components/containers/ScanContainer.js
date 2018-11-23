@@ -25,6 +25,7 @@ class ScanContainer extends React.Component {
     }
     this.goToStep = this.goToStep.bind(this)
     this.handlePicture = this.handlePicture.bind(this)
+    this.navigateToBookFinal = this.navigateToBookFinal.bind(this)
   }
 
   componentDidMount(){
@@ -32,7 +33,10 @@ class ScanContainer extends React.Component {
   }
 
   componentWillUnmount(){
-    this.props.actions.cleanFlow()
+    this.props.actions.cleanFlow({
+      from: 'scan', 
+      payload: !!this.props.flow.payload ? this.props.flow.payload : null
+    })
   }
 
   steps = ['Scan', 'Ajout de la citation']
@@ -56,6 +60,11 @@ class ScanContainer extends React.Component {
       )  
     }
   }
+
+  navigateToBookFinal(payload){
+    this.props.actions.navigateToEdit(payload)
+  }
+
 
   render () {
     const { width, height } = Dimensions.get('window')
@@ -84,7 +93,11 @@ class ScanContainer extends React.Component {
       ]}>
 
         <ScanPage handlePicture={this.handlePicture} />
-        <FinalPage books={this.props.books.booksList} extracted={this.props.flow.payload}/>
+        <FinalPage 
+          books={this.props.books.booksList} 
+          extracted={this.props.flow.payload}
+          goToBook={this.navigateToBookFinal}
+        />
       </Animated.View>
     )
   }

@@ -36,7 +36,35 @@ class BookEditContainer extends React.Component {
     this.props.actions.readBook({
       jwt: this.props.jwt, 
       id: this.props.match.params.id
-    }, 'mobile')
+    }, 'mobile').then(() => {
+
+      if (this.props.flow.from === 'scan') {
+   
+        this.setState({
+          form: 'edit',
+          payload: {
+            type: 'quote',
+            id: null,
+            content: {
+              content: this.props.flow.payload.response
+            }
+          } 
+        })
+
+        Animated.timing(this.state.stepOffset, {
+          toValue: this.props.flow.step + 1,
+          duration: 200
+        }).start(
+          () => this.props.actions.updateFlow({
+            next: 1, 
+            title: 'Modifier', 
+            back: () => this.goToStep(-1, 'back') 
+          })
+        )
+      }
+
+    })
+    
   }
  
   componentWillUnmount(){

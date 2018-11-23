@@ -177,6 +177,7 @@ export default class FinalPage extends React.Component {
           <FilteredList 
             books={this.props.books}
             search={this.state.search} 
+            goToBook={this.props.goToBook}
           />
         </ScrollView>
         <Animated.View style={[styles.bottomActions,

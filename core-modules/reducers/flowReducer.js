@@ -17,7 +17,7 @@ const flow = (state = initialState, action) => {
       })  
 
     case types.CLEAN_FLOW:
-      return Object.assign({}, state, initialState.flow)
+      return Object.assign({}, state, initialState.flow, action.payload)
 
     case types.UPLOAD_SCAN_SUCCESS:
       return Object.assign({}, state, {
