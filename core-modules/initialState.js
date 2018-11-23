@@ -18,6 +18,8 @@ export default {
     started: false,
     step: null, 
     title: null,
-    back: null
+    back: null,
+    payload: null,
+    from: null
   }
 }

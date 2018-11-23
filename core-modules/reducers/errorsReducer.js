@@ -33,7 +33,7 @@ const error = (state = [], action) => {
         action.error
       ]
       
-    case types.UPDATE_NOTE_FAILURE:
+    case types.UPDATE_DEPENDENTS_FAILURE:
       return [
         ...state,
         action.error

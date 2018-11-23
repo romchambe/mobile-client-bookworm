@@ -44,6 +44,13 @@ const fetching = (state = initialState, action) => {
       return false
     case types.READ_BOOKS_INDEX_SUCCESS: 
       return false
+
+    case types.UPLOAD_SCAN_REQUEST:
+      return true
+    case types.UPLOAD_SCAN_SUCCESS:
+      return false
+    case types.UPLOAD_SCAN_FAILURE:
+      return false
     
     default: 
       return state;

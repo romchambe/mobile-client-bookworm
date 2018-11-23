@@ -1,10 +1,12 @@
 import React from 'react';
 
+import AssetLoader from './../AssetLoader'
 import ScanPage from './../presentational/ScanPage'
 import ResizePage from './../presentational/ResizePage'
 import FinalPage from './../presentational/FinalPage'
 
 import * as base from './../../assets/styles/base';
+import * as scanActions from './../../core-modules/actions/scanActions'
 import * as bookActions from './../../core-modules/actions/bookActions'
 import * as flowActions from './../../core-modules/actions/flowActions'
 import * as navigationActions from './../../core-modules/actions/navigationActions'
@@ -21,21 +23,8 @@ class ScanContainer extends React.Component {
     this.state = {
       stepOffset: new Animated.Value(0),
     }
-    this.nextStep = this.nextStep.bind(this)
     this.goToStep = this.goToStep.bind(this)
-  }
-
-  nextStep(){
-    if (this.state.currentStep < 2){
-      Animated.timing(this.state.stepOffset, {
-        toValue: this.state.currentStep + 1,
-        duration: 200
-      }).start(() => this.setState(
-        (prevState, props) => ({
-          currentStep: prevState.currentStep + 1
-        })
-      ))
-    }
+    this.handlePicture = this.handlePicture.bind(this)
   }
 
   componentDidMount(){
@@ -46,8 +35,12 @@ class ScanContainer extends React.Component {
     this.props.actions.cleanFlow()
   }
 
+  steps = ['Scan', 'Ajout de la citation']
 
-  steps = ['Scan', 'Recadrer', 'Ajout de la citation']
+  async handlePicture(payload){
+    await this.props.actions.postScan({jwt: this.props.jwt, file:  payload.base64}, 'mobile');
+    this.goToStep(1)
+  }
 
   goToStep(action){
     if (this.props.flow.step + action < 3 && this.props.flow.step + action > -1){
@@ -74,12 +67,12 @@ class ScanContainer extends React.Component {
       pageView: {
         position: 'absolute',
         top: 0,
-        width: 3 * width,
+        width: 2 * width,
         height: height - 72,
         flexDirection: 'row'
       }, 
     })
-    return (
+    return this.props.fetching ? <AssetLoader /> : (
       
       <Animated.View style={[
         styles.pageView, {
@@ -90,25 +83,28 @@ class ScanContainer extends React.Component {
         }
       ]}>
 
-        <ScanPage nextStep={() => this.goToStep(1)} />
-        <ResizePage nextStep={() => this.goToStep(1)} />
-        <FinalPage books={this.props.books.booksList}/>
+        <ScanPage handlePicture={this.handlePicture} />
+        
+        <FinalPage books={this.props.books.booksList} extracted={this.props.flow.payload}/>
       </Animated.View>
     )
   }
 }
 
+//<ResizePage nextStep={() => this.goToStep(1)} />
+
 function mapStateToProps(state){
   return {
     jwt: state.session.jwt,
     books: state.books,
-    flow: state.flow
+    flow: state.flow,
+    fetching: state.fetching
   }
 }
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(Object.assign({}, bookActions, navigationActions, flowActions), dispatch)
+    actions: bindActionCreators(Object.assign({}, bookActions, navigationActions, scanActions, flowActions), dispatch)
   }
 }
 export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(ScanContainer))

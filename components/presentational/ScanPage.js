@@ -38,7 +38,7 @@ export default class ScanPage extends React.Component {
     if (this.camera) {
       let photo = await this.camera.takePictureAsync({base64: true});
       this.setState({pictureTaken: true});
-      this.props.nextStep();
+      this.props.handlePicture(photo);
     }
   }
 

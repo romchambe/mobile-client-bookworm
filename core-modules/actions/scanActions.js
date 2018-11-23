@@ -7,7 +7,7 @@ export function uploadScanRequest(){
 }
 
 export function uploadScanSuccess(payload){
-  return {type: types.UPLOAD_SCAN_SUCCESS, uri: payload}
+  return {type: types.UPLOAD_SCAN_SUCCESS, payload: payload}
 }
 
 export function uploadScanFailure(payload){
