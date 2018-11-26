@@ -38,7 +38,8 @@ export default class BookFormPage extends React.Component {
         height: 72,
         alignItems: 'center',
         paddingTop: base.padding.xs,
-        paddingBottom: base.padding.md
+        paddingBottom: base.padding.md,
+        backgroundColor: 'white'
       }
     })
 

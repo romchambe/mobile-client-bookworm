@@ -31,6 +31,7 @@ export const UPLOAD_SCAN_FAILURE = 'UPLOAD_SCAN_FAILURE';
 
 export const START_FLOW = 'START_FLOW'; 
 export const UPDATE_FLOW = 'UPDATE_FLOW';
+export const TRANSMIT_DATA = 'TRANSMIT_DATA';
 export const CLEAN_FLOW = 'CLEAN_FLOW';
 
 

@@ -37,9 +37,7 @@ class BookEditContainer extends React.Component {
       jwt: this.props.jwt, 
       id: this.props.match.params.id
     }, 'mobile').then(() => {
-
       if (this.props.flow.from === 'scan') {
-   
         this.setState({
           form: 'edit',
           payload: {
@@ -50,7 +48,7 @@ class BookEditContainer extends React.Component {
             }
           } 
         })
-
+        
         Animated.timing(this.state.stepOffset, {
           toValue: this.props.flow.step + 1,
           duration: 200
@@ -62,7 +60,6 @@ class BookEditContainer extends React.Component {
           })
         )
       }
-
     })
     
   }

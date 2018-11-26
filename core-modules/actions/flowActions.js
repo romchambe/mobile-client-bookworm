@@ -9,6 +9,10 @@ export function updateFlow(payload){
   return {type: types.UPDATE_FLOW, payload: payload}
 }
 
-export function cleanFlow(payload){
-  return {type: types.CLEAN_FLOW, payload: payload}
+export function transmitData(payload){
+  return {type: types.TRANSMIT_DATA, payload: payload}
+}
+
+export function cleanFlow(){
+  return {type: types.CLEAN_FLOW}
 }

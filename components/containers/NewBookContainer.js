@@ -43,7 +43,13 @@ class NewBookContainer extends React.Component {
   }
 
   componentWillUnmount(){
-    this.props.actions.cleanFlow()
+    this.props.actions.transmitData({
+      from: 'new', 
+      payload:{
+        book: this.state.book, 
+        comment: this.state.comment
+      }
+    })
   }
 
   goToStep(action){
