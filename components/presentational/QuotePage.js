@@ -127,7 +127,13 @@ class QuotePage extends React.Component {
           ]}>
             <NotebookImage height={136} width={152} />
           </Animated.View>
-          <MainButton height={40} legend='Scannez une citation' />
+          <MainButton 
+            height={40} 
+            legend='Scannez une citation'
+            onPress={
+              this.props.goToScan
+            }
+          />
         </Animated.View>
         
         <ScrollView contentContainerStyle={styles.complete} ref={this.registerScrollView}  keyboardShouldPersistTaps={'always'}>

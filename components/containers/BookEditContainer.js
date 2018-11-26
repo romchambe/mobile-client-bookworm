@@ -114,7 +114,7 @@ class BookEditContainer extends React.Component {
   }
 
   handleNew(){
-
+    
   }
 
   submitEdit(){
@@ -129,7 +129,7 @@ class BookEditContainer extends React.Component {
   }
 
   submitNew(){
-
+    
   }
 
   render () {

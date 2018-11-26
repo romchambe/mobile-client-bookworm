@@ -15,6 +15,12 @@ const error = (state = [], action) => {
         action.error
       ]
 
+    case types.CREATE_BOOK_FAILURE:
+      return [
+        ...state,
+        action.error
+      ]
+
     case types.READ_BOOK_FAILURE:
       return [
         ...state,

@@ -5,6 +5,8 @@ import appearsFromRight from './appearsFromRight'
 import * as base from './../../assets/styles/base';
 
 import * as sessionActions from './../../core-modules/actions/sessionActions'
+import * as flowActions from './../../core-modules/actions/flowActions'
+
 import MainButton from './../presentational/MainButton'
 
 import { View, Text, Dimensions, StyleSheet } from 'react-native';
@@ -16,6 +18,10 @@ class ProfileContainer extends React.Component {
   constructor(props){
     super(props)
     this.logout = this.logout.bind(this)
+  }
+
+  componentDidMount(){
+    this.props.actions.cleanFlow()
   }
 
   logout(){
@@ -58,7 +64,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(sessionActions, dispatch)
+    actions: bindActionCreators(Object.assign({}, sessionActions, flowActions), dispatch)
   }
 }
 export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(ProfileContainer))

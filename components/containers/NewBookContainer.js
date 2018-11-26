@@ -40,6 +40,13 @@ class NewBookContainer extends React.Component {
 
   componentDidMount(){
     this.props.actions.startFlow()
+    if (this.props.flow.from === 'scan' && !!this.props.flow.payload.book){
+      this.setState({
+        book: this.props.flow.payload.book,
+        comment: this.props.flow.payload.comment,
+        quote: {content: this.props.flow.payload.response}
+      })
+    }
   }
 
   componentWillUnmount(){
@@ -157,6 +164,7 @@ class NewBookContainer extends React.Component {
             swipeMode={0} 
             onDismiss={this.goToStep}
             preview={this.props.flow.preview}
+            goToScan={this.props.actions.navigateToScan}
           />
           <CommentPage 
             handleComment={this.handleComment} 

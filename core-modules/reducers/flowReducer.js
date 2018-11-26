@@ -7,6 +7,7 @@ const flow = (state = initialState, action) => {
       return Object.assign({}, state, {
         started: true,
         step: 0,
+        title: null
       })
 
     case types.UPDATE_FLOW:
@@ -22,13 +23,6 @@ const flow = (state = initialState, action) => {
     case types.CLEAN_FLOW:
       return Object.assign({}, state, initialState.flow)
 
-    case types.UPLOAD_SCAN_SUCCESS:
-      return Object.assign({}, state, {
-        payload: action.payload
-      })
-
-
-    
     case types.READ_BOOK_SUCCESS:
       return Object.assign({}, state, {
         title: action.payload.book.title

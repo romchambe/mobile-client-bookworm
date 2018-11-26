@@ -30,20 +30,39 @@ class ScanContainer extends React.Component {
 
   componentDidMount(){
     this.props.actions.startFlow()
+    if (!!this.props.flow.from){
+      this.setState({
+        payload: this.props.flow.payload
+      })
+    }
   }
 
   componentWillUnmount(){
-    this.props.actions.cleanFlow({
+    this.props.actions.transmitData({
       from: 'scan', 
-      payload: !!this.props.flow.payload ? this.props.flow.payload : null
+      payload: this.state.payload
     })
   }
 
   steps = ['Scan', 'Ajout de la citation']
 
   async handlePicture(payload){
-    await this.props.actions.postScan({jwt: this.props.jwt, file:  payload.base64}, 'mobile');
-    this.goToStep(1)
+    const response = await this.props.actions.postScan({jwt: this.props.jwt, file:  payload.base64}, 'mobile');
+    if (!!this.props.flow.from){
+      this.setState(
+        (prevState, props) => ({
+          payload: Object.assign({}, prevState.payload, response)
+        })
+      )
+      if (this.props.flow.from === 'new'){
+        this.props.actions.navigateToNew()
+      } else if (this.props.flow.from === 'edit'){
+        this.props.actions.navigateToEdit(this.props.flow.payload.id)
+      }
+    } else {
+      this.goToStep(1)
+    }
+   
   }
 
   goToStep(action){
@@ -97,6 +116,7 @@ class ScanContainer extends React.Component {
           books={this.props.books.booksList} 
           extracted={this.props.flow.payload}
           goToBook={this.navigateToBookFinal}
+          goToNew={this.props.actions.navigateToNew}
         />
       </Animated.View>
     )

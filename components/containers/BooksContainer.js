@@ -9,6 +9,7 @@ import * as base from './../../assets/styles/base';
 
 import * as bookActions from './../../core-modules/actions/bookActions'
 import * as navigationActions from './../../core-modules/actions/navigationActions'
+import * as flowActions from './../../core-modules/actions/flowActions'
 
 import { View, FlatList, Text, Animated, Dimensions, StyleSheet, Easing } from 'react-native';
 
@@ -23,6 +24,7 @@ class BooksContainer extends React.Component {
   }
 
   componentDidMount(){
+    this.props.actions.cleanFlow()
     this.props.actions.readBooksIndex({jwt: this.props.jwt}, 'mobile')
   }
 
@@ -66,7 +68,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(Object.assign({}, bookActions, navigationActions),dispatch)
+    actions: bindActionCreators(Object.assign({}, bookActions, navigationActions, flowActions),dispatch)
   }
 }
 export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(BooksContainer))
