@@ -100,7 +100,6 @@ export default class FinalPage extends React.Component {
         maxHeight: 80,
         width: width -  2 * base.padding.md,
         overflow: 'hidden',
-        marginBottom: base.padding.xs
       },
       prompt:{  
         fontSize: base.fonts.md,
@@ -150,6 +149,10 @@ export default class FinalPage extends React.Component {
               height: this.state.growBottom.interpolate({
                 inputRange:[0, 248],
                 outputRange: [80, 0]
+              }),
+              marginBottom: this.state.growBottom.interpolate({
+                inputRange:[0, 248],
+                outputRange: [8, 0]
               })
             } 
           ]}>
