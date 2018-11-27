@@ -3,11 +3,8 @@ import { buildAddress } from './buildAddress'
 class bookApi {
   static postBook(payload, client) {
     const address = buildAddress(client, 'books')
-    const date = new Date;
     const {jwt, ...data} = payload
-    
-    var title = 'Draft - ' + date.toLocaleDateString('fr-FR') + ' ' + date.toLocaleTimeString('fr-FR').substring(0,5)
-    var content = payload.content ? payload.content : null
+  
 
     const request = new Request(address, {
       method: 'POST',

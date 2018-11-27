@@ -149,7 +149,7 @@ class NewBookContainer extends React.Component {
       }
     })
 
-    let { stepOffset, ...payload } = this.state
+    let { stepOffset, extracted, ...payload } = this.state
 
     return this.props.fetching ? <AssetLoader /> : (
       <View style={styles.container}>

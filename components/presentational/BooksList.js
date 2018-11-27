@@ -67,6 +67,7 @@ export default class BooksList extends React.Component {
         zIndex: 0
       },
       listContainer:{
+        flex: 1,
         marginTop: 188,
         paddingHorizontal: base.padding.md,
         marginBottom: 80,
@@ -121,7 +122,7 @@ export default class BooksList extends React.Component {
             source={require('./../../assets/cover.jpg')}
           />
         </Animated.View>
-        <ScrollView keyboardShouldPersistTaps={'always'}>
+        <ScrollView contentContainerStyle={{flexGrow: 1}} keyboardShouldPersistTaps={'always'}>
           <Animated.View style={[styles.listContainer, 
             {
               transform: [{

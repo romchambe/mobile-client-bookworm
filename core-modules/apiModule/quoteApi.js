@@ -3,24 +3,18 @@ import { buildAddress } from './buildAddress'
 class quoteApi {
   static postQuote(payload,client) {
     const address = buildAddress(client, 'quotes')
-    
-    const date = new Date;
-    var filename = 'quote-' + date.toLocaleTimeString('fr-FR').substring(0,5) + '.jpg'
+    const {jwt, ...data} = payload
 
-    const data = new FormData();
-
-    data.append('filename', filename)
-    data.append('upload', payload.file)
 
     const request = new Request(address, {
       method: 'POST',
       headers: new Headers({
-        'AUTHORIZATION': `Bearer ${payload.jwt}`,
-        'Content-Type': 'multipart/form-data'
+        'AUTHORIZATION': `Bearer ${jwt}`,
+        'Content-Type': 'application/json'
       }), 
-      body: data
+      body: JSON.stringify(data)
     });
-    
+    console.log(JSON.stringify(data))
     return fetch(request).then(response => {
       return response.json();
     });

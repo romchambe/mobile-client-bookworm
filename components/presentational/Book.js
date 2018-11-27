@@ -28,6 +28,7 @@ export default class Book extends React.Component {
       container:{
         flex: 1,
         maxHeight:88,
+        minHeight: 88,
         marginVertical: 8,
         backgroundColor: 'white'
       },

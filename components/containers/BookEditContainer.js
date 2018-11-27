@@ -9,6 +9,7 @@ import * as base from './../../assets/styles/base';
 
 import * as bookActions from './../../core-modules/actions/bookActions'
 import * as flowActions from './../../core-modules/actions/flowActions'
+import * as quoteActions from './../../core-modules/actions/quoteActions'
 
 
 import { View, Text, Dimensions, ScrollView, StyleSheet, Animated } from 'react-native';
@@ -33,35 +34,23 @@ class BookEditContainer extends React.Component {
 
   componentDidMount(){
     this.props.actions.startFlow()
+
+    if (this.props.flow.from === 'scan' && !!this.props.flow.payload.response){
+      this.props.actions.createQuote({
+        jwt: this.props.jwt,
+        quote:{
+
+          book_id: this.props.match.params.id,
+          content: this.props.flow.payload.response,
+          title: 'Citation'
+        }
+      }, 'mobile')
+    }
+
     this.props.actions.readBook({
       jwt: this.props.jwt, 
       id: this.props.match.params.id
-    }, 'mobile').then(() => {
-      if (this.props.flow.from === 'scan') {
-        this.setState({
-          form: 'edit',
-          payload: {
-            type: 'quote',
-            id: null,
-            content: {
-              content: this.props.flow.payload.response
-            }
-          } 
-        })
-        
-        Animated.timing(this.state.stepOffset, {
-          toValue: this.props.flow.step + 1,
-          duration: 200
-        }).start(
-          () => this.props.actions.updateFlow({
-            next: 1, 
-            title: 'Modifier', 
-            back: () => this.goToStep(-1, 'back') 
-          })
-        )
-      }
-    })
-    
+    }, 'mobile')
   }
  
   componentWillUnmount(){
@@ -99,7 +88,7 @@ class BookEditContainer extends React.Component {
     }).start(
       () => this.props.actions.updateFlow({
         next: action, 
-        title: type === 'new' ? 'Nouvelle citation' : type === 'edit' ? 'Modifier' : this.props.book.book.title, 
+        title: type === 'new' ? 'Nouvelle citation' : type === 'edit' ? "Modifier l'élément" : this.props.book.book.title, 
         back: () => this.goToStep(-1, 'back') 
       })
     )
@@ -114,6 +103,7 @@ class BookEditContainer extends React.Component {
   }
 
   handleNew(){
+
     
   }
 
@@ -186,7 +176,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(Object.assign({}, bookActions, flowActions), dispatch)
+    actions: bindActionCreators(Object.assign({}, bookActions, flowActions, quoteActions), dispatch)
   }
 }
 export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(BookEditContainer))
