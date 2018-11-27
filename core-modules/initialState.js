@@ -19,7 +19,7 @@ export default {
     step: null, 
     title: null,
     back: null,
-    payload: null,
+    payload: {},
     from: null
   }
 }

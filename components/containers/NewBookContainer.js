@@ -47,6 +47,7 @@ class NewBookContainer extends React.Component {
         quote: {content: this.props.flow.payload.response}
       })
     }
+    console.log (this.state)
   }
 
   componentWillUnmount(){
@@ -143,7 +144,7 @@ class NewBookContainer extends React.Component {
     let { stepOffset, ...payload } = this.state
 
     return this.props.fetching ? <AssetLoader /> : (
-      <Animated.View style={styles.container}>
+      <View style={styles.container}>
         <Animated.View style={[
           styles.inputView, {
             left: this.state.stepOffset.interpolate({
@@ -197,7 +198,7 @@ class NewBookContainer extends React.Component {
           />
 
         </Animated.View>
-      </Animated.View>
+      </View>
     )
   }
 }

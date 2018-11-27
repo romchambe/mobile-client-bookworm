@@ -23,6 +23,11 @@ const flow = (state = initialState, action) => {
     case types.CLEAN_FLOW:
       return Object.assign({}, state, initialState.flow)
 
+    case types.UPLOAD_SCAN_SUCCESS: 
+      return Object.assign({}, state, {
+        payload: Object.assign({}, state.payload, action.payload)
+      })
+
     case types.READ_BOOK_SUCCESS:
       return Object.assign({}, state, {
         title: action.payload.book.title

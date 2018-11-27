@@ -113,6 +113,7 @@ class QuotePage extends React.Component {
             })
           } 
         ]}>
+
           <Animated.View style={[
             styles.image, {
               marginBottom: this.state.growBottom.interpolate({
@@ -127,6 +128,7 @@ class QuotePage extends React.Component {
           ]}>
             <NotebookImage height={136} width={152} />
           </Animated.View>
+
           <MainButton 
             height={40} 
             legend='Scannez une citation'
@@ -134,9 +136,11 @@ class QuotePage extends React.Component {
               this.props.goToScan
             }
           />
+
         </Animated.View>
         
         <ScrollView contentContainerStyle={styles.complete} ref={this.registerScrollView}  keyboardShouldPersistTaps={'always'}>
+          
           <Animated.Text style={[styles.prompt,
             {
               height: this.state.growBottom.interpolate({

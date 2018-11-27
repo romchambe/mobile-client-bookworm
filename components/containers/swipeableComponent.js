@@ -10,8 +10,12 @@ const swipeableComponent = WrappedComponent =>
     width = Dimensions.get('window').width
     
     _panResponder = PanResponder.create({
+
       onMoveShouldSetResponderCapture: () => true,
-      onMoveShouldSetPanResponderCapture: () => true,
+      onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
+
+        gestureState.dx > 1 ? true : false
+      },
       onPanResponderMove: Animated.event([null, {dx: this.offset}]),
       onPanResponderRelease: (e, {vx, dx}) => {
         if (this.swipeMode(this.props.swipeMode, vx, dx)) {

@@ -40,20 +40,16 @@ class ScanContainer extends React.Component {
   componentWillUnmount(){
     this.props.actions.transmitData({
       from: 'scan', 
-      payload: this.state.payload
+      payload: this.props.flow.payload
     })
   }
 
   steps = ['Scan', 'Ajout de la citation']
 
   async handlePicture(payload){
-    const response = await this.props.actions.postScan({jwt: this.props.jwt, file:  payload.base64}, 'mobile');
+    await this.props.actions.postScan({jwt: this.props.jwt, file:  payload.base64}, 'mobile');
+
     if (!!this.props.flow.from){
-      this.setState(
-        (prevState, props) => ({
-          payload: Object.assign({}, prevState.payload, response)
-        })
-      )
       if (this.props.flow.from === 'new'){
         this.props.actions.navigateToNew()
       } else if (this.props.flow.from === 'edit'){
@@ -62,7 +58,6 @@ class ScanContainer extends React.Component {
     } else {
       this.goToStep(1)
     }
-   
   }
 
   goToStep(action){

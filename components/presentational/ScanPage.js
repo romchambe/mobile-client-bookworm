@@ -25,13 +25,23 @@ export default class ScanPage extends React.Component {
   
 
   async componentDidMount() {
+    this.mounted = true
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === 'granted' });
+    if (this.mounted) {
+      this.setState({ hasCameraPermission: status === 'granted' });
+    }
+  }
+
+  componentWillUnmount(){
+    this.mounted = false
   }
 
   async askCameraPermission(){
     const { status } = await Permissions.askAsync(Permissions.CAMERA);
-    this.setState({ hasCameraPermission: status === 'granted' });
+    if (this.mounted){
+      this.setState({ hasCameraPermission: status === 'granted' });  
+    }
+    
   }
 
   async takePicture() {
