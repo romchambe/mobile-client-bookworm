@@ -45,19 +45,19 @@ export default class BookFormPage extends React.Component {
     })
 
  
-    return this.props.form === 'edit' ? (
+    return this.props.form === 'quote'|| this.props.form === 'comment' ? (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps={'always'}>
           <View style={styles.container}>
             {
-              this.props.payload.type === 'quote' ? (
+              this.props.form === 'quote' ? (
                 <View style={styles.margin}>
                   <InputLegend legend='Titre de la citation' />  
                   <InputField 
                     placeholder='Il vous permet de repérer plus vite votre citation' 
                     name='title' 
                     handleChange={this.props.handleForm} 
-                    value={this.props.payload.content.title}
+                    value={this.props.item.title}
                   />
                 </View>
               ) : null
@@ -69,7 +69,7 @@ export default class BookFormPage extends React.Component {
               placeholder="Votre citation" 
               name='content' 
               handleChange={this.props.handleForm}
-              value={this.props.payload.content.content}
+              value={this.props.item.content}
             />
           </View>
         </ScrollView>
@@ -81,7 +81,8 @@ export default class BookFormPage extends React.Component {
       <QuotePage 
         swipeMode={-1} 
         onDismiss={this.props.goToStep}
-        quote={this.props.quote}
+        quote={this.props.item}
+        goToScan={this.props.goToScan}
       />
     )
   }

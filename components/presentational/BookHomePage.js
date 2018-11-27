@@ -16,7 +16,6 @@ export default class BookHomePage extends React.Component {
       touchDisabled: true
     }
     this.toggleTouch = this.toggleTouch.bind(this)
-    this.goToNew = this.goToNew.bind(this)
     this.goToEdit = this.goToEdit.bind(this)
   }
 
@@ -26,10 +25,6 @@ export default class BookHomePage extends React.Component {
         touchDisabled:  !prevState.touchDisabled
       })
     )
-  }
-
-  goToNew(){ 
-    this.props.goToStep(1, 'new')
   }
 
   goToEdit(payload){
@@ -97,7 +92,7 @@ export default class BookHomePage extends React.Component {
           this.state.touchDisabled ? (
             <View style={styles.bottomActions}>
               <CustomIcon name="edit" rounded dimension={44} style={{marginRight:base.padding.xs}} onPress={this.toggleTouch}/>
-              <CustomIcon name="add" rounded dimension={44} style={{marginLeft:base.padding.xs}} onPress={this.goToNew}/> 
+              <CustomIcon name="add" rounded dimension={44} style={{marginLeft:base.padding.xs}} onPress={this.props.goToNew}/> 
             </View>
           ) : (
             <View style={styles.bottomActions}>

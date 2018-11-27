@@ -174,7 +174,6 @@ class NewBookContainer extends React.Component {
             handleQuote={this.handleQuote} 
             swipeMode={0} 
             onDismiss={this.goToStep}
-            preview={this.props.flow.preview}
             goToScan={this.props.actions.navigateToScan}
             quote={this.state.quote}
             extracted={this.state.extracted}

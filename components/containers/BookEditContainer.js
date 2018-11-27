@@ -10,6 +10,7 @@ import * as base from './../../assets/styles/base';
 import * as bookActions from './../../core-modules/actions/bookActions'
 import * as flowActions from './../../core-modules/actions/flowActions'
 import * as quoteActions from './../../core-modules/actions/quoteActions'
+import * as navigationActions from './../../core-modules/actions/navigationActions'
 
 
 import { View, Text, Dimensions, ScrollView, StyleSheet, Animated } from 'react-native';
@@ -22,15 +23,20 @@ class BookEditContainer extends React.Component {
     super(props)
     this.state = { 
       form: '',
-      stepOffset: new Animated.Value(0),
       quote:{},
       comment:{},
-      edit:{}
+      extracted: false,
+      stepOffset: new Animated.Value(0),
+      
     }
     this.goToStep = this.goToStep.bind(this)
+    this.backAndClean = this.backAndClean.bind(this)
+    
     this.handleItemForEdit = this.handleItemForEdit.bind(this)
-    this.handleEdit = this.handleEdit.bind(this)
-    this.handleNew = this.handleNew.bind(this)
+    this.handleQuote = this.handleQuote.bind(this)
+    this.handleComment = this.handleComment.bind(this)
+
+    this.goToNew = this.goToNew.bind(this)
     this.submitEdit = this.submitEdit.bind(this)
     this.submitNew = this.submitNew.bind(this)
   }
@@ -68,19 +74,27 @@ class BookEditContainer extends React.Component {
   handleItemForEdit(item){
     if (item.type === 'quote'){
       this.setState({
-        form: 'edit',
+        form: 'quote',
         quote: this.props.book.quotes.find(quote => quote.quote.id === item.id).quote
       })
     } else if (item.type === 'comment'){
       this.setState({
-        form:'edit',
+        form:'comment',
         comment: this.props.book.quotes.find(quote => 
-          quote.quote.id === payload.quoteId
-        ).comments.find(comment => comment.id === payload.id) 
+          quote.quote.id === item.quoteId
+        ).comments.find(comment => comment.id === item.id) 
       })
     }
-
     this.goToStep(1)
+  }
+
+  backAndClean(){
+    this.setState({
+      form: '',
+      quote:{},
+      comment:{}
+    })
+    this.goToStep(-1)
   }
 
   goToStep(action){
@@ -91,38 +105,59 @@ class BookEditContainer extends React.Component {
       () => this.props.actions.updateFlow({
         next: action, 
         title:  this.state.form === 'new' ? 'Nouvelle citation' : 
-          this.state.form === 'edit' ? "Modifier l'élément" : this.props.book.book.title, 
-        back: () => this.goToStep(-1, 'back') 
+          this.state.form === 'quote' ? "Modifier la citation" :
+          this.state.form === 'comment' ? "Modifier le commentaire" : this.props.book.book.title, 
+        back: () => {this.backAndClean()}
       })
     )
   } 
 
-  handleEdit(payload){
+  handleQuote(payload){
     this.setState(
       (prevState, props) => ({
-        edit: Object.assign({}, prevState.edit, payload)
+        quote: Object.assign({}, prevState.quote, payload)
       })
     )
   }
 
-  handleNew(){
-
-    
+  handleComment(payload){
+    this.setState(
+      (prevState, props) => ({
+        comment: Object.assign({}, prevState.comment, payload)
+      })
+    )
   }
 
   submitEdit(){
-    this.props.actions.updateDependents({jwt: this.props.jwt, edit: this.state.edit}, 'mobile').then( 
+    this.props.actions.updateDependents({
+      jwt: this.props.jwt, 
+      edit: this.state.form === 'quote' ? {
+        type: 'quote',
+        quote: this.state.quote
+      } : this.state.form === 'comment' ? {
+        type: 'comment',
+        comment: this.state.comment
+      } : null
+    }, 'mobile').then( 
       () => {
         this.props.actions.readBook({
           jwt: this.props.jwt, 
           id: this.props.match.params.id
-        }, 'mobile').then(() => this.goToStep(-1, 'back'))
+        }, 'mobile').then(() => {this.backAndClean()})
       }
     )
   }
 
+  goToNew(){
+    this.setState({form: "new"})
+    this.goToStep(1)
+  }
+
   submitNew(){
-    
+    this.props.actions.createQuote({
+      jwt: this.props.jwt,
+      quote: this.state.quote
+    }, 'mobile')
   }
 
   render () {
@@ -153,14 +188,24 @@ class BookEditContainer extends React.Component {
         ]}>
           <BookHomePage
             book={this.props.book}
+            goToNew={this.goToNew}
             handleItemForEdit={this.handleItemForEdit}
           />
           <BookFormPage
             form={this.state.form}
             goToScan={this.props.actions.navigateToScan}
             goToStep={this.goToStep}
-            handleForm={this.state.form === 'edit' ? this.handleEdit : this.handleNew}
-            handleSubmit={this.state.form === 'edit' ? this.submitEdit : this.submitNew}
+            item={this.state.form === 'quote' ? this.state.quote : this.state.form === 'comment' ? this.state.comment : {}}
+            extracted={this.state.extracted}
+            comment={this.state.comment}
+            goToScan={this.props.actions.navigateToScan}
+            handleForm={this.state.form === 'quote' || this.state.form === 'new' ? this.handleQuote : 
+              this.state.form === 'comment' ? this.handleComment : null
+            }
+            handleSubmit={
+              this.state.form === 'quote' || this.state.form === 'comment' ? 
+              this.submitEdit : this.submitNew
+            }
           />
         </Animated.View>
       </Animated.View>
@@ -179,7 +224,7 @@ function mapStateToProps(state){
 
 function mapDispatchToProps(dispatch){
   return {
-    actions: bindActionCreators(Object.assign({}, bookActions, flowActions, quoteActions), dispatch)
+    actions: bindActionCreators(Object.assign({}, bookActions, flowActions, quoteActions, navigationActions), dispatch)
   }
 }
 export default appearsFromRight(connect(mapStateToProps, mapDispatchToProps)(BookEditContainer))

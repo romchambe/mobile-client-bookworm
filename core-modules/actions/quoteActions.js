@@ -1,6 +1,7 @@
 import * as types from './actionTypes';  
 import quoteApi from '../apiModule/quoteApi';
 
+
 export function createQuoteRequest(){
   return {type: types.CREATE_QUOTE_REQUEST}
 }
@@ -18,7 +19,6 @@ export function createQuote(payload,client){
         dispatch(createQuoteFailure(response.message))
       } else {
         dispatch(createQuoteSuccess(response));
-        dispatch(push(`edit/${response.quote.book_id}`))
       }
     }).catch(error => {
       dispatch(createQuoteFailure(error.message));
