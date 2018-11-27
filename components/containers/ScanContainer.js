@@ -50,6 +50,7 @@ class ScanContainer extends React.Component {
     await this.props.actions.postScan({jwt: this.props.jwt, file:  payload.base64}, 'mobile');
 
     if (!!this.props.flow.from){
+
       if (this.props.flow.from === 'new'){
         this.props.actions.navigateToNew()
       } else if (this.props.flow.from === 'edit'){

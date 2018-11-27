@@ -25,7 +25,8 @@ class NewBookContainer extends React.Component {
       stepOffset: new Animated.Value(0),
       book: {},
       quote: {}, 
-      comment: {}
+      comment: {},
+      extracted: false
     }
 
     this.goToStep = this.goToStep.bind(this)
@@ -40,14 +41,17 @@ class NewBookContainer extends React.Component {
 
   componentDidMount(){
     this.props.actions.startFlow()
-    if (this.props.flow.from === 'scan' && !!this.props.flow.payload.book){
+
+    if (!!this.props.flow.payload.book){
       this.setState({
         book: this.props.flow.payload.book,
         comment: this.props.flow.payload.comment,
-        quote: {content: this.props.flow.payload.response}
+        quote: {content: this.props.flow.payload.response},
+        extracted: true
       })
     }
-    console.log (this.state)
+
+    console.log(this.state)
   }
 
   componentWillUnmount(){
@@ -158,7 +162,9 @@ class NewBookContainer extends React.Component {
             handleBook={this.handleBook} 
             swipeMode={-1} 
             onDismiss={this.goToStep} 
-            preview={this.props.flow.preview}
+            preview={this.props.flow.payload.response}
+            book={this.state.book}
+            extracted={this.state.extracted}
           />
           <QuotePage 
             handleQuote={this.handleQuote} 
@@ -166,11 +172,14 @@ class NewBookContainer extends React.Component {
             onDismiss={this.goToStep}
             preview={this.props.flow.preview}
             goToScan={this.props.actions.navigateToScan}
+            quote={this.state.quote}
+            extracted={this.state.extracted}
           />
           <CommentPage 
             handleComment={this.handleComment} 
             swipeMode={1} 
             onDismiss={this.goToStep} 
+            comment={this.state.comment}
           />
          
         </Animated.View>

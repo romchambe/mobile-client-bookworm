@@ -105,11 +105,12 @@ class QuotePage extends React.Component {
     })
     return (
       <View style={styles.container}>
+
         <Animated.View style={[
           styles.scan, { 
             height: this.state.growBottom.interpolate({
               inputRange:[0, 248],
-              outputRange: [216, 56]
+              outputRange: [180, 56]
             })
           } 
         ]}>
@@ -122,11 +123,11 @@ class QuotePage extends React.Component {
               }), 
               height: this.state.growBottom.interpolate({
                 inputRange:[0, 248],
-                outputRange: [136, 0]
+                outputRange: [100, 0]
               })
             }
           ]}>
-            <NotebookImage height={136} width={152} />
+            <NotebookImage height={100} width={112} />
           </Animated.View>
 
           <MainButton 
@@ -138,6 +139,7 @@ class QuotePage extends React.Component {
           />
 
         </Animated.View>
+
         
         <ScrollView contentContainerStyle={styles.complete} ref={this.registerScrollView}  keyboardShouldPersistTaps={'always'}>
           
@@ -156,42 +158,51 @@ class QuotePage extends React.Component {
             Ou ajoutez-la vous-même!
           </Animated.Text>
 
-          <InputLegend legend="Saisissez le texte de votre citation" />
-          <InputField 
-            onFocus={this.growBottom}
-            onChangeText={this.handleQuoteChanges} 
-            maximumHeight={this.maxQuoteHeight} 
-            handleHeightChange={this.handleQuoteHeight} 
-            handleChange={this.props.handleQuote}
-            name='content'
-            value={this.props.preview ? this.props.preview : null}
-            placeholder="Par ex: 'On se mouvait mollement entre les ponts comme des poulpes au fond d'une baignoire d'eau fadasse'" 
-          />
-          
-          <Animated.View style={{
-            overflow:'hidden',
-            height: this.state.growBottom.interpolate({
-              inputRange: [0, 248],
-              outputRange: [0, this.maxTitleHeight + 24]
-            }), 
-            marginTop: this.state.growBottom.interpolate({
-              inputRange: [0, 248],
-              outputRange: [0, base.padding.md]
-            }),
+           <View style={{
+            height: this.maxTitleHeight + 24,
+
           }}>
 
             <InputLegend legend="Donnez un titre à votre citation pour mieux l'identifier" />
             <InputField 
-              onFocus={this.scrollToInput}
+              onFocus={() => { 
+                if (!this.state.spaced) {
+                  this.growBottom()
+                }
+              }}
               onBlur={() => this.scrollView.scrollTo({x: 0, y: 0, animated:true})}
               onChangeText={this.handleTitleChanges} 
               handleHeightChange={this.handleTitleHeight} 
               handleChange={this.props.handleQuote}
               name='title'
+              value={!!this.props.quote.title ? this.props.quote.title : null}
               maximumHeight={this.maxTitleHeight} 
               placeholder='Exemple: "Rencontre avec Kurtz"' 
             />
-          </Animated.View>
+          </View>
+
+          <InputLegend legend={ 
+            this.props.extracted ? 
+            "Editez le texte extrait si vous le souhaitez" : 
+            "Saisissez le texte de votre citation"} 
+          />
+          <InputField 
+            onFocus={() => {
+              if (!this.state.spaced) {
+                this.growBottom()
+              }
+              this.scrollToInput()
+            }}
+            onChangeText={this.handleQuoteChanges} 
+            maximumHeight={this.maxQuoteHeight} 
+            handleHeightChange={this.handleQuoteHeight} 
+            handleChange={this.props.handleQuote}
+            name='content'
+            value={!!this.props.quote.content ? this.props.quote.content : null}
+            placeholder="Exemple: 'On se mouvait mollement entre les ponts comme des poulpes au fond d'une baignoire d'eau fadasse'" 
+          />
+          
+         
         </ScrollView>
       </View>
     );

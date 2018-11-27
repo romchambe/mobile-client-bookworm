@@ -13,8 +13,7 @@ const swipeableComponent = WrappedComponent =>
 
       onMoveShouldSetResponderCapture: () => true,
       onMoveShouldSetPanResponderCapture: (evt, gestureState) => {
-
-        gestureState.dx > 1 ? true : false
+        return Math.abs(gestureState.dx) > 0 ? true : false
       },
       onPanResponderMove: Animated.event([null, {dx: this.offset}]),
       onPanResponderRelease: (e, {vx, dx}) => {

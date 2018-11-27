@@ -25,16 +25,26 @@ class TitlePage extends React.Component {
       <View style={styles.container}>
 
         {
-          this.props.preview ?
+          this.props.extracted ?
           <PreviewText maxHeight={80} text={this.props.preview} /> : 
           null
         }  
         <View style={styles.margin} />
         <InputLegend legend='Quel est le titre du livre que vous lisez?' />  
-        <InputField placeholder='Titre du livre' name='title' handleChange={this.props.handleBook} />
+        <InputField 
+          placeholder='Titre du livre' 
+          name='title' 
+          handleChange={this.props.handleBook} 
+          value={!!this.props.book.title ? this.props.book.title : null}
+        />
         <View style={styles.margin} />
         <InputLegend legend="Qui en est l'auteur?" />
-        <InputField placeholder="Nom de l'auteur" name='author' handleChange={this.props.handleBook}/>
+        <InputField 
+          placeholder="Nom de l'auteur" 
+          name='author' 
+          handleChange={this.props.handleBook}
+          value={!!this.props.book.author ? this.props.book.author : null}
+        />
       </View>
     );
   }

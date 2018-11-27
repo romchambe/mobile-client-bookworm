@@ -24,6 +24,7 @@ class CommentPage extends React.Component {
           placeholder="Par ex: 'On note ici l'hommage de Molière à Burger Quiz'"
           handleChange={this.props.handleComment}
           name='content'
+          value={!!this.props.comment.content ? this.props.comment.content : null}
         />
       </View>
     );
