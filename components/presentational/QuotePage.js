@@ -68,6 +68,7 @@ class QuotePage extends React.Component {
   }
 
   render() {
+
     const { width, height } = Dimensions.get('window')
     
     const styles = StyleSheet.create({
@@ -103,9 +104,79 @@ class QuotePage extends React.Component {
       },
     
     })
-    return (
-      <View style={styles.container}>
 
+    const form = <ScrollView 
+      contentContainerStyle={styles.complete} 
+      ref={this.registerScrollView} 
+      keyboardShouldPersistTaps={'always'}
+    >    
+      <Animated.Text style={[styles.prompt,
+        {
+          height: this.props.extracted ? 0 : this.state.growBottom.interpolate({
+            inputRange: [0, 248],
+            outputRange: [18, 0]
+          }), 
+          marginBottom: this.props.extracted ? 0 : this.state.growBottom.interpolate({
+            inputRange: [0, 248],
+            outputRange: [base.padding.md, 0]
+          }),
+        }
+      ]}>
+        Ou ajoutez-la vous-même!
+      </Animated.Text>
+
+       <View style={{
+        height: this.maxTitleHeight + 24,
+
+      }}>
+        <InputLegend legend="Donnez un titre à votre citation pour mieux l'identifier" />
+        <InputField 
+          onFocus={() => { 
+            if (!this.state.spaced) {
+              this.growBottom()
+            }
+          }}
+          onChangeText={this.handleTitleChanges} 
+          handleHeightChange={this.handleTitleHeight} 
+          handleChange={this.props.handleQuote}
+          name='title'
+          value={!!this.props.quote.title ? this.props.quote.title : null}
+          maximumHeight={this.maxTitleHeight} 
+          placeholder='Exemple: "Rencontre avec Kurtz"' 
+        />
+      </View>
+
+      <InputLegend legend={ 
+        this.props.extracted ? 
+        "Editez le texte extrait si vous le souhaitez" : 
+        "Saisissez le texte de votre citation"} 
+      />
+      <InputField 
+        onFocus={() => {
+          if (!this.state.spaced) {
+            this.growBottom()
+          }
+          this.scrollToInput()
+        }}
+        onBlur={() => this.scrollView.scrollTo({x: 0, y: 0, animated:true})}
+        onChangeText={this.handleQuoteChanges} 
+        maximumHeight={this.maxQuoteHeight} 
+        handleHeightChange={this.handleQuoteHeight} 
+        handleChange={this.props.handleQuote}
+        name='content'
+        value={!!this.props.quote.content ? this.props.quote.content : null}
+        placeholder="Exemple: 'On se mouvait mollement entre les ponts comme des poulpes au fond d'une baignoire d'eau fadasse'" 
+      />
+    </ScrollView>
+
+
+
+    return this.props.extracted ? (
+      <View style={styles.container}>
+        {form}
+      </View>
+    ) : (
+      <View style={styles.container}>
         <Animated.View style={[
           styles.scan, { 
             height: this.state.growBottom.interpolate({
@@ -139,71 +210,8 @@ class QuotePage extends React.Component {
           />
 
         </Animated.View>
-
+        {form}
         
-        <ScrollView contentContainerStyle={styles.complete} ref={this.registerScrollView}  keyboardShouldPersistTaps={'always'}>
-          
-          <Animated.Text style={[styles.prompt,
-            {
-              height: this.state.growBottom.interpolate({
-                inputRange: [0, 248],
-                outputRange: [18, 0]
-              }), 
-              marginBottom: this.state.growBottom.interpolate({
-                inputRange: [0, 248],
-                outputRange: [base.padding.md, 0]
-              }),
-            }
-          ]}>
-            Ou ajoutez-la vous-même!
-          </Animated.Text>
-
-           <View style={{
-            height: this.maxTitleHeight + 24,
-
-          }}>
-
-            <InputLegend legend="Donnez un titre à votre citation pour mieux l'identifier" />
-            <InputField 
-              onFocus={() => { 
-                if (!this.state.spaced) {
-                  this.growBottom()
-                }
-              }}
-              onBlur={() => this.scrollView.scrollTo({x: 0, y: 0, animated:true})}
-              onChangeText={this.handleTitleChanges} 
-              handleHeightChange={this.handleTitleHeight} 
-              handleChange={this.props.handleQuote}
-              name='title'
-              value={!!this.props.quote.title ? this.props.quote.title : null}
-              maximumHeight={this.maxTitleHeight} 
-              placeholder='Exemple: "Rencontre avec Kurtz"' 
-            />
-          </View>
-
-          <InputLegend legend={ 
-            this.props.extracted ? 
-            "Editez le texte extrait si vous le souhaitez" : 
-            "Saisissez le texte de votre citation"} 
-          />
-          <InputField 
-            onFocus={() => {
-              if (!this.state.spaced) {
-                this.growBottom()
-              }
-              this.scrollToInput()
-            }}
-            onChangeText={this.handleQuoteChanges} 
-            maximumHeight={this.maxQuoteHeight} 
-            handleHeightChange={this.handleQuoteHeight} 
-            handleChange={this.props.handleQuote}
-            name='content'
-            value={!!this.props.quote.content ? this.props.quote.content : null}
-            placeholder="Exemple: 'On se mouvait mollement entre les ponts comme des poulpes au fond d'une baignoire d'eau fadasse'" 
-          />
-          
-         
-        </ScrollView>
       </View>
     );
   }

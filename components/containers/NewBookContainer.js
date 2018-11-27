@@ -49,9 +49,10 @@ class NewBookContainer extends React.Component {
         quote: {content: this.props.flow.payload.response},
         extracted: true
       })
+      this.goToStep(1)
     }
 
-    console.log(this.state)
+
   }
 
   componentWillUnmount(){
