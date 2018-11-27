@@ -88,13 +88,13 @@ class BookEditContainer extends React.Component {
     this.goToStep(1)
   }
 
-  backAndClean(){
+  backAndClean(action){
     this.setState({
       form: '',
       quote:{},
       comment:{}
     })
-    this.goToStep(-1)
+    this.goToStep(action)
   }
 
   goToStep(action){
@@ -107,7 +107,7 @@ class BookEditContainer extends React.Component {
         title:  this.state.form === 'new' ? 'Nouvelle citation' : 
           this.state.form === 'quote' ? "Modifier la citation" :
           this.state.form === 'comment' ? "Modifier le commentaire" : this.props.book.book.title, 
-        back: () => {this.backAndClean()}
+        back: () => {this.backAndClean(-1)}
       })
     )
   } 
@@ -143,7 +143,7 @@ class BookEditContainer extends React.Component {
         this.props.actions.readBook({
           jwt: this.props.jwt, 
           id: this.props.match.params.id
-        }, 'mobile').then(() => {this.backAndClean()})
+        }, 'mobile').then(() => {this.backAndClean(-1)})
       }
     )
   }
@@ -194,7 +194,7 @@ class BookEditContainer extends React.Component {
           <BookFormPage
             form={this.state.form}
             goToScan={this.props.actions.navigateToScan}
-            goToStep={this.goToStep}
+            backAndClean={this.backAndClean}
             item={this.state.form === 'quote' ? this.state.quote : this.state.form === 'comment' ? this.state.comment : {}}
             extracted={this.state.extracted}
             comment={this.state.comment}

@@ -79,8 +79,8 @@ export default class BookFormPage extends React.Component {
       </View>
     ) : (
       <QuotePage 
-        swipeMode={-1} 
-        onDismiss={this.props.goToStep}
+        swipeMode={1} 
+        onDismiss={this.props.backAndClean}
         quote={this.props.item}
         goToScan={this.props.goToScan}
       />
