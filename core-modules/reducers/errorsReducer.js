@@ -33,6 +33,12 @@ const error = (state = [], action) => {
         action.error
       ]
 
+    case types.CREATE_QUOTE_FAILURE:
+      return [
+        ...state,
+        action.error
+      ]
+
     case types.UPLOAD_SCAN_FAILURE:
       return [
         ...state,

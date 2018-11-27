@@ -45,7 +45,8 @@ export default class BookHomePage extends React.Component {
       },
       contentContainer: {
         flexGrow: 1,
-        justifyContent: 'flex-start'
+        justifyContent: 'flex-start',
+        marginBottom: 96
       },
       bottomActions:{
         position:'absolute',

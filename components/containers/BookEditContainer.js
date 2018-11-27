@@ -23,6 +23,8 @@ class BookEditContainer extends React.Component {
     this.state = { 
       form: '',
       stepOffset: new Animated.Value(0),
+      quote:{},
+      comment: {},
       edit:{}
     }
     this.goToStep = this.goToStep.bind(this)
@@ -39,7 +41,6 @@ class BookEditContainer extends React.Component {
       this.props.actions.createQuote({
         jwt: this.props.jwt,
         quote:{
-
           book_id: this.props.match.params.id,
           content: this.props.flow.payload.response,
           title: 'Citation'
@@ -54,7 +55,12 @@ class BookEditContainer extends React.Component {
   }
  
   componentWillUnmount(){
-    this.props.actions.cleanFlow()
+    this.props.actions.transmitData({
+      from: 'edit', 
+      payload:{
+        id: this.props.match.params.id
+      }
+    })
     this.props.actions.cleanCurrentBook()
   }
 
@@ -156,6 +162,7 @@ class BookEditContainer extends React.Component {
             form={this.state.form}
             goToStep={this.goToStep}
             payload={this.state.payload}
+            goToScan={this.props.actions.navigateToScan}
             handleForm={this.state.form === 'edit' ? this.handleEdit : this.handleNew}
             handleSubmit={this.state.form === 'edit' ? this.submitEdit : this.submitNew}
           />

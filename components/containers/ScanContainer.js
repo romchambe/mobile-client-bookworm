@@ -29,25 +29,22 @@ class ScanContainer extends React.Component {
   }
 
   componentDidMount(){
-    this.props.actions.startFlow()
-    if (!!this.props.flow.from){
-      this.setState({
-        payload: this.props.flow.payload
-      })
-    }
+    this.origin = this.props.flow.from
+    this.props.actions.startFlow({from: 'scan'})
   }
 
   steps = ['Scan', 'Ajout de la citation']
 
   async handlePicture(payload){
+
     await this.props.actions.postScan({jwt: this.props.jwt, file:  payload.base64}, 'mobile');
 
-    if (!!this.props.flow.from && this.props.flow.from === 'new'){
+    if (!!this.origin && this.origin === 'new'){
       this.props.actions.navigateToNew()
-    } else if (!!this.props.flow.from && this.props.flow.from === 'edit'){
+    } else if (!!this.origin && this.origin === 'edit'){
       this.props.actions.navigateToEdit(this.props.flow.payload.id)
     } else {
-    this.goToStep(1)
+      this.goToStep(1)
     }
   }
 

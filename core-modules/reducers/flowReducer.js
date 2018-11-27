@@ -8,7 +8,7 @@ const flow = (state = initialState, action) => {
         started: true,
         step: 0,
         title: null
-      })
+      }, action.payload)
 
     case types.UPDATE_FLOW:
       return Object.assign({}, state, {
@@ -18,15 +18,14 @@ const flow = (state = initialState, action) => {
       })  
 
     case types.TRANSMIT_DATA:
-      return Object.assign({}, initialState.flow, action.payload)
+      return Object.assign({}, state, action.payload)
         
     case types.CLEAN_FLOW:
       return Object.assign({}, state, initialState.flow)
 
     case types.UPLOAD_SCAN_SUCCESS: 
       return Object.assign({}, state, {
-        payload: Object.assign({}, state.payload, action.payload),
-        from: 'scan'
+        payload: Object.assign({}, state.payload, action.payload)
       })
 
     case types.READ_BOOK_SUCCESS:
