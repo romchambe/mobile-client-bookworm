@@ -3,6 +3,7 @@ import * as base from './../../assets/styles/base';
 import InputLegend from './InputLegend'
 import InputField from './InputField'
 import MainButton from './MainButton'
+import QuotePage from './QuotePage'
 
 
 
@@ -43,42 +44,45 @@ export default class BookFormPage extends React.Component {
       }
     })
 
-    const form = this.props.form === 'edit' ? (
-      <View style={styles.container}>
-        {
-          this.props.payload.type === 'quote' ? (
-            <View style={styles.margin}>
-              <InputLegend legend='Titre de la citation' />  
-              <InputField 
-                placeholder='Il vous permet de repérer plus vite votre citation' 
-                name='title' 
-                handleChange={this.props.handleForm} 
-                value={this.props.payload.content.title}
-              />
-            </View>
-          ) : null
-        }
-        
-        <View style={styles.margin} />
-        <InputLegend legend="Contenu" />
-        <InputField 
-          placeholder="Votre citation" 
-          name='content' 
-          handleChange={this.props.handleForm}
-          value={this.props.payload.content.content}
-        />
-      </View>
-    ) : null
-    
-    return (
+ 
+    return this.props.form === 'edit' ? (
       <View style={styles.container}>
         <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps={'always'}>
-          {form}
+          <View style={styles.container}>
+            {
+              this.props.payload.type === 'quote' ? (
+                <View style={styles.margin}>
+                  <InputLegend legend='Titre de la citation' />  
+                  <InputField 
+                    placeholder='Il vous permet de repérer plus vite votre citation' 
+                    name='title' 
+                    handleChange={this.props.handleForm} 
+                    value={this.props.payload.content.title}
+                  />
+                </View>
+              ) : null
+            }
+            
+            <View style={styles.margin} />
+            <InputLegend legend="Contenu" />
+            <InputField 
+              placeholder="Votre citation" 
+              name='content' 
+              handleChange={this.props.handleForm}
+              value={this.props.payload.content.content}
+            />
+          </View>
         </ScrollView>
         <View style={styles.bottomActions}>
           <MainButton height={40} legend="Sauvegarder" onPress={this.props.handleSubmit}/>
         </View>
       </View>
+    ) : (
+      <QuotePage 
+        swipeMode={-1} 
+        onDismiss={this.props.goToStep}
+        quote={this.props.quote}
+      />
     )
   }
 }

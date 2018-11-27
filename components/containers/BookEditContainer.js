@@ -24,10 +24,11 @@ class BookEditContainer extends React.Component {
       form: '',
       stepOffset: new Animated.Value(0),
       quote:{},
-      comment: {},
+      comment:{},
       edit:{}
     }
     this.goToStep = this.goToStep.bind(this)
+    this.handleItemForEdit = this.handleItemForEdit.bind(this)
     this.handleEdit = this.handleEdit.bind(this)
     this.handleNew = this.handleNew.bind(this)
     this.submitEdit = this.submitEdit.bind(this)
@@ -35,9 +36,10 @@ class BookEditContainer extends React.Component {
   }
 
   componentDidMount(){
-    this.props.actions.startFlow()
+    this.origin = this.props.flow.from
+    this.props.actions.startFlow({from: 'edit'})
 
-    if (this.props.flow.from === 'scan' && !!this.props.flow.payload.response){
+    if (this.origin === 'scan' && !!this.props.flow.payload.response){
       this.props.actions.createQuote({
         jwt: this.props.jwt,
         quote:{
@@ -56,7 +58,6 @@ class BookEditContainer extends React.Component {
  
   componentWillUnmount(){
     this.props.actions.transmitData({
-      from: 'edit', 
       payload:{
         id: this.props.match.params.id
       }
@@ -64,37 +65,33 @@ class BookEditContainer extends React.Component {
     this.props.actions.cleanCurrentBook()
   }
 
-  goToStep(action,type,payload){
-    let item = type === 'edit' && payload.type === 'quote' ?
-      {
-        type: payload.type, 
-        id: payload.id,
-        content: this.props.book.quotes.find(quote => quote.quote.id === payload.id).quote
-      } : type === 'edit' && payload.type === 'comment' ?
-        {
-          type: payload.type, 
-          id: payload.id,
-          content: this.props.book.quotes.find(quote => 
-            quote.quote.id === payload.quoteId
-          ).comments.find(comment => comment.id === payload.id) 
-        } : null
-
-    this.setState({
-      form: type,
-      payload: item,
-      edit: type === 'back' ? {} : Object.assign({}, {
-        type: payload.type, 
-        id: payload.id
+  handleItemForEdit(item){
+    if (item.type === 'quote'){
+      this.setState({
+        form: 'edit',
+        quote: this.props.book.quotes.find(quote => quote.quote.id === item.id).quote
       })
-    })
+    } else if (item.type === 'comment'){
+      this.setState({
+        form:'edit',
+        comment: this.props.book.quotes.find(quote => 
+          quote.quote.id === payload.quoteId
+        ).comments.find(comment => comment.id === payload.id) 
+      })
+    }
 
+    this.goToStep(1)
+  }
+
+  goToStep(action){
     Animated.timing(this.state.stepOffset, {
       toValue: this.props.flow.step + action,
       duration: 200
     }).start(
       () => this.props.actions.updateFlow({
         next: action, 
-        title: type === 'new' ? 'Nouvelle citation' : type === 'edit' ? "Modifier l'élément" : this.props.book.book.title, 
+        title:  this.state.form === 'new' ? 'Nouvelle citation' : 
+          this.state.form === 'edit' ? "Modifier l'élément" : this.props.book.book.title, 
         back: () => this.goToStep(-1, 'back') 
       })
     )
@@ -156,13 +153,12 @@ class BookEditContainer extends React.Component {
         ]}>
           <BookHomePage
             book={this.props.book}
-            goToStep={this.goToStep}
+            handleItemForEdit={this.handleItemForEdit}
           />
           <BookFormPage
             form={this.state.form}
-            goToStep={this.goToStep}
-            payload={this.state.payload}
             goToScan={this.props.actions.navigateToScan}
+            goToStep={this.goToStep}
             handleForm={this.state.form === 'edit' ? this.handleEdit : this.handleNew}
             handleSubmit={this.state.form === 'edit' ? this.submitEdit : this.submitNew}
           />

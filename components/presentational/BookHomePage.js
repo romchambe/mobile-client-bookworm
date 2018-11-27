@@ -34,7 +34,7 @@ export default class BookHomePage extends React.Component {
 
   goToEdit(payload){
     this.toggleTouch()
-    this.props.goToStep(1, 'edit', payload)
+    this.props.handleItemForEdit(payload)
   }
 
   render() {
