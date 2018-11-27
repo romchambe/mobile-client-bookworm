@@ -102,6 +102,9 @@ class QuotePage extends React.Component {
         alignSelf: 'center',
         overflow: 'hidden'
       },
+      field: {  
+        height: this.maxTitleHeight + 24
+      }
     
     })
 
@@ -124,11 +127,7 @@ class QuotePage extends React.Component {
       ]}>
         Ou ajoutez-la vous-même!
       </Animated.Text>
-
-       <View style={{
-        height: this.maxTitleHeight + 24,
-
-      }}>
+      <View style={styles.field}>
         <InputLegend legend="Donnez un titre à votre citation pour mieux l'identifier" />
         <InputField 
           onFocus={() => { 
@@ -145,7 +144,6 @@ class QuotePage extends React.Component {
           placeholder='Exemple: "Rencontre avec Kurtz"' 
         />
       </View>
-
       <InputLegend legend={ 
         this.props.extracted ? 
         "Editez le texte extrait si vous le souhaitez" : 
@@ -169,8 +167,6 @@ class QuotePage extends React.Component {
       />
     </ScrollView>
 
-
-
     return this.props.extracted ? (
       <View style={styles.container}>
         {form}
@@ -185,7 +181,6 @@ class QuotePage extends React.Component {
             })
           } 
         ]}>
-
           <Animated.View style={[
             styles.image, {
               marginBottom: this.state.growBottom.interpolate({
@@ -200,7 +195,6 @@ class QuotePage extends React.Component {
           ]}>
             <NotebookImage height={100} width={112} />
           </Animated.View>
-
           <MainButton 
             height={40} 
             legend='Scannez une citation'
@@ -208,10 +202,8 @@ class QuotePage extends React.Component {
               this.props.goToScan
             }
           />
-
         </Animated.View>
         {form}
-        
       </View>
     );
   }

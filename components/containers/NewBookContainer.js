@@ -42,17 +42,20 @@ class NewBookContainer extends React.Component {
   componentDidMount(){
     this.props.actions.startFlow()
 
-    if (!!this.props.flow.payload.book){
+    if (!!this.props.flow.from && this.props.flow.from === 'scan' && !!this.props.flow.payload.book){
       this.setState({
         book: this.props.flow.payload.book,
-        comment: this.props.flow.payload.comment,
+        comment: this.props.flow.payload.quote,
         quote: {content: this.props.flow.payload.response},
         extracted: true
       })
       this.goToStep(1)
+    } else if (!!this.props.flow.from && this.props.flow.from === 'scan'){
+      this.setState({
+        quote: {content: this.props.flow.payload.response},
+        extracted: true
+      })
     }
-
-
   }
 
   componentWillUnmount(){

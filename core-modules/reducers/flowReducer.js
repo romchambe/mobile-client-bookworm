@@ -25,7 +25,8 @@ const flow = (state = initialState, action) => {
 
     case types.UPLOAD_SCAN_SUCCESS: 
       return Object.assign({}, state, {
-        payload: Object.assign({}, state.payload, action.payload)
+        payload: Object.assign({}, state.payload, action.payload),
+        from: 'scan'
       })
 
     case types.READ_BOOK_SUCCESS:

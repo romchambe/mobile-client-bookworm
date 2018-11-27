@@ -6,6 +6,8 @@ import MainButton from './MainButton'
 import ListSeparator from './ListSeparator'
 import FilteredList from './FilteredList'
 
+import { LinearGradient } from 'expo';
+
 import * as base from './../../assets/styles/base';
 import { View, Text, StyleSheet, Image, Dimensions, Animated, Keyboard, ScrollView, Easing} from 'react-native';
 
@@ -66,18 +68,19 @@ export default class BooksList extends React.Component {
       },
       listContainer:{
         marginTop: 188,
-        paddingHorizontal: base.padding.md
+        paddingHorizontal: base.padding.md,
+        marginBottom: 80,
       },
       bottomActions:{
         position:'absolute',
         bottom: 0,
         left: 0,
         right: 0,
-        height: 72,
+        height: 80,
         alignItems: 'center',
-        paddingTop: base.padding.xs,
-        paddingBottom: base.padding.md
-      }
+        justifyContent: 'center', 
+        backgroundColor:'white'
+      },
     });
    
     const searchHandler = (search) => {

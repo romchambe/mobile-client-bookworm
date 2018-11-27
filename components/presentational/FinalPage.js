@@ -155,7 +155,7 @@ export default class FinalPage extends React.Component {
           ]}>
             <PreviewText maxHeight={80} text={quote} />
           </Animated.View>
-          <MainButton height={40} legend='Nouveau livre' />
+          <MainButton height={40} legend='Nouveau livre' onPress={this.props.goToNew}/>
         </Animated.View>
         
         <ScrollView contentContainerStyle={styles.chooseBook} ref={this.registerScrollView}>
