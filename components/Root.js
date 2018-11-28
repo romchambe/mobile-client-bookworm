@@ -16,7 +16,7 @@ import AuthContainer from './containers/AuthContainer';
 import BookEditContainer from './containers/BookEditContainer';
 import ProfileContainer from './containers/ProfileContainer';
 
-import { View, Platform, StyleSheet, Animated, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
+import { View, Platform, StyleSheet, Animated, StatusBar, Text, Dimensions, TouchableOpacity, ScrollView } from 'react-native';
 import * as base from './../assets/styles/base';
 
 // Subscribe and dispatch to redux store
@@ -109,6 +109,10 @@ class Root extends React.Component {
 
     return (
       <View style={styles.flexView}>
+        <StatusBar
+          backgroundColor="white"
+          barStyle="default"
+        />
         <Animated.View style={{ 
           flex: 1,
           transform: [{

@@ -13,7 +13,7 @@
     "facebookDisplayName": "Bookworm",
     "splash": {
       "image": "./assets/splash.png",
-      "backgroundColor": "#303C6C",
+      "backgroundColor": "#424D79",
       "resizeMode": "cover"
     },
     "ios": {
