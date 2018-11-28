@@ -77,8 +77,6 @@ class App extends React.Component {
     });
 
     const images = await cacheImages([require('./assets/cover.jpg'),require('./assets/facebook-white.png')])
-
-    
   }
 
   render() {

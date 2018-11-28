@@ -208,7 +208,6 @@ class NewBookContainer extends React.Component {
               () => this.goToStep(1)
             }
           />
-
         </Animated.View>
       </View>
     )
