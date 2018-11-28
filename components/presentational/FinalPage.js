@@ -197,7 +197,7 @@ export default class FinalPage extends React.Component {
             <SearchInput 
               placeholder="Chercher parmi vos livres" 
               onChangeText={this.handleSearch} 
-              shadow={{color: base.colors.blue, opacity: 1, radius: 3, offset: {width: 0, height:2,}, elevation: 1}}
+              shadow={{color: base.colors.blue, opacity: 1, radius: 3, offset: {width: 0, height:2,}, elevation: 6}}
             />
           </Animated.View>
         </Animated.View>

@@ -96,10 +96,7 @@ class Root extends React.Component {
   }
 
   render () {
-    const dimensions = {  
-      height: Dimensions.get('window').height,
-      width: Dimensions.get('window').width
-    }
+    const { width, height } = Dimensions.get('window')
 
     const styles = StyleSheet.create({
       flexView: {
@@ -110,7 +107,7 @@ class Root extends React.Component {
     return (
       <View style={styles.flexView}>
         <StatusBar
-          backgroundColor="white"
+          backgroundColor={base.colors.blue}
           barStyle="default"
         />
         <Animated.View style={{ 
@@ -125,8 +122,8 @@ class Root extends React.Component {
           <Animated.View style={{
             position:'absolute',
             backgroundColor:"#C6C7C4",
-            width:dimensions.width,
-            height:dimensions.height,
+            width: width,
+            height: height,
 
             zIndex: this.state.menuPosition.interpolate({
               inputRange: [-260, 0], 
@@ -179,12 +176,12 @@ class Root extends React.Component {
         <Animated.View style={{
           position: 'absolute',
           zIndex: 10,
-          width:dimensions.width - 260,
-          height:dimensions.height,
+          width:width - 260,
+          height:height,
           transform: [{
             translateX: this.state.menuPosition.interpolate({
               inputRange: [-260, 0],
-              outputRange: [dimensions.width, 260]
+              outputRange: [width, 260]
             }) 
           }],
           
@@ -194,7 +191,7 @@ class Root extends React.Component {
         </Animated.View>
         <Animated.View style={{
           position: 'absolute',
-          height: dimensions.height,
+          height: height,
           left: this.state.menuPosition,
         }}>
           <SideMenu 

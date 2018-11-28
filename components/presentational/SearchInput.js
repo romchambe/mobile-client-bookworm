@@ -56,6 +56,7 @@ export default class SearchInput extends React.Component {
         right:0, 
         left:0,
         alignItems:'center',
+        borderRadius: 4,
       },
       search:{
         position: 'absolute',
@@ -64,7 +65,6 @@ export default class SearchInput extends React.Component {
         right:0, 
         left:0,
         maxHeight: 40,
-       
         paddingHorizontal: base.padding.lg,
         alignItems:'center',
         borderRadius: 4,

@@ -30,7 +30,9 @@ export default class Book extends React.Component {
         maxHeight:88,
         minHeight: 88,
         marginVertical: 8,
-        backgroundColor: 'white'
+        backgroundColor: 'white',
+        elevation: 6,
+        borderRadius: 8,
       },
       card: { 
         position: 'absolute',
@@ -42,7 +44,6 @@ export default class Book extends React.Component {
         backgroundColor: 'white',
         paddingHorizontal: 20,
         borderRadius: 8,
-        elevation: 1,
         shadowColor: base.colors.blueLight,
         shadowRadius: 6,
         shadowOffset:  { 

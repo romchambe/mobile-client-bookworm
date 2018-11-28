@@ -12,6 +12,15 @@ import {  ScrollView, View, Text, StyleSheet, Animated } from 'react-native';
 export default class BookFormPage extends React.Component {
   constructor(props){
     super(props) 
+    this.scrollToInput = this.scrollToInput.bind(this)
+  }
+
+  registerScrollView(component){
+    this.scrollView = component
+  }
+
+  scrollToInput(){
+    this.scrollView.scrollTo({x: 0, y: this.state.quoteHeight + 72, animated:true})
   }
 
   render() {

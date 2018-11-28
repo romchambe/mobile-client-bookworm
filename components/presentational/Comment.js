@@ -27,7 +27,7 @@ export default class Comment extends React.Component {
         flexDirection:'row',
         alignItems: 'flex-start',
         marginTop: base.padding.xs,
-        borderRadius: 4,
+        borderRadius: base.padding.xs,
         marginHorizontal: 16,
         padding: base.padding.xs,
         backgroundColor: 'white',
@@ -53,7 +53,10 @@ export default class Comment extends React.Component {
         style={[
           styles.container,
           {
-            elevation: this.shadow,
+            elevation: this.shadow.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 6]
+            }),
             shadowRadius: this.shadow.interpolate({
                 inputRange: [0, 1],
                 outputRange: [0, 6]

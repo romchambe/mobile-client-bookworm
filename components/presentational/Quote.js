@@ -29,7 +29,7 @@ export default class Quote extends React.Component {
         paddingHorizontal: 12,
         justifyContent: 'flex-start',
         backgroundColor: 'white',
-        borderRadius: 4,
+        borderRadius: base.padding.xs,
         shadowColor: base.colors.blueLight,
         marginBottom: base.padding.xs,
         marginTop: base.padding.lg
@@ -48,7 +48,10 @@ export default class Quote extends React.Component {
         style={[
           styles.quoteContainer,
           {
-            elevation: this.shadow,
+            elevation: this.shadow.interpolate({
+                inputRange: [0, 1],
+                outputRange: [0, 6]
+            }),
             shadowRadius: this.shadow.interpolate({
                 inputRange: [0, 1],
                 outputRange: [0, 6]
