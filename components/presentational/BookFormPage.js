@@ -12,7 +12,12 @@ import {  ScrollView, View, Text, StyleSheet, Animated } from 'react-native';
 export default class BookFormPage extends React.Component {
   constructor(props){
     super(props) 
+    this.state = {
+      titleHeight: 26
+    }
     this.scrollToInput = this.scrollToInput.bind(this)
+    this.handleTitleHeight = this.handleTitleHeight.bind(this)
+    this.registerScrollView = this.registerScrollView.bind(this)
   }
 
   registerScrollView(component){
@@ -20,14 +25,22 @@ export default class BookFormPage extends React.Component {
   }
 
   scrollToInput(){
-    this.scrollView.scrollTo({x: 0, y: this.state.quoteHeight + 72, animated:true})
+    this.scrollView.scrollTo({x: 0, y: this.state.titleHeight + 80, animated:true})
   }
+
+  handleTitleHeight(e){
+    this.setState({ titleHeight: Math.min(e.nativeEvent.contentSize.height, this.maxTitleHeight)})
+  }
+
+  maxTitleHeight = 88
+  maxQuoteHeight = 200
 
   render() {
     const styles = StyleSheet.create({
       container:{
         flex:1,
         justifyContent: 'flex-start',
+        paddingTop: base.padding.md
       },
       margin:{
         marginBottom: base.padding.md 
@@ -56,7 +69,11 @@ export default class BookFormPage extends React.Component {
  
     return this.props.form === 'quote'|| this.props.form === 'comment' ? (
       <View style={styles.container}>
-        <ScrollView contentContainerStyle={styles.contentContainer} keyboardShouldPersistTaps={'always'}>
+        <ScrollView 
+          contentContainerStyle={styles.contentContainer} 
+          ref={this.registerScrollView} 
+          keyboardShouldPersistTaps={'always'}
+        >
           <View style={styles.container}>
             {
               this.props.form === 'quote' ? (
@@ -65,7 +82,9 @@ export default class BookFormPage extends React.Component {
                   <InputField 
                     placeholder='Il vous permet de repérer plus vite votre citation' 
                     name='title' 
-                    handleChange={this.props.handleForm} 
+                    handleChange={this.props.handleForm}
+                    handleHeightChange={this.handleTitleHeight} 
+                    maximumHeight={this.maxTitleHeight}  
                     value={this.props.item.title}
                   />
                 </View>
@@ -77,6 +96,9 @@ export default class BookFormPage extends React.Component {
             <InputField 
               placeholder="Votre citation" 
               name='content' 
+              onBlur={() => this.scrollView.scrollTo({x: 0, y: 0, animated:true})}
+              onFocus={() => this.scrollToInput()}
+              maximumHeight={this.maxQuoteHeight}
               handleChange={this.props.handleForm}
               value={this.props.item.content}
             />

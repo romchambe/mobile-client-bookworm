@@ -15,7 +15,6 @@ class Header extends React.Component {
         paddingTop: Platform.OS === 'ios'? 28 : base.padding.xs,
         paddingHorizontal: base.padding.sm,
         paddingBottom: base.padding.xs,
-
       },
       scrollContainer: {
         flex: 1,
