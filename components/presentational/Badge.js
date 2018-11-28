@@ -23,8 +23,7 @@ export default class Badge extends React.Component {
     return (
 
       <View style={styles.badge}>
-         <Text style={styles.initial} >{this.props.name.slice(0,1)}</Text>
-        
+         <Text style={styles.initial} >{!!this.props.name ? this.props.name.slice(0,1) : null}</Text>
       </View>
     );
   }

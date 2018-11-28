@@ -4,7 +4,7 @@ import AssetLoader from './components/AssetLoader';
 import Root from './components/Root';
 
 import {Text } from 'react-native'
-import { Font, AppLoading } from 'expo';
+import { Font, Asset, AppLoading } from 'expo';
 import rootReducer from './core-modules/reducers/rootReducer';
 import initialState from './core-modules/initialState'; 
 
@@ -50,11 +50,22 @@ const store = createStore(
 
 const persistor = persistStore(store)
 
+function cacheImages(images) {
+  return images.map(image => {
+    if (typeof image === 'string') {
+      return Image.prefetch(image);
+    } else {
+      return Asset.fromModule(image).downloadAsync();
+    }
+  });
+}
+
+
 class App extends React.Component {
   state = { isReady: false }
 
   async _loadAssetsAsync() {
-    await Font.loadAsync({
+    const fonts = await Font.loadAsync({
       'cabin': require('./assets/Cabin/Cabin-Regular.ttf'),
       'cabin-bold': require('./assets/Cabin/Cabin-Bold.ttf'),
       'cabin-italic': require('./assets/Cabin/Cabin-Italic.ttf'),
@@ -64,6 +75,10 @@ class App extends React.Component {
       'cabin-medium-italic': require('./assets/Cabin/Cabin-MediumItalic.ttf'),
       'cabin-bold-italic': require('./assets/Cabin/Cabin-BoldItalic.ttf'),
     });
+
+    const images = await cacheImages([require('./assets/cover.jpg'),require('./assets/facebook-white.png')])
+
+    
   }
 
   render() {

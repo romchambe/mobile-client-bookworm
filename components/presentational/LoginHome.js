@@ -5,7 +5,7 @@ import InputField from './InputField'
 import MainButton from './MainButton'
 import NoteTaking from './NoteTaking'
 
-import {  TouchableOpacity, Image, View, Text, StyleSheet, Animated, Keyboard, Easing } from 'react-native';
+import {  TouchableOpacity, Image, ScrollView, View, Text, StyleSheet, Animated, Keyboard, Easing } from 'react-native';
 
 
 export default class LoginHome extends React.Component {
@@ -87,8 +87,6 @@ export default class LoginHome extends React.Component {
 
     return (
       <View style={styles.container}>
-       
-       
         <View style={styles.imageContainer}>
           <NoteTaking/>
           <Text style={styles.tagline} >

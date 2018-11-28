@@ -5,7 +5,7 @@
     "slug": "bookworm-app",
     "sdkVersion": "28.0.0",
     "orientation": "portrait",
-    "version": "0.1.6",
+    "version": "0.1.7",
     "privacy": "public",
     "icon": "./assets/icon.png",
     "facebookScheme": "fb274937946606967",
@@ -25,7 +25,7 @@
     "android": {
       "icon": "./assets/icon.png",
       "package": "fr.romainchambe.bookworm",
-      "versionCode":3
+      "versionCode":4
     },
     "androidStatusBar": {
       "barStyle":"dark-content",
