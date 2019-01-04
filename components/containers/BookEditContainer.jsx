@@ -1,10 +1,12 @@
 import React from 'react';
+import { Text, Dimensions,ScrollView, StyleSheet, Animated } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'; 
 
 import AssetLoader from './../AssetLoader'
 import appearsFromRight from './appearsFromRight'
 import BookHomePage from './../presentational/BookHomePage'
 import BookFormPage from './../presentational/BookFormPage'
-
 import * as base from './../../assets/styles/base';
 
 import * as bookActions from './../../core-modules/actions/bookActions'
@@ -12,11 +14,6 @@ import * as flowActions from './../../core-modules/actions/flowActions'
 import * as quoteActions from './../../core-modules/actions/quoteActions'
 import * as navigationActions from './../../core-modules/actions/navigationActions'
 
-
-import { View, Text, Dimensions, ScrollView, StyleSheet, Animated } from 'react-native';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'; 
 
 class BookEditContainer extends React.Component {
   constructor(props){

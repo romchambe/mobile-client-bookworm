@@ -1,10 +1,10 @@
 import React from 'react';
 import * as base from './../../assets/styles/base';
-import CustomIcon from './CustomIcon'
-import MainButton from './MainButton'
-import Quote from './Quote'
-import QuoteTitle from './QuoteTitle'
-import Comment from './Comment'
+import CustomIcon from './CustomIcon';
+import MainButton from './MainButton';
+import Quote from './Quote';
+import QuoteTitle from './QuoteTitle';
+import Comment from './Comment';
 
 
 import {  ScrollView, View, Text, StyleSheet, Animated } from 'react-native';

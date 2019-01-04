@@ -5,7 +5,7 @@ import InputField from './InputField'
 import MainButton from './MainButton'
 import QuotePage from './QuotePage'
 
-
+const michel = 1
 
 import {  ScrollView, View, Text, StyleSheet, Animated } from 'react-native';
 

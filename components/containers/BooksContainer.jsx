@@ -1,20 +1,17 @@
 import React from 'react';
+import { View, FlatList, Text, Animated, Dimensions, StyleSheet, Easing } from 'react-native';
+import { connect } from 'react-redux';
+import { bindActionCreators } from 'redux'; 
 
 import AssetLoader from './../AssetLoader'
 import EmptyBooksList from './../presentational/EmptyBooksList'
 import BooksList from './../presentational/BooksList'
 import appearsFromRight from './appearsFromRight'
-
 import * as base from './../../assets/styles/base';
 
 import * as bookActions from './../../core-modules/actions/bookActions'
 import * as navigationActions from './../../core-modules/actions/navigationActions'
 import * as flowActions from './../../core-modules/actions/flowActions'
-
-import { View, FlatList, Text, Animated, Dimensions, StyleSheet, Easing } from 'react-native';
-
-import { connect } from 'react-redux';
-import { bindActionCreators } from 'redux'; 
 
 class BooksContainer extends React.Component {
   constructor(props){
